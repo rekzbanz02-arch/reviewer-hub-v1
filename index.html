@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>⚖️ Criminology & Law Reviewer — Access Portal</title>
+<title>⚖️ Licensure Exam for Criminology<br>Reviewer — Access Portal</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=Inter:wght@500;600;700;800&display=swap" rel="stylesheet">
@@ -89,7 +89,7 @@ const API_URL = "https://script.google.com/macros/s/AKfycbzTyj-tiIzlGXfzoKQV3i8E
 const REVIEWER_URL = "reviewer.html";
 const GCASH_NAME = "Juan Dela Cruz";
 const GCASH_NUMBER = "09932629488";
-const GCASH_AMOUNT = "₱150.00";
+const GCASH_AMOUNT = "₱100.00";
 
 /* ============ STATE ============ */
 let session = JSON.parse(localStorage.getItem("rh_session") || "null");
@@ -260,7 +260,7 @@ function buildStatusHTML(st, r) {
       <div class="section">
         <h3>💵 GCash Payment Instructions</h3>
         <div class="gcash-box">
-          Send <strong>${GCASH_AMOUNT}</strong> via GCash to:<br>
+          Send <strong>${GCASH_AMOUNT}</strong>/month via GCash to:<br>
           <div class="num">${GCASH_NUMBER}</div>
           Account name: <strong>${GCASH_NAME}</strong>
         </div>
