@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚖️ Hacking LEC.</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=Inter:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --navy:      #101f3d;
+            --navy-deep: #0a1730;
+            --gold:      #c9a227;
+            --gold-light:#e6c757;
+            --maroon:    #7a1f2b;
+            --steel:     #54607a;
+            --parchment: #f8f4ea;
+            --white:     #fffef9;
+            --ink:       #1c1c1c;
+            --card-r:    14px;
+        }
+
+        * { margin:0; padding:0; box-sizing:border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(160deg, var(--navy), var(--navy-deep));
+            min-height: 100vh;
+            padding: 0 0 40px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* ── Gold accent strip ── */
+        .top-strip {
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(90deg, var(--gold), var(--gold-light), var(--gold));
+        }
+
+        /* ── Main card ── */
+        .container {
+            max-width: 680px;
+            margin: 36px auto 0;
+            background: var(--parchment);
+            border-radius: 20px;
+            box-shadow: 0 12px 0 var(--gold), 0 16px 40px rgba(0,0,0,.35);
+            overflow: hidden;
+            position: relative;
+            z-index: 1;
+            animation: popIn .5s cubic-bezier(.34,1.56,.64,1) both;
+        }
+        @keyframes popIn {
+            from { opacity:0; transform: scale(.92) translateY(20px); }
+            to   { opacity:1; transform: scale(1)  translateY(0); }
+        }
+
+        /* ── Header ── */
+        .header {
+            background: linear-gradient(160deg, var(--navy) 0%, var(--navy-deep) 100%);
+            padding: 36px 28px 28px;
+            text-align: center;
+            position: relative;
+            border-bottom: 5px solid var(--gold);
+        }
+        .seal-row {
+            font-size: 2rem;
+            letter-spacing: 6px;
+            margin-bottom: 10px;
+            display: inline-block;
+            color: var(--gold-light);
+        }
+
+        .header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.5rem, 5vw, 2.3rem);
+            color: #fff;
+            line-height: 1.15;
+            margin-bottom: 6px;
+        }
+        .header h2 {
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: clamp(.95rem, 3vw, 1.15rem);
+            color: var(--gold-light);
+            margin-bottom: 12px;
+        }
+        .badge {
+            display: inline-block;
+            background: var(--gold);
+            color: var(--navy-deep);
+            font-size: .95rem;
+            font-weight: 800;
+            padding: 6px 20px;
+            border-radius: 6px;
+            margin-top: 4px;
+            letter-spacing: .3px;
+        }
+
+        /* ── Tap prompt ── */
+        .tap-prompt {
+            background: #f1e9d2;
+            border-bottom: 3px solid var(--gold);
+            padding: 14px 20px;
+            text-align: center;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--navy);
+        }
+
+        /* ── Subject cards ── */
+        .links-container {
+            padding: 28px 24px 32px;
+            display: grid;
+            gap: 16px;
+        }
+
+        .subject-card {
+            border-radius: var(--card-r);
+            border: 3px solid transparent;
+            box-shadow: 0 5px 0 rgba(0,0,0,.15);
+            transition: transform .18s cubic-bezier(.34,1.56,.64,1), box-shadow .18s;
+            cursor: pointer;
+            overflow: hidden;
+        }
+        .subject-card:hover, .subject-card:focus-within {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 0 rgba(0,0,0,.16);
+        }
+        .subject-card:active { transform: translateY(1px); box-shadow: 0 3px 0 rgba(0,0,0,.14); }
+
+        /* Color themes — Criminology / Law palette */
+        .card-navy    { background: linear-gradient(135deg,#1c3260,#101f3d); border-color: var(--gold); }
+        .card-maroon  { background: linear-gradient(135deg,#93283a,#6e1c29); border-color: var(--gold); }
+        .card-steel   { background: linear-gradient(135deg,#5d6b89,#414d69); border-color: var(--gold); }
+        .card-gold    { background: linear-gradient(135deg,#c9a227,#96751a); border-color: var(--navy); }
+
+        .subject-card a {
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            padding: 20px 22px;
+        }
+
+        .subject-icon {
+            font-size: 2.4rem;
+            flex-shrink: 0;
+            filter: drop-shadow(2px 3px 2px rgba(0,0,0,.25));
+        }
+
+        .subject-info { flex: 1; }
+        .subject-name {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: #fff;
+            line-height: 1.2;
+            font-family: 'Playfair Display', serif;
+        }
+        .subject-desc {
+            font-size: .85rem;
+            font-weight: 600;
+            color: rgba(255,255,255,.78);
+            margin-top: 2px;
+        }
+
+        .go-btn {
+            background: rgba(255,255,255,.12);
+            border: 2px solid var(--gold);
+            border-radius: 8px;
+            color: var(--gold-light);
+            font-family: 'Inter', sans-serif;
+            font-size: .9rem;
+            font-weight: 800;
+            padding: 8px 16px;
+            white-space: nowrap;
+            transition: background .2s;
+            flex-shrink: 0;
+        }
+        .subject-card:hover .go-btn { background: rgba(255,255,255,.22); }
+
+        /* ── Footer ── */
+        .footer {
+            background: linear-gradient(135deg, var(--navy), var(--navy-deep));
+            padding: 16px 24px;
+            text-align: center;
+            color: #fff;
+            font-size: 1rem;
+            font-weight: 700;
+            border-top: 4px solid var(--gold);
+        }
+        .footer-icons { font-size: 1.3rem; display:block; margin-bottom:6px; }
+
+        /* ── Responsive ── */
+        @media (max-width:480px) {
+            .container { margin: 16px 12px 0; }
+            .subject-name { font-size: 1.05rem; }
+            .subject-icon { font-size: 2rem; }
+            .go-btn { padding: 7px 13px; font-size: .85rem; }
+        }
+
+        /* ── Access gate screens ── */
+        .gate-screen {
+            max-width: 480px;
+            margin: 80px auto;
+            background: var(--parchment);
+            border-radius: 20px;
+            box-shadow: 0 10px 0 var(--gold), 0 14px 34px rgba(0,0,0,.35);
+            padding: 40px 28px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+        .gate-screen h2 { font-family:'Playfair Display',serif; color: var(--navy); margin-bottom: 10px; }
+        .gate-screen p { color:#555; margin-bottom: 18px; line-height:1.5; }
+        .gate-screen a.gate-btn {
+            display:inline-block; background: var(--navy); color:#fff; font-weight:800;
+            padding: 12px 28px; border-radius: 8px; text-decoration:none; box-shadow: 0 4px 0 var(--navy-deep);
+        }
+        .spinner {
+            width: 40px; height: 40px; margin: 0 auto 16px;
+            border: 5px solid #e7e1d2; border-top-color: var(--gold); border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+    <div class="top-strip"></div>
+
+    <!-- Gate screens shown while checking / on denial -->
+    <div class="gate-screen" id="gateChecking">
+        <div class="spinner"></div>
+        <h2>Verifying your access…</h2>
+        <p>Please wait a moment.</p>
+    </div>
+
+    <div class="gate-screen hidden" id="gateDenied">
+        <h2 id="gateDeniedTitle">Access Denied</h2>
+        <p id="gateDeniedMsg">You don't have permission to view this reviewer yet.</p>
+        <a class="gate-btn" href="index.html">← Back to Access Portal</a>
+    </div>
+
+    <div class="container hidden" id="reviewerContent">
+        <div class="header">
+            <div class="seal-row">⚖️ 🎓 ⚖️</div>
+            <h1>Hacking LEC.</h1>
+            <h2>for Aspiring Criminologists</h2>
+            <span class="badge">🛡️ Your Review Hub</span>
+        </div>
+
+        <div class="tap-prompt">
+            👉 Select a subject to begin
+        </div>
+
+        <div class="links-container">
+
+            <!-- NOTE: put your actual reviewer page URL in data-url (not href). -->
+            <div class="subject-card card-navy">
+                <a href="#" data-url="https://rekzbanz02-arch.github.io/Review-Old-Testament/" class="subject-link" rel="noopener noreferrer">
+                    <span class="subject-icon">🎓</span>
+                    <div class="subject-info">
+                        <div class="subject-name">Criminology Area</div>
+                        <div class="subject-desc">Theories, Ethics &amp; Values</div>
+                    </div>
+                    <span class="go-btn">Start →</span>
+                </a>
+            </div>
+
+            <div class="subject-card card-maroon">
+                <a href="#" data-url="" class="subject-link" rel="noopener noreferrer">
+                    <span class="subject-icon">👮</span>
+                    <div class="subject-info">
+                        <div class="subject-name">Law Enforcement and Administration</div>
+                        <div class="subject-desc">Police Organization &amp; Administration</div>
+                    </div>
+                    <span class="go-btn">Start →</span>
+                </a>
+            </div>
+
+            <div class="subject-card card-steel">
+                <a href="#" data-url="" class="subject-link" rel="noopener noreferrer">
+                    <span class="subject-icon">🔍</span>
+                    <div class="subject-info">
+                        <div class="subject-name">Crime Detection and Investigation</div>
+                        <div class="subject-desc">Investigative Techniques &amp; Procedure</div>
+                    </div>
+                    <span class="go-btn">Start →</span>
+                </a>
+            </div>
+
+            <div class="subject-card card-gold">
+                <a href="#" data-url="" class="subject-link" rel="noopener noreferrer">
+                    <span class="subject-icon">🧬</span>
+                    <div class="subject-info">
+                        <div class="subject-name">Forensic Science</div>
+                        <div class="subject-desc">Chemistry, Ballistics &amp; Forensic Medicine</div>
+                    </div>
+                    <span class="go-btn">Start →</span>
+                </a>
+            </div>
+
+            <div class="subject-card card-navy">
+                <a href="#" data-url="" class="subject-link" rel="noopener noreferrer">
+                    <span class="subject-icon">📖</span>
+                    <div class="subject-info">
+                        <div class="subject-name">Criminal Law and Jurisprudence</div>
+                        <div class="subject-desc">Revised Penal Code &amp; Special Laws</div>
+                    </div>
+                    <span class="go-btn">Start →</span>
+                </a>
+            </div>
+
+            <div class="subject-card card-maroon">
+                <a href="#" data-url="" class="subject-link" rel="noopener noreferrer">
+                    <span class="subject-icon">🗂️</span>
+                    <div class="subject-info">
+                        <div class="subject-name">Correctional Administration</div>
+                        <div class="subject-desc">Penology &amp; Corrections</div>
+                    </div>
+                    <span class="go-btn">Start →</span>
+                </a>
+            </div>
+
+        </div>
+
+        <div class="footer">
+            <span class="footer-icons">⚖️ 🛡️ ⚖️</span>
+
+            <!-- =========MESSENGER LINK========== -->
+            <a href="https://m.me/j/AbbKMGya19akJm6v/"
+         target="_blank" rel="noopener noreferrer"
+         aria-label="Contact support via Messenger"
+         style="
+           display:inline-flex; align-items:center; gap:6px;
+           padding:7px 14px; border-radius:100px;
+           background:linear-gradient(135deg,#0084ff,#0066cc);
+           color:#fff; font-family:'Inter', sans-serif;
+           font-size:.76rem; font-weight:700;
+           text-decoration:none; letter-spacing:.2px;
+           box-shadow:0 2px 8px rgba(0,102,204,.28);
+           transition:transform .2s, box-shadow .2s;
+         "
+         onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 16px rgba(0,102,204,.4)'"
+         onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,102,204,.28)'">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2C6.477 2 2 6.145 2 11.243c0 2.908 1.438 5.504 3.688 7.2V22l3.37-1.85c.9.25 1.853.386 2.942.386 5.523 0 10-4.145 10-9.243C22 6.145 17.523 2 12 2zm1.007 12.44l-2.55-2.72-4.976 2.72 5.474-5.81 2.613 2.72 4.913-2.72-5.474 5.81z"/>
+        </svg>
+        Message Us on Messenger
+      </a>
+      <!-- =========END OF MESSENGER LINK========== -->
+        </div>
+    </div>
+
+    <script>
+    /* ============ ACCESS GATE ============ */
+    /* This is a UI convenience layer only — real enforcement happens via the
+       server-side checkAccess call below. Without a valid, approved session,
+       the reviewer content never gets un-hidden. */
+
+    const API_URL = "https://script.google.com/macros/s/AKfycbzTyj-tiIzlGXfzoKQV3i8EfdXe_cDzGeX3KIofXfwmfIXJd2jnDf18XYXP9wI2QDPM/exec"; // <-- must match index.html
+
+    function getParam(name) {
+        return new URLSearchParams(window.location.search).get(name);
+    }
+
+    async function checkAccess() {
+        // Prefer URL params (passed from index.html's "Open Reviewer Hub" link),
+        // fall back to localStorage session if opened directly on same origin.
+        let userId = getParam("userId");
+        let token = getParam("token");
+        if (!userId || !token) {
+            const stored = JSON.parse(localStorage.getItem("rh_session") || "null");
+            if (stored) { userId = stored.userId; token = stored.token; }
+        }
+
+        const showDenied = (title, msg) => {
+            document.getElementById("gateChecking").classList.add("hidden");
+            document.getElementById("gateDeniedTitle").textContent = title;
+            document.getElementById("gateDeniedMsg").textContent = msg;
+            document.getElementById("gateDenied").classList.remove("hidden");
+        };
+
+        if (!userId || !token) {
+            showDenied("Not Logged In", "Please log in through the Access Portal first.");
+            return;
+        }
+
+        try {
+            const qs = new URLSearchParams({ action: "checkAccess", userId, token }).toString();
+            const res = await fetch(`${API_URL}?${qs}`);
+            const r = await res.json();
+
+            if (r.status === "ok" && r.accessStatus === "approved") {
+                document.getElementById("gateChecking").classList.add("hidden");
+                document.getElementById("reviewerContent").classList.remove("hidden");
+                wireSubjectLinks(userId, token);
+            } else if (r.accessStatus === "blocked") {
+                showDenied("Access Blocked", "Your account has been blocked. Contact the owner for help.");
+            } else if (r.accessStatus === "pending" || r.accessStatus === "submitted") {
+                showDenied("Not Approved Yet", "Your payment hasn't been approved yet. Please check back later or message the owner.");
+            } else {
+                showDenied("Session Expired", "Please log in again through the Access Portal.");
+            }
+        } catch (e) {
+            showDenied("Connection Error", "Couldn't verify your access. Check your internet connection and try again.");
+        }
+    }
+
+    // Only called after the hub itself has been verified as "approved".
+    // Appends the live userId/token to each subject page's real URL so that
+    // page can run its own checkAccess before showing content.
+    // Copying the resulting link is useless once the token is revoked/expired.
+    function wireSubjectLinks(userId, token) {
+        document.querySelectorAll(".subject-link").forEach(a => {
+            const baseUrl = a.getAttribute("data-url");
+            if (!baseUrl) return; // not configured yet — leave inert
+            const qs = new URLSearchParams({ userId, token }).toString();
+            const sep = baseUrl.includes("?") ? "&" : "?";
+            a.href = baseUrl + sep + qs;
+            a.target = "_blank";
+        });
+    }
+
+    checkAccess();
+    </script>
+</body>
+</html>
