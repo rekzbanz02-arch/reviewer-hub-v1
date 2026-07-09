@@ -181,6 +181,72 @@
         }
         .subject-card:hover .go-btn { background: rgba(255,255,255,.22); }
 
+        /* ==================== ACCORDION: sub-card styles (inserted) ==================== */
+        .subject-toggle {
+            all: unset;
+            box-sizing: border-box;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            padding: 20px 22px;
+            width: 100%;
+        }
+        .subject-toggle:focus-visible {
+            outline: 2px solid var(--gold-light);
+            outline-offset: -2px;
+        }
+
+        .accordion-arrow {
+            font-size: 1rem;
+            color: var(--gold-light);
+            flex-shrink: 0;
+            transition: transform .25s ease;
+        }
+        .subject-card.open .accordion-arrow { transform: rotate(180deg); }
+
+        .accordion-panel {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows .3s ease;
+        }
+        .subject-card.open .accordion-panel { grid-template-rows: 1fr; }
+        .accordion-inner { overflow: hidden; }
+
+        .parts-list {
+            display: grid;
+            gap: 10px;
+            padding: 0 20px 20px;
+        }
+
+        .part-link {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            text-decoration: none;
+            background: rgba(255,255,255,.10);
+            border: 2px solid rgba(255,255,255,.25);
+            border-radius: 10px;
+            padding: 12px 16px;
+            transition: background .2s, transform .15s;
+        }
+        .part-link:hover {
+            background: rgba(255,255,255,.2);
+            transform: translateX(2px);
+        }
+        .part-label {
+            color: #fff;
+            font-weight: 800;
+            font-size: .95rem;
+            font-family: 'Playfair Display', serif;
+        }
+        .part-link .go-btn {
+            padding: 6px 14px;
+            font-size: .8rem;
+        }
+        /* ==================== END ACCORDION styles (inserted) ==================== */
+
         /* ── Footer ── */
         .footer {
             background: linear-gradient(135deg, var(--navy), var(--navy-deep));
@@ -258,72 +324,210 @@
 
         <div class="links-container">
 
-            <!-- NOTE: put your actual reviewer page URL in data-url (not href). -->
+            <!-- ==================== ACCORDION: subject-cards converted (inserted) ====================
+                 Each subject-card header is now a toggle button with a small ▼ arrow
+                 instead of the "Start →" button. Clicking it expands 4 sub-cards
+                 (Part 1–4). Put each part's real reviewer URL in its data-url attribute
+                 (not href) — same as before. -->
+
             <div class="subject-card card-navy">
-                <a href="#" data-url="https://rekzbanz02-arch.github.io/lec-01-80/" class="subject-link" rel="noopener noreferrer">
+                <button type="button" class="subject-toggle" aria-expanded="false" aria-controls="acc-1">
                     <span class="subject-icon">🎓</span>
                     <div class="subject-info">
                         <div class="subject-name">Criminology Area</div>
                         <div class="subject-desc">Theories, Ethics &amp; Values</div>
                     </div>
-                    <span class="go-btn">Start →</span>
-                </a>
+                    <span class="accordion-arrow">▼</span>
+                </button>
+                <div class="accordion-panel" id="acc-1">
+                    <div class="accordion-inner">
+                        <div class="parts-list">
+                            <a href="#" data-url="https://rekzbanz02-arch.github.io/Review-Old-Testament/" class="subject-link part-link" rel="noopener noreferrer">
+                                <span class="part-label">Part 1</span>
+                                <span class="go-btn">Start →</span>
+                            </a>
+                            <a href="#" data-url="" class="subject-link part-link" rel="noopener noreferrer">
+                                <span class="part-label">Part 2</span>
+                                <span class="go-btn">Start →</span>
+                            </a>
+                            <a href="#" data-url="" class="subject-link part-link" rel="noopener noreferrer">
+                                <span class="part-label">Part 3</span>
+                                <span class="go-btn">Start →</span>
+                            </a>
+                            <a href="#" data-url="" class="subject-link part-link" rel="noopener noreferrer">
+                                <span class="part-label">Part 4</span>
+                                <span class="go-btn">Start →</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="subject-card card-maroon">
-                <a href="#" data-url="" class="subject-link" rel="noopener noreferrer">
+                <button type="button" class="subject-toggle" aria-expanded="false" aria-controls="acc-2">
                     <span class="subject-icon">👮</span>
                     <div class="subject-info">
                         <div class="subject-name">Law Enforcement and Administration</div>
                         <div class="subject-desc">Police Organization &amp; Administration</div>
                     </div>
-                    <span class="go-btn">Start →</span>
-                </a>
+                    <span class="accordion-arrow">▼</span>
+                </button>
+                <div class="accordion-panel" id="acc-2">
+                    <div class="accordion-inner">
+                        <div class="parts-list">
+                            <a href="#" data-url="" class="subject-link part-link" rel="noopener noreferrer">
+                                <span class="part-label">Part 1</span>
+                                <span class="go-btn">Start →</span>
+                            </a>
+                            <a href="#" data-url="" class="subject-link part-link" rel="noopener noreferrer">
+                                <span class="part-label">Part 2</span>
+                                <span class="go-btn">Start →</span>
+                            </a>
+                            <a href="#" data-url="" class="subject-link part-link" rel="noopener noreferrer">
+                                <span class="part-label">Part 3</span>
+                                <span class="go-btn">Start →</span>
+                            </a>
+                            <a href="#" data-url="" class="subject-link part-link" rel="noopener noreferrer">
+                                <span class="part-label">Part 4</span>
+                                <span class="go-btn">Start →</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="subject-card card-steel">
-                <a href="#" data-url="" class="subject-link" rel="noopener noreferrer">
+                <button type="button" class="subject-toggle" aria-expanded="false" aria-controls="acc-3">
                     <span class="subject-icon">🔍</span>
                     <div class="subject-info">
                         <div class="subject-name">Crime Detection and Investigation</div>
                         <div class="subject-desc">Investigative Techniques &amp; Procedure</div>
                     </div>
-                    <span class="go-btn">Start →</span>
-                </a>
+                    <span class="accordion-arrow">▼</span>
+                </button>
+                <div class="accordion-panel" id="acc-3">
+                    <div class="accordion-inner">
+                        <div class="parts-list">
+                            <a href="#" data-url="" class="subject-link part-link" rel="noopener noreferrer">
+                                <span class="part-label">Part 1</span>
+                                <span class="go-btn">Start →</span>
+                            </a>
+                            <a href="#" data-url="" class="subject-link part-link" rel="noopener noreferrer">
+                                <span class="part-label">Part 2</span>
+                                <span class="go-btn">Start →</span>
+                            </a>
+                            <a href="#" data-url="" class="subject-link part-link" rel="noopener noreferrer">
+                                <span class="part-label">Part 3</span>
+                                <span class="go-btn">Start →</span>
+                            </a>
+                            <a href="#" data-url="" class="subject-link part-link" rel="noopener noreferrer">
+                                <span class="part-label">Part 4</span>
+                                <span class="go-btn">Start →</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="subject-card card-gold">
-                <a href="#" data-url="" class="subject-link" rel="noopener noreferrer">
+                <button type="button" class="subject-toggle" aria-expanded="false" aria-controls="acc-4">
                     <span class="subject-icon">🧬</span>
                     <div class="subject-info">
                         <div class="subject-name">Forensic Science</div>
                         <div class="subject-desc">Chemistry, Ballistics &amp; Forensic Medicine</div>
                     </div>
-                    <span class="go-btn">Start →</span>
-                </a>
+                    <span class="accordion-arrow">▼</span>
+                </button>
+                <div class="accordion-panel" id="acc-4">
+                    <div class="accordion-inner">
+                        <div class="parts-list">
+                            <a href="#" data-url="" class="subject-link part-link" rel="noopener noreferrer">
+                                <span class="part-label">Part 1</span>
+                                <span class="go-btn">Start →</span>
+                            </a>
+                            <a href="#" data-url="" class="subject-link part-link" rel="noopener noreferrer">
+                                <span class="part-label">Part 2</span>
+                                <span class="go-btn">Start →</span>
+                            </a>
+                            <a href="#" data-url="" class="subject-link part-link" rel="noopener noreferrer">
+                                <span class="part-label">Part 3</span>
+                                <span class="go-btn">Start →</span>
+                            </a>
+                            <a href="#" data-url="" class="subject-link part-link" rel="noopener noreferrer">
+                                <span class="part-label">Part 4</span>
+                                <span class="go-btn">Start →</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="subject-card card-navy">
-                <a href="#" data-url="" class="subject-link" rel="noopener noreferrer">
+                <button type="button" class="subject-toggle" aria-expanded="false" aria-controls="acc-5">
                     <span class="subject-icon">📖</span>
                     <div class="subject-info">
                         <div class="subject-name">Criminal Law and Jurisprudence</div>
                         <div class="subject-desc">Revised Penal Code &amp; Special Laws</div>
                     </div>
-                    <span class="go-btn">Start →</span>
-                </a>
+                    <span class="accordion-arrow">▼</span>
+                </button>
+                <div class="accordion-panel" id="acc-5">
+                    <div class="accordion-inner">
+                        <div class="parts-list">
+                            <a href="#" data-url="" class="subject-link part-link" rel="noopener noreferrer">
+                                <span class="part-label">Part 1</span>
+                                <span class="go-btn">Start →</span>
+                            </a>
+                            <a href="#" data-url="" class="subject-link part-link" rel="noopener noreferrer">
+                                <span class="part-label">Part 2</span>
+                                <span class="go-btn">Start →</span>
+                            </a>
+                            <a href="#" data-url="" class="subject-link part-link" rel="noopener noreferrer">
+                                <span class="part-label">Part 3</span>
+                                <span class="go-btn">Start →</span>
+                            </a>
+                            <a href="#" data-url="" class="subject-link part-link" rel="noopener noreferrer">
+                                <span class="part-label">Part 4</span>
+                                <span class="go-btn">Start →</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="subject-card card-maroon">
-                <a href="#" data-url="" class="subject-link" rel="noopener noreferrer">
+                <button type="button" class="subject-toggle" aria-expanded="false" aria-controls="acc-6">
                     <span class="subject-icon">🗂️</span>
                     <div class="subject-info">
                         <div class="subject-name">Correctional Administration</div>
                         <div class="subject-desc">Penology &amp; Corrections</div>
                     </div>
-                    <span class="go-btn">Start →</span>
-                </a>
+                    <span class="accordion-arrow">▼</span>
+                </button>
+                <div class="accordion-panel" id="acc-6">
+                    <div class="accordion-inner">
+                        <div class="parts-list">
+                            <a href="#" data-url="" class="subject-link part-link" rel="noopener noreferrer">
+                                <span class="part-label">Part 1</span>
+                                <span class="go-btn">Start →</span>
+                            </a>
+                            <a href="#" data-url="" class="subject-link part-link" rel="noopener noreferrer">
+                                <span class="part-label">Part 2</span>
+                                <span class="go-btn">Start →</span>
+                            </a>
+                            <a href="#" data-url="" class="subject-link part-link" rel="noopener noreferrer">
+                                <span class="part-label">Part 3</span>
+                                <span class="go-btn">Start →</span>
+                            </a>
+                            <a href="#" data-url="" class="subject-link part-link" rel="noopener noreferrer">
+                                <span class="part-label">Part 4</span>
+                                <span class="go-btn">Start →</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
+            <!-- ==================== END ACCORDION: subject-cards (inserted) ==================== -->
 
         </div>
 
@@ -424,6 +628,21 @@
             a.target = "_blank";
         });
     }
+
+    /* ==================== ACCORDION: toggle behavior (inserted) ====================
+       Purely a UI interaction, independent of the access gate — clicking a
+       subject header expands/collapses its Part 1–4 sub-cards. */
+    function setupAccordions() {
+        document.querySelectorAll(".subject-toggle").forEach(btn => {
+            btn.addEventListener("click", () => {
+                const card = btn.closest(".subject-card");
+                const isOpen = card.classList.toggle("open");
+                btn.setAttribute("aria-expanded", isOpen ? "true" : "false");
+            });
+        });
+    }
+    setupAccordions();
+    /* ==================== END ACCORDION toggle behavior (inserted) ==================== */
 
     checkAccess();
     </script>
