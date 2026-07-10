@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>⚖️ Licensure Exam for Criminology - Reviewer — Access Portal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=Inter:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#101f3d; --navy-deep:#0a1730; --gold:#c9a227; --gold-light:#e6c757;
+    --maroon:#7a1f2b; --steel:#54607a; --parchment:#f8f4ea; --ink:#1c1c1c;
+    --white:#fffef9; --card-r:14px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Inter',system-ui,sans-serif;background:linear-gradient(160deg,var(--navy),var(--navy-deep));min-height:100vh;padding:20px 0 50px;}
+  .container{max-width:520px;margin:0 auto;background:var(--parchment);border-radius:20px;
+    box-shadow:0 10px 0 var(--gold),0 14px 34px rgba(0,0,0,.35);overflow:hidden;}
+  .header{background:linear-gradient(160deg,var(--navy),var(--navy-deep));padding:28px 22px;text-align:center;
+    color:#fff;border-bottom:4px solid var(--gold);}
+  .header h1{font-family:'Playfair Display',serif;font-size:1.55rem;letter-spacing:.3px;}
+  .header p{opacity:.85;margin-top:5px;font-size:.88rem;color:var(--gold-light);font-weight:600;}
+  .body{padding:24px 22px;}
+  .tabs{display:flex;gap:8px;margin-bottom:18px;}
+  .tab-btn{flex:1;padding:10px;border:none;border-radius:10px;background:#e7e1d2;font-weight:700;
+    cursor:pointer;color:var(--steel);transition:background .15s;}
+  .tab-btn.active{background:var(--navy);color:#fff;}
+  input,textarea{width:100%;padding:12px;border:2px solid #ddd6c4;border-radius:10px;font-size:1rem;margin-bottom:10px;
+    font-family:'Inter',sans-serif;background:#fff;}
+  input:focus,textarea:focus{outline:none;border-color:var(--gold);}
+  button.primary{width:100%;padding:13px;border:none;border-radius:10px;
+    background:linear-gradient(135deg,var(--gold),var(--gold-light));
+    color:var(--navy-deep);font-weight:800;font-size:1rem;cursor:pointer;box-shadow:0 4px 0 #9c7d1b;}
+  button.primary:active{transform:translateY(2px);box-shadow:0 2px 0 #9c7d1b;}
+  button.secondary{width:100%;padding:10px;border:none;border-radius:10px;background:#e7e1d2;color:var(--steel);
+    font-weight:700;margin-top:8px;cursor:pointer;}
+  .msg{padding:10px 14px;border-radius:10px;margin-top:10px;font-size:.92rem;font-weight:600;}
+  .msg.error{background:#f6dde0;color:var(--maroon);}
+  .msg.ok{background:#dcece0;color:#1f5c34;}
+  .hidden{display:none;}
+  .status-badge{display:inline-block;padding:6px 16px;border-radius:6px;font-weight:800;font-size:.85rem;margin-bottom:14px;letter-spacing:.2px;}
+  .status-pending{background:#fdf3d8;color:#8a6d1f;}
+  .status-submitted{background:#dbe6f5;color:#1c3d6e;}
+  .status-approved{background:#dcece0;color:#1f5c34;}
+  .status-blocked{background:#f6dde0;color:var(--maroon);}
+  .section{margin-top:20px;padding-top:18px;border-top:2px dashed #ddd6c4;}
+  .section h3{margin-bottom:10px;color:var(--navy);font-family:'Playfair Display',serif;font-size:1.05rem;}
+  .gcash-box{background:#fbf6ea;border:2px dashed var(--gold);border-radius:12px;padding:16px;margin-bottom:14px;}
+  .gcash-box .num{font-size:1.3rem;font-weight:900;color:var(--navy);letter-spacing:1px;}
+  .chat-log{max-height:220px;overflow-y:auto;background:#f2efe6;border-radius:12px;padding:10px;margin-bottom:10px;}
+  .bubble{max-width:80%;padding:8px 12px;border-radius:14px;margin-bottom:8px;font-size:.9rem;}
+  .bubble.user{background:var(--navy);color:#fff;margin-left:auto;border-bottom-right-radius:2px;}
+  .bubble.owner{background:#e2ddce;color:var(--ink);margin-right:auto;border-bottom-left-radius:2px;}
+  .bubble small{display:block;opacity:.7;font-size:.7rem;margin-top:2px;}
+  .open-reviewer{display:block;text-align:center;padding:16px;background:linear-gradient(135deg,var(--maroon),#9c2a3a);
+    color:#fff;font-weight:900;border-radius:12px;text-decoration:none;margin-top:10px;box-shadow:0 4px 0 #4d1420;}
+  .topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
+  .logout{background:none;border:none;color:var(--maroon);font-weight:700;cursor:pointer;font-size:.85rem;}
+  table{width:100%;border-collapse:collapse;font-size:.82rem;margin-top:8px;}
+  th,td{padding:6px;border-bottom:1px solid #ddd6c4;text-align:left;}
+  .pill-btn{padding:4px 10px;border:none;border-radius:8px;font-size:.75rem;font-weight:700;cursor:pointer;margin-right:4px;}
+  .pill-approve{background:#dcece0;color:#1f5c34;}
+  .pill-block{background:#f6dde0;color:var(--maroon);}
+  .admin-toggle{text-align:center;margin-top:16px;font-size:.8rem;color:var(--steel);cursor:pointer;}
+
+  /* Accordion */
+  .accordion-header{display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none;}
+  .accordion-header h3{margin-bottom:0;}
+  .accordion-chevron{font-size:1rem;color:var(--navy);transition:transform .2s ease;}
+  .accordion-header.open .accordion-chevron{transform:rotate(180deg);}
+  .accordion-body{max-height:0;overflow:hidden;transition:max-height .25s ease;}
+  .accordion-body.open{max-height:520px;}
+  .accordion-body-inner{padding-top:12px;}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>⚖️ Licensure Exam for Criminology - Reviewer</h1>
+    <p>Access Portal — Register, Pay, Get Approved</p>
+  </div>
+  <div class="body" id="app">Loading...</div>
+</div>
+
+<script>
+/* ============ CONFIG ============ */
+const API_URL = "https://script.google.com/macros/s/AKfycbzTyj-tiIzlGXfzoKQV3i8EfdXe_cDzGeX3KIofXfwmfIXJd2jnDf18XYXP9wI2QDPM/exec";
+const REVIEWER_URL = "reviewer-hub.html";
+const GCASH_NAME = "R** B.";
+const GCASH_NUMBER = "09352736727";
+const GCASH_AMOUNT = "₱100.00";
+
+/* ============ STATE ============ */
+let session = JSON.parse(localStorage.getItem("rh_session") || "null");
+let pollTimer = null;
+let currentStatus = null;      // access status currently rendered (structural)
+let lastPaymentSig = null;     // last rendered payment signature (for stealth patching)
+let lastMessageSig = null;     // last rendered message signature (count+lastTimestamp)
+let chatOpen = false;
+
+/* ============ API HELPER (GET-only, no CORS preflight) ============ */
+async function api(action, params) {
+  const qs = new URLSearchParams({ action, ...params }).toString();
+  const res = await fetch(`${API_URL}?${qs}`, { method: "GET" });
+  return res.json();
+}
+
+/* ============ ROUTER ============ */
+function render() {
+  if (!session) renderAuth();
+  else renderDashboard();
+}
+
+function renderAuth() {
+  const app = document.getElementById("app");
+  app.innerHTML = `
+    <div class="tabs">
+      <button class="tab-btn active" id="tabLogin">Login</button>
+      <button class="tab-btn" id="tabRegister">Register</button>
+    </div>
+    <div id="authForm"></div>
+    <div id="authMsg"></div>
+    <div class="admin-toggle" id="adminToggle">Owner / Admin login →</div>
+  `;
+  document.getElementById("tabLogin").onclick = () => showAuthForm("login");
+  document.getElementById("tabRegister").onclick = () => showAuthForm("register");
+  document.getElementById("adminToggle").onclick = renderAdminLogin;
+  showAuthForm("login");
+}
+
+function showAuthForm(mode) {
+  document.getElementById("tabLogin").classList.toggle("active", mode === "login");
+  document.getElementById("tabRegister").classList.toggle("active", mode === "register");
+  document.getElementById("authForm").innerHTML = `
+    <input type="text" id="username" placeholder="Username" autocomplete="username">
+    <input type="password" id="password" placeholder="Password" autocomplete="current-password">
+    <button class="primary" id="submitAuth">${mode === "login" ? "Log In" : "Create Account"}</button>
+  `;
+  document.getElementById("authMsg").innerHTML = "";
+  document.getElementById("submitAuth").onclick = () => doAuth(mode);
+}
+
+async function doAuth(mode) {
+  const username = document.getElementById("username").value.trim();
+  const password = document.getElementById("password").value;
+  const msgBox = document.getElementById("authMsg");
+  if (!username || !password) { msgBox.innerHTML = `<div class="msg error">Fill in both fields.</div>`; return; }
+  msgBox.innerHTML = `<div class="msg ok">Working...</div>`;
+  try {
+    const r = await api(mode, { username, password });
+    if (r.status !== "ok") { msgBox.innerHTML = `<div class="msg error">${escapeHtml(r.message)}</div>`; return; }
+    session = { userId: r.userId, username: r.username, token: r.token };
+    localStorage.setItem("rh_session", JSON.stringify(session));
+    render();
+  } catch (e) {
+    msgBox.innerHTML = `<div class="msg error">Connection error. Check API_URL.</div>`;
+  }
+}
+
+/* ============ DASHBOARD ============ */
+function cacheKey() { return "rh_cache_" + session.userId; }
+
+async function renderDashboard() {
+  const app = document.getElementById("app");
+  currentStatus = null;
+  lastPaymentSig = null;
+  lastMessageSig = null;
+  chatOpen = false;
+
+  // Instant paint from last-known cache (stale-while-revalidate) for perceived speed.
+  const cached = JSON.parse(localStorage.getItem(cacheKey()) || "null");
+  app.innerHTML = `
+    <div class="topbar"><strong>Hi, ${escapeHtml(session.username)}!</strong>
+    <button class="logout" id="logoutBtn">Log out</button></div>
+    <div id="statusArea">${cached ? buildStatusHTML(cached.status, cached) : `<span class="status-badge">Checking status…</span>`}</div>
+  `;
+  document.getElementById("logoutBtn").onclick = logout;
+
+  if (cached) {
+    currentStatus = cached.status;
+    wireStatusEvents(cached.status);
+    if (cached.messages) renderMessages(cached.messages, true);
+  }
+
+  // Fetch status + messages in PARALLEL (not sequential) for fastest first paint.
+  await refreshAll(true);
+  if (pollTimer) clearInterval(pollTimer);
+  pollTimer = setInterval(() => refreshAll(false), 8000);
+}
+
+function logout() {
+  localStorage.removeItem("rh_session");
+  session = null;
+  if (pollTimer) clearInterval(pollTimer);
+  render();
+}
+
+/* Fetches status + messages together, patches DOM stealthily (no flicker,
+   no wiped inputs, no lost scroll) unless the access-status category itself changes. */
+async function refreshAll(isInitial) {
+  let statusRes, msgRes;
+  try {
+    [statusRes, msgRes] = await Promise.all([
+      api("getStatus", { userId: session.userId, token: session.token }),
+      api("getMessages", { userId: session.userId, token: session.token })
+    ]);
+  } catch (e) {
+    return; // stealth: silently skip this cycle on network hiccup, keep showing last good state
+  }
+
+  if (statusRes.status !== "ok") { if (isInitial) logout(); return; }
+
+  const st = statusRes.accessStatus;
+  const area = document.getElementById("statusArea");
+
+  if (st !== currentStatus) {
+    // Structural change (e.g. pending -> approved): full rebuild of this section only.
+    currentStatus = st;
+    area.innerHTML = buildStatusHTML(st, statusRes);
+    wireStatusEvents(st);
+    lastPaymentSig = paymentSignature(statusRes);
+  } else {
+    patchPaymentNote(statusRes);
+  }
+
+  if (msgRes.status === "ok") renderMessages(msgRes.messages, isInitial);
+
+  localStorage.setItem(cacheKey(), JSON.stringify({ status: st, ...statusRes, messages: (msgRes.status === "ok" ? msgRes.messages : undefined) }));
+}
+
+function paymentSignature(r) {
+  return r.latestPayment ? (r.latestPayment.refNumber + "|" + r.latestPayment.status) : "";
+}
+
+function patchPaymentNote(r) {
+  const sig = paymentSignature(r);
+  if (sig === lastPaymentSig) return; // nothing changed, don't touch the DOM
+  lastPaymentSig = sig;
+  const note = document.getElementById("paymentNote");
+  if (!note) return;
+  if (r.latestPayment) {
+    note.innerHTML = `Last submitted reference: <strong>${escapeHtml(String(r.latestPayment.refNumber))}</strong> — status: ${escapeHtml(String(r.latestPayment.status))}`;
+    note.classList.remove("hidden");
+  } else {
+    note.classList.add("hidden");
+  }
+}
+
+function buildStatusHTML(st, r) {
+  let html = `<span class="status-badge status-${st}" id="statusBadge">${statusLabel(st)}</span>`;
+
+  if (st === "blocked") {
+    html += `<div class="msg error">Your account has been blocked. Contact the owner via the message box below if you think this is a mistake.</div>`;
+  }
+
+  if (st === "pending" || st === "submitted") {
+    const hasNote = !!r.latestPayment;
+    html += `
+      <div class="section">
+        <h3>💵 GCash Payment Instructions</h3>
+        <div class="gcash-box">
+          Send <strong>${GCASH_AMOUNT}</strong> for 1 month subscription:<br>
+          <div class="num">${GCASH_NUMBER}</div>
+          Account name: <strong>${GCASH_NAME}</strong>
+        </div>
+        <div class="msg ok ${hasNote ? "" : "hidden"}" id="paymentNote">${hasNote ? `Last submitted reference: <strong>${escapeHtml(String(r.latestPayment.refNumber))}</strong> — status: ${escapeHtml(String(r.latestPayment.status))}` : ""}</div>
+        <input type="text" id="refNumber" placeholder="Enter GCash reference number">
+        <button class="primary" id="submitRef">Submit Reference Number</button>
+        <div id="payMsg"></div>
+      </div>
+    `;
+  }
+
+  if (st === "approved") {
+    html += `<a class="open-reviewer" href="${REVIEWER_URL}?userId=${encodeURIComponent(session.userId)}&token=${encodeURIComponent(session.token)}" target="_blank" rel="noopener noreferrer">⚖️ Open Reviewer Hub</a>`;
+  }
+
+  html += `
+    <div class="section">
+      <div class="accordion-header" id="chatAccordionHeader">
+        <h3>💬 Message the Owner</h3>
+        <span class="accordion-chevron">▾</span>
+      </div>
+      <div class="accordion-body" id="chatAccordionBody">
+        <div class="accordion-body-inner">
+          <div class="chat-log" id="chatLog"><div style="opacity:.6;text-align:center;">No messages yet.</div></div>
+          <input type="text" id="chatInput" placeholder="Type a message...">
+          <button class="primary" id="sendChatBtn">Send</button>
+        </div>
+      </div>
+    </div>
+  `;
+
+  return html;
+}
+
+function wireStatusEvents(st) {
+  if (st === "pending" || st === "submitted") {
+    const btn = document.getElementById("submitRef");
+    if (btn) btn.onclick = submitReference;
+  }
+  const sendBtn = document.getElementById("sendChatBtn");
+  if (sendBtn) sendBtn.onclick = sendChat;
+  const header = document.getElementById("chatAccordionHeader");
+  if (header) header.onclick = toggleChatAccordion;
+}
+
+function toggleChatAccordion() {
+  chatOpen = !chatOpen;
+  document.getElementById("chatAccordionHeader").classList.toggle("open", chatOpen);
+  document.getElementById("chatAccordionBody").classList.toggle("open", chatOpen);
+}
+
+function statusLabel(st) {
+  return { pending: "⏳ Pending Payment", submitted: "📨 Payment Submitted — Awaiting Approval",
+    approved: "✅ Approved", blocked: "🚫 Blocked" }[st] || st;
+}
+
+async function submitReference() {
+  const refNumber = document.getElementById("refNumber").value.trim();
+  const payMsg = document.getElementById("payMsg");
+  if (!refNumber) { payMsg.innerHTML = `<div class="msg error">Enter a reference number.</div>`; return; }
+  const r = await api("submitPayment", { userId: session.userId, token: session.token, refNumber });
+  payMsg.innerHTML = r.status === "ok"
+    ? `<div class="msg ok">Submitted! Waiting for owner approval.</div>`
+    : `<div class="msg error">${escapeHtml(r.message)}</div>`;
+  if (r.status === "ok") setTimeout(() => refreshAll(false), 1200);
+}
+
+/* Renders chat messages only if something actually changed (stealth) and
+   preserves scroll position / doesn't steal focus from the input box. */
+function renderMessages(messages, force) {
+  const log = document.getElementById("chatLog");
+  if (!log) return;
+  const sig = messages.length + "|" + (messages.length ? messages[messages.length - 1].timestamp : "");
+  if (!force && sig === lastMessageSig) return;
+  lastMessageSig = sig;
+
+  const wasNearBottom = log.scrollTop + log.clientHeight >= log.scrollHeight - 20;
+
+  if (!messages.length) {
+    log.innerHTML = `<div style="opacity:.6;text-align:center;">No messages yet.</div>`;
+    return;
+  }
+  log.innerHTML = messages.map(m => `
+    <div class="bubble ${m.sender === "owner" ? "owner" : "user"}">
+      ${escapeHtml(m.message)}<small>${new Date(m.timestamp).toLocaleString()}</small>
+    </div>
+  `).join("");
+  if (wasNearBottom || force) log.scrollTop = log.scrollHeight;
+}
+
+async function sendChat() {
+  const input = document.getElementById("chatInput");
+  const msg = input.value.trim();
+  if (!msg) return;
+  input.value = "";
+  await api("sendMessage", { userId: session.userId, token: session.token, message: msg });
+  await refreshAll(false);
+}
+
+function escapeHtml(s) {
+  const d = document.createElement("div");
+  d.innerText = s;
+  return d.innerHTML;
+}
+
+/* ============ ADMIN ============ */
+let adminKey = sessionStorage.getItem("rh_admin_key") || "";
+
+function renderAdminLogin() {
+  const app = document.getElementById("app");
+  app.innerHTML = `
+    <h3 style="margin-bottom:10px;font-family:'Playfair Display',serif;color:var(--navy);">🔑 Owner Login</h3>
+    <input type="password" id="adminKeyInput" placeholder="Admin key">
+    <button class="primary" id="adminLoginBtn">Enter Admin Panel</button>
+    <button class="secondary" id="backToUser">← Back to user login</button>
+    <div id="adminMsg"></div>
+  `;
+  document.getElementById("backToUser").onclick = render;
+  document.getElementById("adminLoginBtn").onclick = async () => {
+    const key = document.getElementById("adminKeyInput").value.trim();
+    const r = await api("adminListUsers", { adminKey: key });
+    if (r.status === "ok") {
+      adminKey = key;
+      sessionStorage.setItem("rh_admin_key", key);
+      renderAdminPanel();
+    } else {
+      document.getElementById("adminMsg").innerHTML = `<div class="msg error">Invalid admin key.</div>`;
+    }
+  };
+}
+
+async function renderAdminPanel() {
+  const app = document.getElementById("app");
+  app.innerHTML = `
+    <div class="topbar"><strong>🔑 Owner Panel</strong>
+      <button class="logout" id="adminLogout">Log out</button></div>
+    <div class="tabs">
+      <button class="tab-btn active" id="atUsers">Users</button>
+      <button class="tab-btn" id="atPayments">Payments</button>
+      <button class="tab-btn" id="atChats">Chats</button>
+    </div>
+    <div id="adminBody">Loading...</div>
+  `;
+  document.getElementById("adminLogout").onclick = () => {
+    sessionStorage.removeItem("rh_admin_key");
+    adminKey = "";
+    render();
+  };
+  document.getElementById("atUsers").onclick = () => setAdminTab("atUsers", loadAdminUsers);
+  document.getElementById("atPayments").onclick = () => setAdminTab("atPayments", loadAdminPayments);
+  document.getElementById("atChats").onclick = () => setAdminTab("atChats", loadAdminChats);
+  loadAdminUsers();
+}
+
+function setAdminTab(id, loader) {
+  ["atUsers", "atPayments", "atChats"].forEach(t => document.getElementById(t).classList.toggle("active", t === id));
+  loader();
+}
+
+async function loadAdminUsers() {
+  const body = document.getElementById("adminBody");
+  const r = await api("adminListUsers", { adminKey });
+  if (r.status !== "ok") { body.innerHTML = `<div class="msg error">${escapeHtml(r.message)}</div>`; return; }
+  body.innerHTML = `<table><tr><th>User</th><th>Status</th><th>Actions</th></tr>${
+    r.users.map(u => `
+      <tr>
+        <td>${escapeHtml(u.username)}</td>
+        <td><span class="status-badge status-${u.status}">${u.status}</span></td>
+        <td>
+          <button class="pill-btn pill-approve" onclick="adminApprove('${u.userId}')">Approve</button>
+          <button class="pill-btn pill-block" onclick="adminBlock('${u.userId}')">Block</button>
+        </td>
+      </tr>
+    `).join("")
+  }</table>`;
+}
+
+async function adminApprove(userId) {
+  await api("adminApproveUser", { adminKey, userId });
+  loadAdminUsers();
+}
+async function adminBlock(userId) {
+  await api("adminBlockUser", { adminKey, userId });
+  loadAdminUsers();
+}
+
+async function loadAdminPayments() {
+  const body = document.getElementById("adminBody");
+  const r = await api("adminListPayments", { adminKey });
+  if (r.status !== "ok") { body.innerHTML = `<div class="msg error">${escapeHtml(r.message)}</div>`; return; }
+  body.innerHTML = `<table><tr><th>User</th><th>Ref #</th><th>Status</th><th>Actions</th></tr>${
+    r.payments.map(pm => `
+      <tr>
+        <td>${escapeHtml(String(pm.userId))}</td>
+        <td>${escapeHtml(String(pm.refNumber))}</td>
+        <td>${escapeHtml(String(pm.status))}</td>
+        <td>
+          <button class="pill-btn pill-approve" onclick="adminApprovePay(${pm.row}, '${pm.userId}')">Approve</button>
+          <button class="pill-btn pill-block" onclick="adminRejectPay(${pm.row})">Reject</button>
+        </td>
+      </tr>
+    `).join("")
+  }</table>`;
+}
+
+async function adminApprovePay(row, userId) {
+  await api("adminApprovePayment", { adminKey, row });
+  await api("adminApproveUser", { adminKey, userId }); // auto-approve user on payment approval
+  loadAdminPayments();
+}
+async function adminRejectPay(row) {
+  await api("adminRejectPayment", { adminKey, row });
+  loadAdminPayments();
+}
+
+async function loadAdminChats() {
+  const body = document.getElementById("adminBody");
+  const r = await api("adminGetThreads", { adminKey });
+  if (r.status !== "ok") { body.innerHTML = `<div class="msg error">${escapeHtml(r.message)}</div>`; return; }
+  body.innerHTML = r.threads.map(t => `
+    <div style="border-bottom:1px solid #ddd6c4;padding:8px 0;cursor:pointer;" onclick="openAdminThread('${t.userId}','${escapeHtml(t.username)}')">
+      <strong>${escapeHtml(t.username)}</strong> (${t.status}) — ${t.messageCount} msgs<br>
+      <small style="opacity:.7;">${escapeHtml(t.lastMessage || "No messages")}</small>
+    </div>
+  `).join("");
+}
+
+async function openAdminThread(userId, username) {
+  const body = document.getElementById("adminBody");
+  body.innerHTML = `
+    <button class="secondary" onclick="loadAdminChats()">← Back to threads</button>
+    <h3 style="margin:10px 0;font-family:'Playfair Display',serif;color:var(--navy);">${escapeHtml(username)}</h3>
+    <div class="chat-log" id="adminChatLog">Loading...</div>
+    <input type="text" id="adminChatInput" placeholder="Reply as owner...">
+    <button class="primary" id="adminSendBtn">Send</button>
+  `;
+  async function refresh() {
+    const r = await api("adminGetMessages", { adminKey, userId });
+    const log = document.getElementById("adminChatLog");
+    if (!log) return;
+    log.innerHTML = r.messages.map(m => `
+      <div class="bubble ${m.sender === "owner" ? "user" : "owner"}">
+        ${escapeHtml(m.message)}<small>${new Date(m.timestamp).toLocaleString()}</small>
+      </div>
+    `).join("") || `<div style="opacity:.6;">No messages yet.</div>`;
+    log.scrollTop = log.scrollHeight;
+  }
+  document.getElementById("adminSendBtn").onclick = async () => {
+    const input = document.getElementById("adminChatInput");
+    const msg = input.value.trim();
+    if (!msg) return;
+    input.value = "";
+    await api("adminSendMessage", { adminKey, userId, message: msg });
+    refresh();
+  };
+  refresh();
+}
+
+/* ============ INIT ============ */
+render();
+</script>
+</body>
+</html>

@@ -1,0 +1,2620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Criminology Area Reviewer</title>
+  <!-- Google Fonts - Hacking LEC. theme -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=Inter:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy:      #101f3d;
+      --navy-deep: #0a1730;
+      --gold:      #c9a227;
+      --gold-light:#e6c757;
+      --maroon:    #7a1f2b;
+      --steel:     #54607a;
+      --parchment: #f8f4ea;
+      --white:     #fffef9;
+      --ink:       #1c1c1c;
+      --primary:   var(--gold-light);
+      --secondary: #cbd5e6;
+      --card:      var(--parchment);
+      --accent:    var(--maroon);
+      --highlight: var(--gold);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* ==================== ACCESS GATE: .hidden utility (inserted) ==================== */
+    .hidden { display: none !important; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(160deg, var(--navy) 0%, var(--navy-deep) 100%);
+      color: var(--ink);
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: var(--parchment);
+      border-radius: 25px;
+      box-shadow: 0 12px 0 var(--gold), 0 16px 40px rgba(0, 0, 0, 0.35);
+      overflow: hidden;
+      animation: fadeIn 0.5s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .header {
+      background: linear-gradient(160deg, var(--navy) 0%, var(--navy-deep) 100%);
+      padding: 40px 30px;
+      text-align: center;
+      color: white;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 5px solid var(--gold);
+    }
+
+    .header::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(230,199,87,0.15) 0%, transparent 70%);
+      animation: pulse 4s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.1);
+      }
+    }
+
+    .header-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .emoji-banner {
+      font-size: 3.5em;
+      margin-bottom: 15px;
+      animation: bounce 2s ease-in-out infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    .header h1 {
+      font-size: 2.5em;
+      margin-bottom: 10px;
+      text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
+      font-weight: 800;
+      font-family: 'Playfair Display', serif;
+    }
+
+    .header .emoji {
+      font-size: 3em;
+    }
+
+    .content {
+      padding: 30px;
+    }
+
+    /* Login Section Styles */
+    #accessSection {
+      text-align: center;
+    }
+
+    #fileDisplay {
+      font-size: 1.8em;
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: var(--navy);
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+      animation: bounce 2s ease-in-out infinite;
+    }
+
+    #accessSection h2 {
+      font-size: 1em;
+      color: var(--steel);
+      margin-bottom: 20px;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .password-container {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+
+    #codeInput {
+      font-size: 18px;
+      padding: 15px 50px 15px 20px;
+      width: 300px;
+      border-radius: 15px;
+      border: 3px solid var(--navy);
+      font-family: 'Inter', sans-serif;
+      transition: all 0.3s;
+    }
+
+    #codeInput:focus {
+      outline: none;
+      border-color: var(--maroon);
+      box-shadow: 0 0 15px rgba(122, 31, 43, 0.3);
+    }
+
+    #toggleEye {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      font-size: 24px;
+      user-select: none;
+      transition: transform 0.3s ease;
+    }
+
+    #toggleEye:hover {
+      transform: translateY(-50%) scale(1.2);
+    }
+
+    .btn {
+      padding: 15px 40px;
+      font-size: 20px;
+      font-weight: bold;
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-deep) 100%);
+      color: white;
+      border: none;
+      border-radius: 15px;
+      cursor: pointer;
+      margin: 10px;
+      transition: all 0.3s;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      font-family: 'Inter', sans-serif;
+      font-weight: 800;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+    }
+
+    .btn:disabled {
+      background: #cbd5e0;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #93283a 0%, #6e1c29 100%);
+    }
+
+    .btn-success {
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+      color: var(--navy-deep);
+    }
+
+    .btn-warning {
+      background: linear-gradient(135deg, #f1e9d2 0%, var(--gold-light) 100%);
+      color: var(--ink);
+    }
+
+    #contactLink {
+      display: inline-block;
+      margin-top: 10px;
+      color: var(--navy);
+      text-decoration: underline;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+
+    #contactLink:hover {
+      color: var(--maroon);
+      transform: scale(1.05);
+    }
+
+    #message {
+      margin-top: 15px;
+      font-size: 16px;
+      font-weight: bold;
+      color: var(--maroon);
+    }
+
+    #tipsArea {
+      margin-top: 25px;
+      padding: 20px;
+      background: linear-gradient(135deg, #f1e9d2 0%, var(--gold-light) 100%);
+      border-radius: 15px;
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--ink);
+      text-align: left;
+    }
+
+    /* Main Content Styles */
+    #mainContent h1 {
+      font-size: 1.8em;
+      color: var(--navy);
+      margin-bottom: 20px;
+      text-align: center;
+      font-family: 'Playfair Display', serif;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+#mainContent h2 {
+      font-size: 2em;
+      color: var(--navy);
+      margin-bottom: 20px;
+      text-align: center;
+      font-family: 'Playfair Display', serif;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    /* Reviewer Section */
+    .reviewer details {
+      background: linear-gradient(135deg, #eef1f6 0%, #f6efdd 100%);
+      margin-bottom: 15px;
+      border-radius: 15px;
+      overflow: hidden;
+      border: 4px solid transparent;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .reviewer details::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.3) 0%, transparent 100%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .reviewer details:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+      border-color: var(--gold);
+    }
+
+    .reviewer details:hover::before {
+      opacity: 1;
+    }
+
+    .reviewer summary {
+      padding: 20px;
+      font-size: 1.3em;
+      font-weight: bold;
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.5);
+      transition: all 0.3s;
+      color: var(--ink);
+      position: relative;
+      z-index: 1;
+    }
+
+    .reviewer summary:hover {
+      background: rgba(255, 255, 255, 0.8);
+    }
+
+    .reviewer ul {
+      padding: 20px 40px;
+      list-style-type: none;
+    }
+
+    .reviewer li {
+      padding: 10px 0;
+      font-size: 1.1em;
+      line-height: 1.6;
+      position: relative;
+      padding-left: 30px;
+    }
+
+    .reviewer li::before {
+      content: "🌟";
+      position: absolute;
+      left: 0;
+      font-size: 1.2em;
+    }
+
+    .reviewer strong {
+      color: var(--navy);
+    }
+
+    /* Quiz Section */
+    .question {
+      background: linear-gradient(135deg, #f1e9d2 0%, var(--gold-light) 100%);
+      padding: 25px;
+      margin-bottom: 20px;
+      border-radius: 15px;
+      border: 3px solid var(--maroon);
+    }
+
+    .question p {
+      font-size: 1.3em;
+      font-weight: bold;
+      margin-bottom: 15px;
+      color: var(--ink);
+    }
+
+    .question label {
+      display: block;
+      padding: 12px;
+      margin: 8px 0;
+      background: white;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-size: 1.1em;
+    }
+
+    .question label:hover {
+      background: #f1e9d2;
+      transform: translateX(5px);
+    }
+
+    input[type="radio"] {
+      transform: scale(1.5);
+      margin-right: 15px;
+      cursor: pointer;
+    }
+
+    .correct {
+      color: #38a169;
+      font-weight: bold;
+      font-size: 1.2em;
+      margin-top: 10px;
+    }
+
+    .wrong {
+      color: #e53e3e;
+      font-weight: bold;
+      font-size: 1.2em;
+      margin-top: 10px;
+    }
+
+    .correct::before {
+      content: "✨ ";
+    }
+
+    .wrong::before {
+      content: "💡 ";
+    }
+
+    #result {
+      text-align: center;
+      padding: 30px;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+      border-radius: 15px;
+      margin-top: 20px;
+    }
+
+    #result h2 {
+      font-size: 2.5em;
+      color: var(--navy-deep);
+      text-shadow: none;
+      font-family: 'Playfair Display', serif;
+    }
+
+    .nav-buttons {
+      margin-top: 25px;
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    #finishBtn {
+      font-size: 2em;
+      padding: 20px 50px;
+      background: linear-gradient(135deg, #93283a 0%, #6e1c29 100%);
+    }
+
+    /* Contact Modal */
+    #contactModalBG {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 1000;
+      backdrop-filter: blur(5px);
+    }
+
+    #contactModal {
+      background: var(--parchment);
+      width: 90%;
+      max-width: 500px;
+      max-height: 85vh;
+      margin: 40px auto;
+      padding: 35px;
+      border-radius: 25px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      overflow-y: auto;
+    }
+
+    #contactModal h2 {
+      margin-top: 0;
+      font-size: 1.8em;
+      text-align: center;
+      color: var(--navy);
+      margin-bottom: 25px;
+      font-family: 'Playfair Display', serif;
+    }
+
+    #contactModal label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: var(--steel);
+      font-size: 1.1em;
+    }
+
+    #contactModal input,
+    #contactModal textarea {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border: 2px solid #cbd5e0;
+      border-radius: 10px;
+      font-size: 16px;
+      font-family: 'Inter', sans-serif;
+      transition: all 0.3s;
+    }
+
+    #contactModal input:focus,
+    #contactModal textarea:focus {
+      outline: none;
+      border-color: var(--navy);
+      box-shadow: 0 0 10px rgba(16, 31, 61, 0.3);
+    }
+
+    #contactModal textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    /* Icon Dancing Animations */
+    .icon {
+      font-size: 1.4em;
+      display: inline-block;
+      animation: dance 1.5s infinite ease-in-out;
+      transform-origin: center bottom;
+    }
+
+    /* Create variations for different icons */
+    .icon:nth-child(2n) {
+      animation: wiggle 2s infinite ease-in-out;
+    }
+
+    .icon:nth-child(3n) {
+      animation: spin 3s infinite linear;
+    }
+
+    .icon:nth-child(4n) {
+      animation: bounce-icon 1.8s infinite ease-in-out;
+    }
+
+    .icon:nth-child(5n) {
+      animation: swing 2.5s infinite ease-in-out;
+    }
+
+    @keyframes dance {
+      0%, 100% {
+        transform: translateY(0) rotate(0deg);
+      }
+      25% {
+        transform: translateY(-10px) rotate(-5deg);
+      }
+      50% {
+        transform: translateY(-5px) rotate(5deg);
+      }
+      75% {
+        transform: translateY(-10px) rotate(-3deg);
+      }
+    }
+
+    @keyframes wiggle {
+      0%, 100% {
+        transform: rotate(0deg);
+      }
+      25% {
+        transform: rotate(-15deg);
+      }
+      75% {
+        transform: rotate(15deg);
+      }
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes bounce-icon {
+      0%, 100% {
+        transform: translateY(0) scale(1);
+      }
+      50% {
+        transform: translateY(-15px) scale(1.1);
+      }
+    }
+
+    @keyframes swing {
+      0%, 100% {
+        transform: rotate(0deg);
+      }
+      20% {
+        transform: rotate(15deg);
+      }
+      40% {
+        transform: rotate(-10deg);
+      }
+      60% {
+        transform: rotate(5deg);
+      }
+      80% {
+        transform: rotate(-5deg);
+      }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .header h1 {
+        font-size: 1.8em;
+      }
+
+      #codeInput {
+        width: 100%;
+        max-width: 300px;
+      }
+
+      .content {
+        padding: 20px;
+      }
+
+      .nav-buttons {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+      }
+    }
+
+    /* Loading animation */
+    .loading {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: white;
+      animation: spin 1s ease-in-out infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    .accordion {
+  background:var(--primary);
+  color:var(--navy-deep);
+  padding:12px;
+  cursor:pointer;
+  border:none;
+  width:100%;
+  box-sizing:border-box;
+  text-align:left;
+  margin-top:8px;
+  border-radius:8px;
+  font-weight:bold;
+  font-size:1rem;
+  transition:0.2s;
+  display:block;
+  font-family: 'Inter', sans-serif;
+}
+.accordion:hover{opacity:0.9}
+
+.sub{background:var(--secondary)}
+.topic{background:#e9e2cf;color:var(--ink)}
+
+    .panel{
+  display:none;
+  background:var(--card);
+  padding:12px;
+  border-radius:8px;
+  margin-bottom:8px;
+  box-shadow:0 2px 6px rgba(0,0,0,0.05);
+}
+
+.qa{
+  background:#f5f1e6;
+  padding:12px;
+  margin:8px 0;
+  border-left:5px solid var(--accent);
+  border-radius:6px;
+}
+.key{
+  background:#fff8e1;
+  padding:12px;
+  border-left:5px solid var(--highlight);
+  margin-top:10px;
+  border-radius:6px;
+  font-weight:bold;
+}
+.quiz{
+  background:#eef1f6;
+  padding:10px;
+  border-left:5px solid var(--accent);
+  margin-top:8px;
+  border-radius:6px;
+}
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="header-content">
+        <div class="emoji-banner">⚖️ 📚 🕵️</div>
+        <h1>Criminology Area Reviewer</h1>
+      </div>
+    </div>
+
+    <div class="content">
+
+      <!-- LOGIN PAGE DEACTIVATED (keep for future use)      
+      <div id="accessSection">
+        <p id="fileDisplay"></p>
+        <h2>🔐 Enter Access Code: '123'</h2>
+        
+        <div class="password-container">
+          <input type="password" id="codeInput" placeholder="Type your code here...">
+          <span id="toggleEye">👁️</span>
+        </div>
+        
+        <br>
+        <button type="button" id="accessSubmit" class="btn btn-primary">Login</button>
+
+        <div>
+          <span id="contactLink">📧 Need Help? Contact Us!</span>
+        </div>
+
+        <p id="message" aria-live="polite"></p>
+        <div id="tipsArea">Loading tips...</div>
+      </div>
+ END LOGIN PAGE -->
+
+      <!-- ==================== START: GATED CONTENT WRAPPER (inserted) ====================
+           This div was originally <div id="mainContent" style="display:block;">.
+           Renamed to id="reviewerContent" + class="hidden" so the access-gate script
+           (added near </body>) can reveal it only after an approved token check. -->
+      <div id="reviewerContent" class="hidden">
+
+      
+      <div id="mainContent">
+        <div id="reviewerSection">
+         <h1>⚖️ Part 1</h1>
+     
+          <section class="reviewer">
+          
+          
+            <!-- ==================== START OF REVIEWER ==================== -->
+<div class="reviewer-notes">
+
+<button class="accordion sub">⚖️ Criminology Area Reviewer</button>
+<div class="panel">
+  <ul>
+    <li><b>Coverage:</b> Introduction to Criminology, Theories of Crime Causation, Dispute Resolution, Juvenile Justice, Human Behavior, Victimology, Research, and Professional Conduct.</li>
+    <!--li><b>Format:</b> Collapsible reviewer using the existing CSS classes of the attached HTML file.</li -->
+    <li><b>How to study:</b> Open one topic, read the key points, then review the item cards before taking the quiz.</li>
+  </ul>
+  <div class="key">🔑 Board-exam technique: Identify the clue word first, then connect it to the exact term used in the source item.</div>
+</div>
+
+<button class="accordion sub">📊 Criminological Research, Statistics &amp; Methods <small>(28 items)</small></button>
+<div class="panel">
+<div class="key">🎯 <b>Exam focus:</b> Focus on research designs, data types, statistics, framework, citations, and research process.</div>
+<button class="accordion topic">📌 High-Yield Outline</button>
+<div class="panel"><ul>
+<li><b>Null hypothesis</b> means no relationship or no significant difference between variables.</li>
+<li><b>Quantitative</b> uses numerical data; <b>qualitative</b> uses labels, names, narratives, and descriptions.</li>
+<li><b>Descriptive statistics</b> describes data; <b>inferential statistics</b> uses sample data to make predictions about a population.</li>
+<li><b>Mean</b>, <b>median</b>, and <b>mode</b> are basic measures commonly tested.</li>
+<li><b>Hypothesis</b> is the expected outcome or testable prediction of a study.</li>
+</ul>
+<div class="quiz">🧠 <b>Memory aid:</b> Memory chain: Problem → Design → Data Collection → Analysis → Findings.</div>
+</div>
+<button class="accordion topic">📝 Source-Based Item Reviewer</button>
+<div class="panel">
+<div class="qa">🧩 <b>Item 1</b><br><b>Source note:</b> In Criminological research and statistics, what is meant by a null hypothesis? ASSUMES NO RELATIONSHIP OR NO SIGNIFICANT DIFFERENCE BETWEEN VARIABLES (ACTUAL LEC)<br><b>Exam focus:</b> <span>ASSUMES NO RELATIONSHIP OR NO SIGNIFICANT DIFFERENCE BETWEEN VARIABLES</span></div>
+<div class="qa">🧩 <b>Item 4</b><br><b>Source note:</b> CrimCoach conducts in-depth interviews with former inmates to understand the common experiences of imprisonment in Manila City Jail. What type of research is applied? PHENOMENOLOGICAL (lived experiences)<br><b>Exam focus:</b> <span>PHENOMENOLOGICAL</span></div>
+<div class="qa">🧩 <b>Item 5</b><br><b>Source note:</b> Chito wants to evaluate the effectiveness of a new rehabilitation program. Which of the following would be the most suitable research design to assess the program&#x27;s impact on conducting recidivism? QUASI-EXPERIMENTAL STUDIES<br><b>Exam focus:</b> <span>QUASI-EXPERIMENTAL STUDIES</span></div>
+<div class="qa">🧩 <b>Item 6</b><br><b>Source note:</b> A researcher investigates one specific criminal case in detail, analyzing all aspects including background, evidence, and outcome. What type of study is this? CASE STUDY<br><b>Exam focus:</b> <span>CASE STUDY</span></div>
+<div class="qa">🧩 <b>Item 11</b><br><b>Source note:</b> A survey reports that 75% of respondents feel safer in their community during post-pandemic. What type of research is used? QUANTITATIVE (NUMERICAL)<br><b>Exam focus:</b> <span>QUANTITATIVE</span></div>
+<div class="qa">🧩 <b>Item 39</b><br><b>Source note:</b> Drea, a police researcher, collected crime rates from different cities and presented them in tables and charts. In this context, what does &quot;statistics&quot; refer to? NUMERICAL DATA<br><b>Exam focus:</b> <span>NUMERICAL DATA</span></div>
+<div class="qa">🧩 <b>Item 40</b><br><b>Source note:</b> A researcher adds all crime incidents recorded in a dataset and divides the total by the number of observations. What measure is being computed? MEAN (average)<br><b>Exam focus:</b> <span>MEAN</span></div>
+<div class="qa">🧩 <b>Item 48</b><br><b>Source note:</b> When the researcher explaining the concepts and premises from the theory or theories that ground the study. What is this called? THEORETICAL FRAMEWORK (TF)<br><b>Exam focus:</b> <span>THEORETICAL FRAMEWORK (TF)</span></div>
+<div class="qa">🧩 <b>Item 49</b><br><b>Source note:</b> It is a researcher-constructed, logically developed argument justifying the need for the research study; shapes the study design and guides its development. CONCEPTUAL FRAMEWORK (CF)<br><b>Exam focus:</b> <span>CONCEPTUAL FRAMEWORK (CF)</span></div>
+<div class="qa">🧩 <b>Item 52</b><br><b>Source note:</b> In which of the following characteristics of research implies that research findings can be applied to a broader setting - GENERALIZATION *ORDER/DISCIPLINE - systematic steps are followed. *CONTROL - focus on the identified problem only. *EMPIRICISM - evidence-based - basis for generating new knowledge.<br><b>Exam focus:</b> <span>GENERALIZATION</span></div>
+<div class="qa">🧩 <b>Item 53</b><br><b>Source note:</b> An area of statistics comprise those methods concerned with collecting, describing, and analyzing a set of data without drawing conclusions or inferences about a large group - DESCRIPTIVE STATISTICS<br><b>Exam focus:</b> <span>DESCRIPTIVE STATISTICS</span></div>
+<div class="qa">🧩 <b>Item 54</b><br><b>Source note:</b> Comprise those methods concerned with the analysis of sample data leading to predictions or inferences about the Population - INFERENTIAL STATISTICS<br><b>Exam focus:</b> <span>INFERENTIAL STATISTICS</span></div>
+<div class="qa">🧩 <b>Item 55</b><br><b>Source note:</b> What is the first step in conducting research? IDENTIFYING THE PROBLEM<br><b>Exam focus:</b> <span>IDENTIFYING THE PROBLEM</span></div>
+<div class="qa">🧩 <b>Item 56</b><br><b>Source note:</b> REY, a social worker, studying intensively the background, current status, and environmental interactions of a PDL assigned to him. What method of criminological research is applied? CASE AND FIELD METHOD<br><b>Exam focus:</b> <span>CASE AND FIELD METHOD</span></div>
+<div class="qa">🧩 <b>Item 57</b><br><b>Source note:</b> What Type of Criminological research that study processes and procedures for the improvement of a system? EVALUATION RESEARCH<br><b>Exam focus:</b> <span>EVALUATION RESEARCH</span></div>
+<div class="qa">🧩 <b>Item 58</b><br><b>Source note:</b> In writing the research report, this format uses parenthetical citation - APA FORMAT *Old format use Latin citations<br><b>Exam focus:</b> <span>APA FORMAT</span></div>
+<div class="qa">🧩 <b>Item 59</b><br><b>Source note:</b> QUALITATIVE DATA have labels or names assigned to their respective categories while QUANTITATIVE DATA is any attribute that we measure in numbers.<br><b>Exam focus:</b> <span>QUALITATIVE DATA / QUANTITATIVE DATA</span></div>
+<div class="qa">🧩 <b>Item 63</b><br><b>Source note:</b> A data collection method whereby questions are asked to obtain information, either thru self-administered questionnaires thru mail or survey forms or personal interviews thru telephone or focused group discussions - SURVEY METHOD<br><b>Exam focus:</b> <span>SURVEY METHOD</span></div>
+<div class="qa">🧩 <b>Item 64</b><br><b>Source note:</b> It makes possible the recording of behavior but only at the time of occurrence; may be participant or nonparticipant - OBSERVATION METHOD<br><b>Exam focus:</b> <span>OBSERVATION METHOD</span></div>
+<div class="qa">🧩 <b>Item 65</b><br><b>Source note:</b> These are gathered data from published materials like reports, personal files and historical records - USE OF EXISTING RECORDS<br><b>Exam focus:</b> <span>USE OF EXISTING RECORDS</span></div>
+<div class="qa">🧩 <b>Item 66</b><br><b>Source note:</b> Data obtained under controlled conditions; usually done in laboratories - EXPERIMENTAL METHOD<br><b>Exam focus:</b> <span>EXPERIMENTAL METHOD</span></div>
+<div class="qa">🧩 <b>Item 67</b><br><b>Source note:</b> The sum of all values of the observations divided by the number of observations in the data set - MEAN (a)<br><b>Exam focus:</b> <span>MEAN</span></div>
+<div class="qa">🧩 <b>Item 68</b><br><b>Source note:</b> The value found at the exact middle of a data set when the observations are arranged in numerical order (descending or ascending) - MEDIAN (m)<br><b>Exam focus:</b> <span>MEDIAN</span></div>
+<div class="qa">🧩 <b>Item 69</b><br><b>Source note:</b> The value in the data set that occurs with the greatest frequency - MODE (o)<br><b>Exam focus:</b> <span>MODE</span></div>
+<div class="qa">🧩 <b>Item 71</b><br><b>Source note:</b> Uses analysis of numerical data - QUANTITATIVE. Uses narrative description and interpretation - QUALITATIVE<br><b>Exam focus:</b> <span>QUANTITATIVE / QUALITATIVE</span></div>
+<div class="qa">🧩 <b>Item 78</b><br><b>Source note:</b> This is used to denote some form of linear relationship between two variables - CORRELATIONS<br><b>Exam focus:</b> <span>CORRELATIONS</span></div>
+<div class="qa">🧩 <b>Item 79</b><br><b>Source note:</b> Research evolves from a genuine desire TO KNOW (PROBE) rather than a DESIRE TO PROVE SOMETHING.<br><b>Exam focus:</b> <span>Research should start from a desire TO KNOW (PROBE), not merely to prove something</span></div>
+<div class="qa">🧩 <b>Item 80</b><br><b>Source note:</b> A statement about the expected outcome of a study, a testable prediction or educated guess about the relationship between two or more variables, often formulated as a statement that can be supported or refuted through scientific investigation - HYPOTHESIS<br><b>Exam focus:</b> <span>HYPOTHESIS</span></div>
+</div>
+</div>
+<button class="accordion sub">🧠 Crime Causation Theories &amp; Crime Prevention <small>(13 items)</small></button>
+<div class="panel">
+<div class="key">🎯 <b>Exam focus:</b> Focus on theories, offender decision-making, social causes of crime, place-based crime, and prevention concepts.</div>
+<button class="accordion topic">📌 High-Yield Outline</button>
+<div class="panel"><ul>
+<li><b>Differential Association</b> says criminal behavior is learned through interaction with others.</li>
+<li><b>Rational Choice Theory</b> focuses on logical calculation of risk and reward.</li>
+<li><b>Routine Activity Theory</b> requires offender, suitable target, and absence of capable guardian.</li>
+<li><b>Critical Criminology</b> looks at poverty, power imbalance, discrimination, and labeling.</li>
+<li><b>CPTED natural surveillance</b> means designing spaces to increase visibility and oversight.</li>
+</ul>
+<div class="quiz">🧠 <b>Memory aid:</b> Quick clue: If the question talks about dark, poorly guarded places, think Routine Activity or CPTED.</div>
+</div>
+<button class="accordion topic">📝 Source-Based Item Reviewer</button>
+<div class="panel">
+<div class="qa">🧩 <b>Item 3</b><br><b>Source note:</b> What theory states that criminal behavior is learned through interaction with other people? DIFFERENTIAL ASSOCIATION THEORY developed by Edwin H. Sutherland (ACTUAL LEC)<br><b>Exam focus:</b> <span>DIFFERENTIAL ASSOCIATION THEORY</span></div>
+<div class="qa">🧩 <b>Item 9</b><br><b>Source note:</b> According to Rational Choice Theory, which measure is the most effective in preventing robbery? INCREASE POLICE PATROL DURING THE DAY (ACTUAL LEC)<br><b>Exam focus:</b> <span>INCREASE POLICE PATROL DURING THE DAY</span></div>
+<div class="qa">🧩 <b>Item 10</b><br><b>Source note:</b> According to Routine Activity Theory, where is crime more likely to occur? IN A DARK AND POORLY GUARDED STREET (ACTUAL LEC)<br><b>Exam focus:</b> <span>IN A DARK AND POORLY GUARDED STREET</span></div>
+<div class="qa">🧩 <b>Item 12</b><br><b>Source note:</b> Crimcoach, a 17-year-old shoplifter is caught stealing. During trial, the judge considers the offender&#x27;s age, level of understanding, and circumstances before deciding a lighter penalty. Which theory is BEST reflected? NEOCLASSICAL<br><b>Exam focus:</b> <span>NEOCLASSICAL</span></div>
+<div class="qa">🧩 <b>Item 13</b><br><b>Source note:</b> A group of Criminologists studies how poverty, power imbalance, and discrimination influence crime rates and labeling of offenders in marginalized communities in the Philippines. Which field is MOST applicable? CRITICAL CRIMINOLOGY<br><b>Exam focus:</b> <span>CRITICAL CRIMINOLOGY</span></div>
+<div class="qa">🧩 <b>Item 15</b><br><b>Source note:</b> The Imitation Theory emphasizes the importance of SOCIAL INFLUENCE AND OBSERVATION (ACTUAL LEC)<br><b>Exam focus:</b> <span>SOCIAL INFLUENCE AND OBSERVATION</span></div>
+<div class="qa">🧩 <b>Item 16</b><br><b>Source note:</b> Which criminological perspective argues that crime is largely caused by poverty, unemployment, and social deprivation? LEFT REALISM (ACTUAL LEC)<br><b>Exam focus:</b> <span>LEFT REALISM</span></div>
+<div class="qa">🧩 <b>Item 19</b><br><b>Source note:</b> Juvenile offender&#x27;s behavior is due to a combination of genetic predisposition and exposure to a violent environment growing up. Which approach BEST explains this conclusion? INTERACTIONIST APPROACH<br><b>Exam focus:</b> <span>INTERACTIONIST APPROACH</span></div>
+<div class="qa">🧩 <b>Item 20</b><br><b>Source note:</b> A group of robbers spent three months studying the routine of a rural bank in Cebu City, including guard shifts, CCTV blind spots, and cash delivery schedules. What type of robbers are best described in the scenario? PROFESSIONAL<br><b>Exam focus:</b> <span>PROFESSIONAL</span></div>
+<div class="qa">🧩 <b>Item 23</b><br><b>Source note:</b> A large concert event draws thousands of people, leading to an increase in pickpocketing incidents. What type of location is described? CRIME GENERATOR<br><b>Exam focus:</b> <span>CRIME GENERATOR</span></div>
+<div class="qa">🧩 <b>Item 44</b><br><b>Source note:</b> Kath went to a place known for having a higher crime rate. Before associating herself to that place, she secures her valuable belongings and remove all her expensive jewelry to avoid being the target for robbers. Which theory best explains this situation? LIFESTYLE EXPOSURE THEORY<br><b>Exam focus:</b> <span>LIFESTYLE EXPOSURE THEORY</span></div>
+<div class="qa">🧩 <b>Item 75</b><br><b>Source note:</b> Statement that best describes the concept of &quot;natural surveillance&quot; in Crime Prevention Through Environmental Design? DESIGNING SPACES TO INCREASE VISIBILITY AND OVERSIGHT<br><b>Exam focus:</b> <span>DESIGNING SPACES TO INCREASE VISIBILITY AND OVERSIGHT</span></div>
+<div class="qa">🧩 <b>Item 76</b><br><b>Source note:</b> According to Social Disorganization Theory, what neighborhood characteristics are associated with higher crime rates? RESIDENTIAL INSTABILITY, POVERTY, AND WEAK SOCIAL TIES<br><b>Exam focus:</b> <span>RESIDENTIAL INSTABILITY, POVERTY, AND WEAK SOCIAL TIES</span></div>
+</div>
+</div>
+<button class="accordion sub">👤 Human Behavior, Psychology &amp; Biological Factors <small>(17 items)</small></button>
+<div class="panel">
+<div class="key">🎯 <b>Exam focus:</b> Focus on personality, disorders, genetics, neurotransmitters, development, and psychological theories.</div>
+<button class="accordion topic">📌 High-Yield Outline</button>
+<div class="panel"><ul>
+<li><b>XX</b> normally represents a female chromosome combination.</li>
+<li><b>Dopamine</b> is linked with excitement and pleasure after a successful act.</li>
+<li><b>Super-ego</b> is connected with conscience and moral judgment.</li>
+<li><b>Assimilation</b> means fitting a new experience into an existing idea or schema.</li>
+<li><b>Love and belongingness</b> in Maslow refers to social relationships, affection, and belonging.</li>
+</ul>
+<div class="quiz">🧠 <b>Memory aid:</b> Memory clue: ID = pleasure; Super-ego = conscience; Ego = reality mediator.</div>
+</div>
+<button class="accordion topic">📝 Source-Based Item Reviewer</button>
+<div class="panel">
+<div class="qa">🧩 <b>Item 2</b><br><b>Source note:</b> In human genetics, which chromosome combination normally represents a female? XX (ACTUAL LEC)<br><b>Exam focus:</b> <span>XX</span></div>
+<div class="qa">🧩 <b>Item 22</b><br><b>Source note:</b> Gina repeatedly engages in theft because of the excitement and pleasure experienced after successfully committing the act. Which neurotransmitter is MOST associated with this behavior? DOPAMINE<br><b>Exam focus:</b> <span>DOPAMINE</span></div>
+<div class="qa">🧩 <b>Item 25</b><br><b>Source note:</b> Chito refuses to cheat even when no one is watching because he believes it is morally wrong. Which component is dominant? SUPER-EGO<br><b>Exam focus:</b> <span>SUPER-EGO</span></div>
+<div class="qa">🧩 <b>Item 26</b><br><b>Source note:</b> An adult contributes to society by mentoring others and being productive at work. What is developed? GENERATIVITY<br><b>Exam focus:</b> <span>GENERATIVITY</span></div>
+<div class="qa">🧩 <b>Item 27</b><br><b>Source note:</b> A child sees a security guard and calls him a &quot;police officer&quot; because both wear uniforms. What process is occurring? ASSIMILATION<br><b>Exam focus:</b> <span>ASSIMILATION</span></div>
+<div class="qa">🧩 <b>Item 28</b><br><b>Source note:</b> Alaiza and Albert experience the same situation, but one perceives it as threatening while the other does not. What explains this difference? PHENOMENAL FIELD<br><b>Exam focus:</b> <span>PHENOMENAL FIELD</span></div>
+<div class="qa">🧩 <b>Item 29</b><br><b>Source note:</b> Carl undergoes rehabilitation and chooses to change behavior through personal decision and self-awareness. What perspective explains this change? HUMANISTIC THEORY<br><b>Exam focus:</b> <span>HUMANISTIC THEORY</span></div>
+<div class="qa">🧩 <b>Item 30</b><br><b>Source note:</b> Dong experiences sadness, loss of interest in hobbies, and low energy for several months, affecting his daily functioning. What condition is MOST likely? DEPRESSIVE DISORDER<br><b>Exam focus:</b> <span>DEPRESSIVE DISORDER</span></div>
+<div class="qa">🧩 <b>Item 31</b><br><b>Source note:</b> Arben believes he is superior to others, seeks admiration, and lacks empathy. What disorder is illustrated? NARCISSISTIC<br><b>Exam focus:</b> <span>NARCISSISTIC</span></div>
+<div class="qa">🧩 <b>Item 32</b><br><b>Source note:</b> Elie constantly seeks attention and displays exaggerated emotional expression. What disorder is MOST consistent? HISTRIONIC<br><b>Exam focus:</b> <span>HISTRIONIC</span></div>
+<div class="qa">🧩 <b>Item 42</b><br><b>Source note:</b> In the interactionist approach, which side of the debate argues that traits, behaviors, and disorders are caused by biological predispositions related to our genes, brain structure or physiology? NATURE<br><b>Exam focus:</b> <span>NATURE</span></div>
+<div class="qa">🧩 <b>Item 43</b><br><b>Source note:</b> Driven by pleasure principle, DAN is sexually attracted to a woman who is not his girlfriend. To achieve immediate gratification, he invited the woman to his condo for a drink. Which psychoanalytic personality is responsible for his immediate gratification? ID - PLEASURE PRINCIPLE<br><b>Exam focus:</b> <span>ID - PLEASURE PRINCIPLE</span></div>
+<div class="qa">🧩 <b>Item 60</b><br><b>Source note:</b> This is a common condition that results when a person assigned male at birth has an extra copy of the X sex chromosome instead of the typical XY - KLINEFELTER SYNDROME<br><b>Exam focus:</b> <span>KLINEFELTER SYNDROME</span></div>
+<div class="qa">🧩 <b>Item 61</b><br><b>Source note:</b> Women are more likely to transmit intelligence genes to their children because they are carried on the X CHROMOSOME AND WOMEN HAVE TWO OF THESE, WHILE MEN ONLY HAVE ONE.<br><b>Exam focus:</b> <span>X CHROMOSOME; women have two X chromosomes while men only have one</span></div>
+<div class="qa">🧩 <b>Item 62</b><br><b>Source note:</b> JACOBS SYNDROME, also known as 47, XYY syndrome, is a rare genetic condition that occurs in about 1 out of 1000 male children; this condition belongs to a group of conditions known as &quot;sex chromosome trisomies&quot; - rare genetic abnormality in which a male receives an extra Y chromosome from his father.<br><b>Exam focus:</b> <span>JACOBS SYNDROME</span></div>
+<div class="qa">🧩 <b>Item 70</b><br><b>Source note:</b> These are chemical messengers that transmit signals between nerve cells (neurons) and other cells like muscle or gland cells, playing a crucial role in various bodily functions. They influence everything from movement and sensation to mood, memory, and sleep - NEUROTRANSMITTERS<br><b>Exam focus:</b> <span>NEUROTRANSMITTERS</span></div>
+<div class="qa">🧩 <b>Item 77</b><br><b>Source note:</b> Which level of Abraham Maslow&#x27;s hierarchy of needs encompasses the desire for social relationships, affection, and a sense of belonging? LOVE AND BELONGINGNESS<br><b>Exam focus:</b> <span>LOVE AND BELONGINGNESS</span></div>
+</div>
+</div>
+<button class="accordion sub">⚖️ Juvenile Justice, Dispute Resolution &amp; Professional Conduct <small>(15 items)</small></button>
+<div class="panel">
+<div class="key">🎯 <b>Exam focus:</b> Focus on CICL-related concepts, barangay dispute rules, professional duties, oath, authority, and official records.</div>
+<button class="accordion topic">📌 High-Yield Outline</button>
+<div class="panel"><ul>
+<li><b>Truancy</b> means absence from school without valid reason or permission.</li>
+<li><b>Suspended sentence</b> applies when execution of penalty is withheld and rehabilitation is ordered.</li>
+<li><b>Pangkat ng Tagapagkasundo</b> is the conciliation panel formed for a specific dispute.</li>
+<li><b>Certificate of Good Standing</b> proves bona fide AIPO membership and may be required for PIC renewal.</li>
+<li><b>Ground Commander</b> talks to media when no spokesperson is assigned.</li>
+</ul>
+<div class="quiz">🧠 <b>Memory aid:</b> Legal clue: Barangay conciliation rules do not cover every case, especially cases against government agencies or juridical entities.</div>
+</div>
+<button class="accordion topic">📝 Source-Based Item Reviewer</button>
+<div class="panel">
+<div class="qa">🧩 <b>Item 7</b><br><b>Source note:</b> If you are a criminologist and you know that your friend is teaching criminology subjects without a valid license, what should you do? REPORT THE MATTER TO THE PROPER AUTHORITIES (ACTUAL LEC)<br><b>Exam focus:</b> <span>REPORT THE MATTER TO THE PROPER AUTHORITIES</span></div>
+<div class="qa">🧩 <b>Item 8</b><br><b>Source note:</b> Under the Criminologist&#x27;s Oath pursuant to R.A. 11131, the statement &quot;I shall perform my _____ legally and morally&quot; is completed by which word? DUTIES (ACTUAL LEC)<br><b>Exam focus:</b> <span>DUTIES</span></div>
+<div class="qa">🧩 <b>Item 14</b><br><b>Source note:</b> What is meant by truancy? BEING ABSENT FROM SCHOOL WITHOUT VALID REASON OR PERMISSION (ACTUAL LEC)<br><b>Exam focus:</b> <span>BEING ABSENT FROM SCHOOL WITHOUT VALID REASON OR PERMISSION</span></div>
+<div class="qa">🧩 <b>Item 33</b><br><b>Source note:</b> A minor undergoes court trial and is found guilty. However, the judge withheld the execution of penalty and instead ordered counseling and rehabilitation. Which applies? SUSPENDED SENTENCE<br><b>Exam focus:</b> <span>SUSPENDED SENTENCE</span></div>
+<div class="qa">🧩 <b>Item 34</b><br><b>Source note:</b> During a disagreement, Police officer John insists on his decision, disregards others&#x27; opinions, and aims to prove he is right at all costs - COMPETING<br><b>Exam focus:</b> <span>COMPETING</span></div>
+<div class="qa">🧩 <b>Item 35</b><br><b>Source note:</b> Jan filed a complaint against a government agency for damages. The barangay captain insisted that the case must first undergo barangay conciliation. Is this correct? NO<br><b>Exam focus:</b> <span>NO</span></div>
+<div class="qa">🧩 <b>Item 36</b><br><b>Source note:</b> Barangay captain Chito appoints a person who lives in another municipality but is well-known for his integrity. Is this valid? NO (it must be in the same barangay)<br><b>Exam focus:</b> <span>NO</span></div>
+<div class="qa">🧩 <b>Item 37</b><br><b>Source note:</b> After the Lupon failed to settle a dispute, a conciliation panel was formed specifically for that case, composed of selected members. What is this body called? PANGKAT NG TAGAPAGKASUNDO<br><b>Exam focus:</b> <span>PANGKAT NG TAGAPAGKASUNDO</span></div>
+<div class="qa">🧩 <b>Item 38</b><br><b>Source note:</b> Barangay Dos with sufficient funds grants a small allowance to its Lupon members. Is this allowed? YES, AS HONORARIA<br><b>Exam focus:</b> <span>YES</span></div>
+<div class="qa">🧩 <b>Item 41</b><br><b>Source note:</b> What Presidential Proclamation declares the period from November 3 to 9 of every year as the &quot;Philippine Criminology Profession Week&quot;? PROCLAMATION NO. 397<br><b>Exam focus:</b> <span>PROCLAMATION NO. 397</span></div>
+<div class="qa">🧩 <b>Item 45</b><br><b>Source note:</b> The document that proves a Criminologist is a bona fide AIPO member and may be required for PIC renewal. CERTIFICATE OF GOOD STANDING (COGS)<br><b>Exam focus:</b> <span>CERTIFICATE OF GOOD STANDING (COGS)</span></div>
+<div class="qa">🧩 <b>Item 46</b><br><b>Source note:</b> It refers to a legal concept that gives creators the exclusive right to copy, distribute, display, and adapt their original work for a certain period of time? COPYRIGHT<br><b>Exam focus:</b> <span>COPYRIGHT</span></div>
+<div class="qa">🧩 <b>Item 47</b><br><b>Source note:</b> Eric stab Jophord at the back, killing the latter instantly, it was committed at Durian street, Davao City and Eric left Davao to escape captivity for his felonious act. What type of crime did he commit? STATIC CRIME<br><b>Exam focus:</b> <span>STATIC CRIME</span></div>
+<div class="qa">🧩 <b>Item 50</b><br><b>Source note:</b> Who will talk to media when spokesperson is not yet assigned? GROUND COMMANDER (ACTUAL LEC)<br><b>Exam focus:</b> <span>GROUND COMMANDER</span></div>
+<div class="qa">🧩 <b>Item 51</b><br><b>Source note:</b> All cases involving VAWC and CICL under the mandate of WCPD shall be recoded in - PINK<br><b>Exam focus:</b> <span>PINK</span></div>
+</div>
+</div>
+<button class="accordion sub">🏘️ Social Norms, Bonds, Victimology &amp; Community Concepts <small>(7 items)</small></button>
+<div class="panel">
+<div class="key">🎯 <b>Exam focus:</b> Focus on norms, stigma, bonds, crime locations, and victim exposure concepts.</div>
+<button class="accordion topic">📌 High-Yield Outline</button>
+<div class="panel"><ul>
+<li><b>Folkway</b> is a social convention or tradition with lighter sanction.</li>
+<li><b>Mores</b> are widely observed norms with great moral significance.</li>
+<li><b>Taboo</b> is strongly prohibited or restricted by custom or belief.</li>
+<li><b>Involvement</b> means active participation in lawful activities reduces time for delinquency.</li>
+<li><b>Stigma</b> is the negative social mark that follows a person, such as an ex-convict being viewed as untrustworthy.</li>
+</ul>
+<div class="quiz">🧠 <b>Memory aid:</b> Norm ladder: Folkways = customs; Mores = moral rules; Taboo = strongly forbidden.</div>
+</div>
+<button class="accordion topic">📝 Source-Based Item Reviewer</button>
+<div class="panel">
+<div class="qa">🧩 <b>Item 17</b><br><b>Source note:</b> During a formal dinner, a Thea uses her hands instead of utensils. What type of norm is violated? FOLKWAY<br><b>Exam focus:</b> <span>FOLKWAY</span></div>
+<div class="qa">🧩 <b>Item 18</b><br><b>Source note:</b> In the Philippines, discussing incest openly in public is strongly condemned. Even mentioning it causes discomfort, and individuals who do so are socially rejected. What type of norm is involved? TABOO<br><b>Exam focus:</b> <span>TABOO</span></div>
+<div class="qa">🧩 <b>Item 21</b><br><b>Source note:</b> A Criminology student who actively participates in sports, school clubs, and community service has little time to engage in delinquent acts. What bond explains this behavior? INVOLVEMENT<br><b>Exam focus:</b> <span>INVOLVEMENT</span></div>
+<div class="qa">🧩 <b>Item 24</b><br><b>Source note:</b> Jordan, an ex-convict struggles to find employment because society continues to view him as untrustworthy. What concept is illustrated? STIGMA<br><b>Exam focus:</b> <span>STIGMA</span></div>
+<div class="qa">🧩 <b>Item 72</b><br><b>Source note:</b> It is something that is prohibited or restricted, either by social custom or by religious belief e.g. Marrying close relatives, Sexual relationships between siblings, Talking about death or illness etc - TABOO<br><b>Exam focus:</b> <span>TABOO</span></div>
+<div class="qa">🧩 <b>Item 73</b><br><b>Source note:</b> These are norms that are widely observed and have great moral significance e.g. lying, stealing, gossiping, bullying, and trespassing - MORES<br><b>Exam focus:</b> <span>MORES</span></div>
+<div class="qa">🧩 <b>Item 74</b><br><b>Source note:</b> A social norm that is developed by social conventions or traditions and without the sanctions possessed by other morally significant social norms - FOLKWAYS<br><b>Exam focus:</b> <span>FOLKWAYS</span></div>
+</div>
+</div>
+<button class="accordion sub">✅ Compact Ordered Checklist — Items 1 to 80</button>
+<div class="panel">
+<ul>
+<li><b>Research/Statistics:</b> Items 1, 4-6, 11, 39-40, 48-49, 52-59, 63-69, 71, 78-80.</li>
+<li><b>Theories/Prevention:</b> Items 3, 9-10, 12-13, 15-16, 19-20, 23, 44, 75-76.</li>
+<li><b>Human Behavior/Biology:</b> Items 2, 22, 25-32, 42-43, 60-62, 70, 77.</li>
+<li><b>Juvenile/Dispute/Professional:</b> Items 7-8, 14, 33-38, 41, 45-47, 50-51.</li>
+<li><b>Norms/Bonds/Community:</b> Items 17-18, 21, 24, 72-74.</li>
+</ul>
+<div class="key">✅ Total source items included in topic cards: 80.</div>
+</div>
+</div>
+<!-- ==================== END OF REVIEWER ==================== -->
+          </section>
+     
+          <button onclick="showQuiz()" class="btn btn-success">🎯 Start Quiz!</button>
+        </div>
+
+        <div id="quizSection" style="display:none;">
+          <h1>📝 Quiz Time! 📝<br>Part 1</h1>
+          <p style="font-size: 18px; font-weight: 600; margin: 0 0 20px 0; text-align: center; color: #667eea;">
+            Multiple-Choice Quiz (random items)
+          </p>
+          <form id="quizForm"></form>
+
+          <div class="nav-buttons">
+            <button id="finishBtn" class="btn">🏆 Get Score</button>
+            <button type="button" onclick="refreshQuiz()" class="btn btn-warning">🔄 Restart Quiz</button>
+            <button type="button" onclick="backToReviewer()" class="btn btn-primary">📚 Back to Review</button>
+          </div>
+          <div id="result"></div>
+        </div>
+      </div>
+      <!-- ==================== END: GATED CONTENT WRAPPER (inserted) ==================== -->
+    </div>
+  </div>
+
+  <!-- QUIZ COUNT MODAL -->
+  <div id="quizCountModalBG" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); z-index:1000; backdrop-filter:blur(5px);">
+    <div style="background:white; width:90%; max-width:420px; margin:15vh auto; padding:35px; border-radius:25px; box-shadow:0 20px 60px rgba(0,0,0,0.5); text-align:center; font-family:'Bubblegum Sans','Fredoka',cursive;">
+      <div style="font-size:3em; margin-bottom:10px;">📝</div>
+      <h2 style="color:#667eea; font-size:1.6em; margin-bottom:8px;">How many questions?</h2>
+      <p style="color:#4a5568; font-size:1em; margin-bottom:25px; font-family:'Fredoka',cursive;">Choose how many items you want in your quiz!</p>
+
+      <div style="display:flex; align-items:center; justify-content:center; gap:15px; margin-bottom:25px;">
+        <button onclick="adjustQuizCount(-5)" style="width:44px; height:44px; border-radius:50%; border:none; background:linear-gradient(135deg,#f093fb,#f5576c); color:white; font-size:1.4em; cursor:pointer; font-weight:bold; line-height:1;">−</button>
+        <input id="quizCountInput" type="number" min="1" max="80" value="10"
+          style="width:90px; text-align:center; font-size:2em; font-weight:bold; border:3px solid #667eea; border-radius:15px; padding:8px; font-family:'Fredoka',cursive; color:#2d3748;">
+        <button onclick="adjustQuizCount(5)" style="width:44px; height:44px; border-radius:50%; border:none; background:linear-gradient(135deg,#84fab0,#8fd3f4); color:white; font-size:1.4em; cursor:pointer; font-weight:bold; line-height:1;">+</button>
+      </div>
+
+      <p id="quizCountHint" style="color:#718096; font-size:0.9em; margin-bottom:20px; font-family:'Fredoka',cursive;"></p>
+
+      <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+        <button onclick="startQuizWithCount()" class="btn btn-success" style="font-size:1.1em; padding:14px 30px;">🎯 Let's Go!</button>
+        <button onclick="closeQuizCountModal()" class="btn" style="font-size:1.1em; padding:14px 30px; background:#718096;">✖ Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTACT POPUP MODAL -->
+  <div id="contactModalBG">
+    <div id="contactModal">
+      <h2>📬 Contact Form</h2>
+      <p style="text-align: center; margin-bottom: 20px; color: #4a5568;">
+        Fill in your details and we'll contact you soon!
+      </p>
+
+      <label>👤 Name:</label>
+      <input id="c_name" type="text">
+
+      <label>📱 Contact No.:</label>
+      <input id="c_contact" type="text">
+
+      <label>💬 Social Media Account:</label>
+      <input id="c_social" type="text">
+
+      <label>✉️ Request / Comment:</label>
+      <textarea id="c_request"></textarea>
+
+      <button id="c_submit" class="btn btn-success" style="width: 100%;">Send Message</button>
+      <button id="c_close" class="btn" style="width: 100%; background: #718096;">Close</button>
+    </div>
+  </div>
+
+  <script>
+    // ==================== GOOGLE APPS SCRIPT CONFIGURATION ====================
+    // IMPORTANT: Replace this URL with your deployed Google Apps Script web app URL
+    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxDvvheKuMWsJiQ0hKdQt8V3WX6gyoMwngNQvis3JJS24I8StyiT7U8L2alwiOtJKb7/exec";
+    // After deploying the Apps Script, paste the web app URL above
+
+    // ==================== HELPER FUNCTIONS ====================
+    document.addEventListener("DOMContentLoaded", () => {
+      /* LOGIN JS DEACTIVATED (keep for future use)
+      // ===== SHOW / HIDE PASSWORD TOGGLE =====
+      const toggleEye = document.getElementById("toggleEye");
+      const codeInputEye = document.getElementById("codeInput");
+
+      toggleEye.addEventListener("click", () => {
+        if (codeInputEye.type === "password") {
+          codeInputEye.type = "text";
+          toggleEye.textContent = "🙈";
+        } else {
+          codeInputEye.type = "password";
+          toggleEye.textContent = "👁️";
+        }
+      });
+
+      // ===== Display filename on login page =====
+      const quizTitleEl = document.querySelector("#quizSection h1");
+      const displayFileName = quizTitleEl ? quizTitleEl.textContent.replace("Quiz Time! 📝", "").replace("📝", "").trim() : "Science Grade 6";
+      const fileDisplay = document.getElementById("fileDisplay");
+      if (fileDisplay) fileDisplay.textContent = displayFileName;
+
+      // ===== ELEMENTS =====
+      const accessSection = document.getElementById("accessSection");
+      const mainContent = document.getElementById("mainContent");
+      const codeInput = document.getElementById("codeInput");
+      const accessSubmit = document.getElementById("accessSubmit");
+      const message = document.getElementById("message");
+      const tipsArea = document.getElementById("tipsArea");
+      END LOGIN JS */
+
+      // ===============================
+      // CONTACT MODAL LOGIC
+      // ===============================
+      const contactLink = document.getElementById("contactLink");
+      const contactBG = document.getElementById("contactModalBG");
+      const contactClose = document.getElementById("c_close");
+      const contactSubmit = document.getElementById("c_submit");
+
+      if (contactLink && contactBG) {
+        contactLink.addEventListener("click", () => {
+          contactBG.style.display = "block";
+        });
+      }
+
+      if (contactClose && contactBG) {
+        contactClose.addEventListener("click", () => {
+          contactBG.style.display = "none";
+        });
+      }
+
+      // ===============================
+      // CONTACT SUBMISSION LOGIC
+      // ===============================
+      if (contactSubmit) {
+        contactSubmit.addEventListener("click", async () => {
+          const name = document.getElementById("c_name").value.trim();
+          const contact = document.getElementById("c_contact").value.trim();
+          const social = document.getElementById("c_social").value.trim();
+          const request = document.getElementById("c_request").value.trim();
+
+          if (!name || !contact || !request) {
+            alert("Please fill out name, contact, and request/comment.");
+            return;
+          }
+
+          const quizTitleElLocal = document.querySelector("#quizSection h1");
+          const fileName = quizTitleElLocal
+            ? quizTitleElLocal.textContent.replace("Quiz Time! 📝", "").replace("📝", "").trim()
+            : "Science Grade 6";
+
+          const deviceInfo = await getDeviceInfo();
+
+          try {
+            contactSubmit.disabled = true;
+            contactSubmit.innerHTML = '<span class="loading"></span> Sending...';
+
+            await fetch(GOOGLE_SCRIPT_URL, {
+              method: "POST",
+              redirect: 'follow',
+              headers: { "Content-Type": "application/x-www-form-urlencoded" },
+              body: JSON.stringify({
+                action: "saveContact",
+                data: {
+                  event: "Client Request",
+                  request,
+                  name,
+                  contact,
+                  social,
+                  filename: fileName,
+                  timestamp: new Date().toLocaleString(),
+                  device: deviceInfo
+                }
+              })
+            });
+
+            alert("✅ Message sent successfully!");
+            contactBG.style.display = "none";
+            
+            // Clear form
+            document.getElementById("c_name").value = "";
+            document.getElementById("c_contact").value = "";
+            document.getElementById("c_social").value = "";
+            document.getElementById("c_request").value = "";
+
+          } catch (err) {
+            alert("❌ Error sending message. Please try again.");
+            console.error(err);
+          } finally {
+            contactSubmit.disabled = false;
+            contactSubmit.textContent = "Send Message";
+          }
+        });
+      }
+
+      // ===== DEVICE INFO HELPER =====
+      async function getDeviceInfo() {
+        const uaData = navigator.userAgentData || {};
+        const ua = navigator.userAgent;
+        const platform = navigator.platform;
+        const language = navigator.language;
+        const screenResolution = `${window.screen.width}x${window.screen.height}`;
+        const browserVersion = uaData.brands
+          ? uaData.brands.map(b => `${b.brand} ${b.version}`).join(", ")
+          : ua;
+
+        const uaLower = ua.toLowerCase();
+        let deviceType = "desktop";
+        if (/mobi|iphone|android/i.test(uaLower)) {
+          deviceType = "mobile";
+        } else if (/tablet|ipad|nexus 7|nexus 10/i.test(uaLower)) {
+          deviceType = "tablet";
+        }
+
+        let networkInfo = "Unavailable";
+        try {
+          const res = await fetch("https://ipapi.co/json/");
+          if (res.ok) {
+            const info = await res.json();
+            networkInfo = {
+              ip: info.ip,
+              city: info.city,
+              region: info.region,
+              country: info.country_name,
+              org: info.org
+            };
+          }
+        } catch {
+          networkInfo = "Network lookup failed";
+        }
+
+        return {
+          ua,
+          browserVersion,
+          platform,
+          language,
+          screenResolution,
+          deviceType,
+          networkInfo
+        };
+      }
+
+      // ===== SAVE LOGIN TO GOOGLE SHEETS =====
+      async function saveLoginToGoogleSheets(codeUsed) {
+        try {
+          console.log('=== SAVING LOGIN DATA ===');
+          console.log('Access Code:', codeUsed);
+          
+          const quizTitleElLocal = document.querySelector("#quizSection h1");
+          const fileName = quizTitleElLocal 
+            ? quizTitleElLocal.textContent.replace("Quiz Time! 📝", "").replace("📝", "").trim() 
+            : "Science Grade 6";
+
+          const deviceInfo = await getDeviceInfo();
+          
+          const payload = {
+            action: "saveLogin",
+            data: {
+              event: "Login Access",
+              studentName: "",
+              accessCode: codeUsed,
+              filename: fileName,
+              timestamp: new Date().toLocaleString(),
+              device: deviceInfo
+            }
+          };
+          
+          console.log('Payload to send:', JSON.stringify(payload, null, 2));
+
+          const response = await fetch(GOOGLE_SCRIPT_URL, {
+            method: "POST",
+            redirect: 'follow',
+            headers: { 
+              "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: JSON.stringify(payload)
+          });
+
+          console.log(`✅ Login logged successfully (file: ${fileName}).`);
+          const responseData = await response.json();
+          console.log('Server response:', responseData);
+        } catch (err) {
+          console.error("❌ Error logging to Google Sheets:", err);
+          // Don't show error to user - logging is not critical
+        }
+      }
+
+      // ===== LOAD TIPS FROM GOOGLE SHEETS =====
+      async function loadTips() {
+        try {
+          // First check if URL is configured
+          if (GOOGLE_SCRIPT_URL === "YOUR_GOOGLE_APPS_SCRIPT_URL_HERE") {
+            tipsArea.innerHTML = 
+              "⚠️ <strong>Configuration Required:</strong><br>" +
+              "Please set up your Google Apps Script URL in the HTML file.<br>" +
+              "See SETUP_GUIDE.md for instructions.";
+            return;
+          }
+
+          const resp = await fetch(`${GOOGLE_SCRIPT_URL}?action=getTips`, {
+            method: 'GET',
+            redirect: 'follow'
+          });
+          
+          if (!resp.ok) {
+            throw new Error(`HTTP error! status: ${resp.status}`);
+          }
+          
+          const data = await resp.json();
+          
+          if (data.error) {
+            throw new Error(data.error);
+          }
+          
+          const tipsText = data.tips || 
+            "💡 <strong>Tips:</strong><br>" +
+            "✅ Press Enter after typing the code.<br>" +
+            "✅ Stay online when entering.<br>" +
+            "✅ For help, contact: @Rekz Banz";
+          
+          tipsArea.innerHTML = tipsText;
+        } catch (err) {
+          console.error("Tips fetch error:", err);
+          tipsArea.innerHTML = 
+            "⚠️ <strong>Connection Error:</strong><br>" +
+            "Could not connect to Google Sheets.<br>" +
+            `Error: ${err.message}<br>` +
+            "Please check:<br>" +
+            "1. Google Script URL is correct<br>" +
+            "2. Script is deployed as Web App<br>" +
+            "3. Access is set to 'Anyone'";
+        }
+      }
+      /* LOGIN JS DEACTIVATED - loadTips call (keep for future use)
+      loadTips();
+      END LOGIN JS */
+
+      // ===== SAVE QUIZ SCORE TO GOOGLE SHEETS =====
+      async function saveScoreToGoogleSheets(score, total) {
+        try {
+          console.log('=== SAVING SCORE DATA ===');
+          console.log('Score:', score, '/', total);
+          
+          const quizTitleElLocal = document.querySelector("#quizSection h1");
+          const fileName = quizTitleElLocal 
+            ? quizTitleElLocal.textContent.replace("Quiz Time! 📝", "").replace("📝", "").trim() 
+            : "Science Grade 6";
+
+          const deviceInfo = await getDeviceInfo();
+          
+          const payload = {
+            action: "saveScore",
+            data: {
+              event: "Quiz Score",
+              studentName: "",
+              score: `${score}/${total}`,
+              filename: fileName,
+              timestamp: new Date().toLocaleString(),
+              device: deviceInfo
+            }
+          };
+          
+          console.log('Payload to send:', JSON.stringify(payload, null, 2));
+
+          const response = await fetch(GOOGLE_SCRIPT_URL, {
+            method: "POST",
+            redirect: 'follow',
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: JSON.stringify(payload)
+          });
+
+          console.log("✅ Quiz score saved to Google Sheets successfully.");
+          const responseData = await response.json();
+          console.log('Server response:', responseData);
+        } catch (err) {
+          console.error("❌ Error saving quiz score:", err);
+          // Don't show error to user - logging is not critical
+        }
+      }
+
+      /* LOGIN JS DEACTIVATED - localStorage & login handler (keep for future use)
+      // ===== LOCAL STORAGE =====
+      const fileName = window.location.pathname.split("/").pop() || "default";
+      const storageKey = "savedAccessCode_" + fileName.replace(/\W+/g, "_");
+      const savedCode = localStorage.getItem(storageKey);
+      if (savedCode) codeInput.value = savedCode;
+      codeInput.addEventListener("input", () =>
+        localStorage.setItem(storageKey, codeInput.value)
+      );
+
+      // ===== LOGIN HANDLER =====
+      codeInput.addEventListener("keyup", (e) => {
+        if (e.key === "Enter") accessSubmit.click();
+      });
+
+      accessSubmit.addEventListener("click", async () => {
+        const input = codeInput.value.trim();
+        
+        if (!input) {
+          message.textContent = "⚠️ Please enter the access code.";
+          return;
+        }
+
+        // Check if URL is configured
+        if (GOOGLE_SCRIPT_URL === "YOUR_GOOGLE_APPS_SCRIPT_URL_HERE") {
+          message.innerHTML = "⚠️ <strong>Setup Required:</strong><br>Google Apps Script URL not configured. See SETUP_GUIDE.md";
+          return;
+        }
+
+        accessSubmit.disabled = true;
+        codeInput.disabled = true;
+        message.innerHTML = '<span class="loading"></span> Checking...';
+
+        try {
+          console.log('Fetching access code from:', GOOGLE_SCRIPT_URL);
+          
+          const resp = await fetch(`${GOOGLE_SCRIPT_URL}?action=getAccessCode`, {
+            method: 'GET',
+            redirect: 'follow'
+          });
+  
+          console.log('Response status:', resp.status);
+          
+          if (!resp.ok) {
+            throw new Error(`HTTP ${resp.status}: ${resp.statusText}`);
+          }
+          
+          const data = await resp.json();
+          console.log('Response data:', data);
+
+          if (data.error) {
+            throw new Error(data.error);
+          }
+
+          const remoteCode = data.accessCode;
+
+          if (!remoteCode) {
+            message.innerHTML = "❌ Access code not found in Google Sheets.<br>Please check the AccessCode sheet.";
+            throw new Error("No accessCode in response");
+          }
+
+          if (input === String(remoteCode).trim()) {
+            accessSection.style.display = "none";
+            mainContent.style.display = "block";
+            message.textContent = "";
+            saveLoginToGoogleSheets(input);
+            setTimeout(() => {
+              const btn = document.querySelector("#mainContent button");
+              if (btn) btn.focus();
+            }, 100);
+          } else {
+            message.innerHTML = `❌ Wrong code. Entered: "${input}"<br>Please contact support.`;
+            localStorage.removeItem(storageKey);
+            accessSubmit.disabled = false;
+            codeInput.disabled = false;
+          }
+        } catch (err) {
+          console.error("Access fetch error:", err);
+          message.innerHTML = 
+            `❌ <strong>Connection Error:</strong><br>` +
+            `${err.message}<br>` +
+            `Please verify:<br>` +
+            `1. Google Script URL is correct<br>` +
+            `2. Script is deployed as Web App<br>` +
+            `3. Access permission is 'Anyone'`;
+          accessSubmit.disabled = false;
+          codeInput.disabled = false;
+        }
+      });
+      END LOGIN JS */
+
+      // ===== QUIZ LOGIC =====
+      const pool = [
+      
+      
+ <!-- ==================== START OF QUIZ ==================== -->
+
+
+  {
+    "q": "In Criminological research and statistics, what is meant by a null hypothesis?",
+    "choices": [
+      "ASSUMES NO RELATIONSHIP OR NO SIGNIFICANT DIFFERENCE BETWEEN VARIABLES",
+      "INCREASE POLICE PATROL DURING THE DAY",
+      "IN A DARK AND POORLY GUARDED STREET",
+      "QUANTITATIVE",
+      "NEOCLASSICAL",
+      "CRITICAL CRIMINOLOGY"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "In human genetics, which chromosome combination normally represents a female?",
+    "choices": [
+      "XX",
+      "LEFT REALISM",
+      "FOLKWAY",
+      "TABOO",
+      "INTERACTIONIST APPROACH",
+      "PROFESSIONAL"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "What theory states that criminal behavior is learned through interaction with other people?",
+    "choices": [
+      "DIFFERENTIAL ASSOCIATION THEORY",
+      "CRIME GENERATOR",
+      "STIGMA",
+      "SUPER-EGO",
+      "GENERATIVITY",
+      "ASSIMILATION"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "CrimCoach conducts in-depth interviews with former inmates to understand the common experiences of imprisonment in Manila City Jail. What type of research is applied?",
+    "choices": [
+      "PHENOMENOLOGICAL",
+      "DEPRESSIVE DISORDER",
+      "NARCISSISTIC",
+      "HISTRIONIC",
+      "SUSPENDED SENTENCE",
+      "COMPETING"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "Chito wants to evaluate the effectiveness of a new rehabilitation program. Which of the following would be the most suitable research design to assess the program's impact on conducting recidivism?",
+    "choices": [
+      "QUASI-EXPERIMENTAL STUDIES",
+      "YES",
+      "NUMERICAL DATA",
+      "MEAN",
+      "PROCLAMATION NO. 397",
+      "NATURE"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "A researcher investigates one specific criminal case in detail, analyzing all aspects including background, evidence, and outcome. What type of study is this?",
+    "choices": [
+      "CASE STUDY",
+      "CERTIFICATE OF GOOD STANDING (COGS)",
+      "COPYRIGHT",
+      "STATIC CRIME",
+      "THEORETICAL FRAMEWORK (TF)",
+      "CONCEPTUAL FRAMEWORK (CF)"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "If you are a criminologist and you know that your friend is teaching criminology subjects without a valid license, what should you do?",
+    "choices": [
+      "REPORT THE MATTER TO THE PROPER AUTHORITIES",
+      "GENERALIZATION",
+      "DESCRIPTIVE STATISTICS",
+      "INFERENTIAL STATISTICS",
+      "IDENTIFYING THE PROBLEM",
+      "CASE AND FIELD METHOD"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "Under the Criminologist's Oath pursuant to R.A. 11131, the statement \"I shall perform my _____ legally and morally\" is completed by which word?",
+    "choices": [
+      "DUTIES",
+      "QUALITATIVE DATA / QUANTITATIVE DATA",
+      "KLINEFELTER SYNDROME",
+      "Women",
+      "JACOBS SYNDROME",
+      "SURVEY METHOD"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "According to Rational Choice Theory, which measure is the most effective in preventing robbery?",
+    "choices": [
+      "INCREASE POLICE PATROL DURING THE DAY",
+      "EXPERIMENTAL METHOD",
+      "MEDIAN",
+      "MODE",
+      "NEUROTRANSMITTERS",
+      "QUANTITATIVE / QUALITATIVE"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "According to Routine Activity Theory, where is crime more likely to occur?",
+    "choices": [
+      "IN A DARK AND POORLY GUARDED STREET",
+      "DESIGNING SPACES TO INCREASE VISIBILITY AND OVERSIGHT",
+      "RESIDENTIAL INSTABILITY, POVERTY, AND WEAK SOCIAL TIES",
+      "LOVE AND BELONGINGNESS",
+      "CORRELATIONS",
+      "TO KNOW (PROBE) / DESIRE TO PROVE SOMETHING"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "A survey reports that 75% of respondents feel safer in their community during post-pandemic. What type of research is used?",
+    "choices": [
+      "QUANTITATIVE",
+      "XX",
+      "DIFFERENTIAL ASSOCIATION THEORY",
+      "PHENOMENOLOGICAL",
+      "QUASI-EXPERIMENTAL STUDIES",
+      "CASE STUDY"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "Crimcoach, a 17-year-old shoplifter is caught stealing. During trial, the judge considers the offender's age, level of understanding, and circumstances before deciding a lighter penalty. Which theory is BEST reflected?",
+    "choices": [
+      "NEOCLASSICAL",
+      "INCREASE POLICE PATROL DURING THE DAY",
+      "IN A DARK AND POORLY GUARDED STREET",
+      "QUANTITATIVE",
+      "CRITICAL CRIMINOLOGY",
+      "BEING ABSENT FROM SCHOOL WITHOUT VALID REASON OR PERMISSION"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "A group of Criminologists studies how poverty, power imbalance, and discrimination influence crime rates and labeling of offenders in marginalized communities in the Philippines. Which field is MOST applicable?",
+    "choices": [
+      "CRITICAL CRIMINOLOGY",
+      "FOLKWAY",
+      "TABOO",
+      "INTERACTIONIST APPROACH",
+      "PROFESSIONAL",
+      "INVOLVEMENT"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "What is meant by truancy?",
+    "choices": [
+      "BEING ABSENT FROM SCHOOL WITHOUT VALID REASON OR PERMISSION",
+      "STIGMA",
+      "SUPER-EGO",
+      "GENERATIVITY",
+      "ASSIMILATION",
+      "PHENOMENAL FIELD"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "The Imitation Theory emphasizes the importance of",
+    "choices": [
+      "SOCIAL INFLUENCE AND OBSERVATION",
+      "NARCISSISTIC",
+      "HISTRIONIC",
+      "SUSPENDED SENTENCE",
+      "COMPETING",
+      "NO"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "Which criminological perspective argues that crime is largely caused by poverty, unemployment, and social deprivation?",
+    "choices": [
+      "LEFT REALISM",
+      "NUMERICAL DATA",
+      "MEAN",
+      "PROCLAMATION NO. 397",
+      "NATURE",
+      "ID - PLEASURE PRINCIPLE"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "During a formal dinner, a Thea uses her hands instead of utensils. What type of norm is violated?",
+    "choices": [
+      "FOLKWAY",
+      "COPYRIGHT",
+      "STATIC CRIME",
+      "THEORETICAL FRAMEWORK (TF)",
+      "CONCEPTUAL FRAMEWORK (CF)",
+      "GROUND COMMANDER"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "In the Philippines, discussing incest openly in public is strongly condemned. Even mentioning it causes discomfort, and individuals who do so are socially rejected. What type of norm is involved?",
+    "choices": [
+      "TABOO",
+      "DESCRIPTIVE STATISTICS",
+      "INFERENTIAL STATISTICS",
+      "IDENTIFYING THE PROBLEM",
+      "CASE AND FIELD METHOD",
+      "EVALUATION RESEARCH"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "Juvenile offender's behavior is due to a combination of genetic predisposition and exposure to a violent environment growing up. Which approach BEST explains this conclusion?",
+    "choices": [
+      "INTERACTIONIST APPROACH",
+      "KLINEFELTER SYNDROME",
+      "Women",
+      "JACOBS SYNDROME",
+      "SURVEY METHOD",
+      "OBSERVATION METHOD"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "A group of robbers spent three months studying the routine of a rural bank in Cebu City, including guard shifts, CCTV blind spots, and cash delivery schedules. What type of robbers are best described in the scenario?",
+    "choices": [
+      "PROFESSIONAL",
+      "MEDIAN",
+      "MODE",
+      "NEUROTRANSMITTERS",
+      "QUANTITATIVE / QUALITATIVE",
+      "MORES"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "A Criminology student who actively participates in sports, school clubs, and community service has little time to engage in delinquent acts. What bond explains this behavior?",
+    "choices": [
+      "INVOLVEMENT",
+      "RESIDENTIAL INSTABILITY, POVERTY, AND WEAK SOCIAL TIES",
+      "LOVE AND BELONGINGNESS",
+      "CORRELATIONS",
+      "TO KNOW (PROBE) / DESIRE TO PROVE SOMETHING",
+      "HYPOTHESIS"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "Gina repeatedly engages in theft because of the excitement and pleasure experienced after successfully committing the act. Which neurotransmitter is MOST associated with this behavior?",
+    "choices": [
+      "DOPAMINE",
+      "DIFFERENTIAL ASSOCIATION THEORY",
+      "PHENOMENOLOGICAL",
+      "QUASI-EXPERIMENTAL STUDIES",
+      "CASE STUDY",
+      "REPORT THE MATTER TO THE PROPER AUTHORITIES"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "A large concert event draws thousands of people, leading to an increase in pickpocketing incidents. What type of location is described?",
+    "choices": [
+      "CRIME GENERATOR",
+      "IN A DARK AND POORLY GUARDED STREET",
+      "QUANTITATIVE",
+      "NEOCLASSICAL",
+      "CRITICAL CRIMINOLOGY",
+      "BEING ABSENT FROM SCHOOL WITHOUT VALID REASON OR PERMISSION"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "Jordan, an ex-convict struggles to find employment because society continues to view him as untrustworthy. What concept is illustrated?",
+    "choices": [
+      "STIGMA",
+      "FOLKWAY",
+      "TABOO",
+      "INTERACTIONIST APPROACH",
+      "PROFESSIONAL",
+      "INVOLVEMENT"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "Chito refuses to cheat even when no one is watching because he believes it is morally wrong. Which component is dominant?",
+    "choices": [
+      "SUPER-EGO",
+      "STIGMA",
+      "GENERATIVITY",
+      "ASSIMILATION",
+      "PHENOMENAL FIELD",
+      "HUMANISTIC THEORY"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "An adult contributes to society by mentoring others and being productive at work. What is developed?",
+    "choices": [
+      "GENERATIVITY",
+      "HISTRIONIC",
+      "SUSPENDED SENTENCE",
+      "COMPETING",
+      "NO",
+      "PANGKAT NG TAGAPAGKASUNDO"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "A child sees a security guard and calls him a \"police officer\" because both wear uniforms. What process is occurring?",
+    "choices": [
+      "ASSIMILATION",
+      "MEAN",
+      "PROCLAMATION NO. 397",
+      "NATURE",
+      "ID - PLEASURE PRINCIPLE",
+      "LIFESTYLE EXPOSURE THEORY"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "Alaiza and Albert experience the same situation, but one perceives it as threatening while the other does not. What explains this difference?",
+    "choices": [
+      "PHENOMENAL FIELD",
+      "STATIC CRIME",
+      "THEORETICAL FRAMEWORK (TF)",
+      "CONCEPTUAL FRAMEWORK (CF)",
+      "GROUND COMMANDER",
+      "PINK"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "Carl undergoes rehabilitation and chooses to change behavior through personal decision and self-awareness. What perspective explains this change?",
+    "choices": [
+      "HUMANISTIC THEORY",
+      "INFERENTIAL STATISTICS",
+      "IDENTIFYING THE PROBLEM",
+      "CASE AND FIELD METHOD",
+      "EVALUATION RESEARCH",
+      "APA FORMAT"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "Dong experiences sadness, loss of interest in hobbies, and low energy for several months, affecting his daily functioning. What condition is MOST likely?",
+    "choices": [
+      "DEPRESSIVE DISORDER",
+      "Women",
+      "JACOBS SYNDROME",
+      "SURVEY METHOD",
+      "OBSERVATION METHOD",
+      "USE OF EXISTING RECORDS"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "Arben believes he is superior to others, seeks admiration, and lacks empathy. What disorder is illustrated?",
+    "choices": [
+      "NARCISSISTIC",
+      "MODE",
+      "NEUROTRANSMITTERS",
+      "QUANTITATIVE / QUALITATIVE",
+      "MORES",
+      "FOLKWAYS"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "Elie constantly seeks attention and displays exaggerated emotional expression. What disorder is MOST consistent?",
+    "choices": [
+      "HISTRIONIC",
+      "LOVE AND BELONGINGNESS",
+      "CORRELATIONS",
+      "TO KNOW (PROBE) / DESIRE TO PROVE SOMETHING",
+      "HYPOTHESIS",
+      "ASSUMES NO RELATIONSHIP OR NO SIGNIFICANT DIFFERENCE BETWEEN VARIABLES"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "A minor undergoes court trial and is found guilty. However, the judge withheld the execution of penalty and instead ordered counseling and rehabilitation. Which applies?",
+    "choices": [
+      "SUSPENDED SENTENCE",
+      "PHENOMENOLOGICAL",
+      "QUASI-EXPERIMENTAL STUDIES",
+      "CASE STUDY",
+      "REPORT THE MATTER TO THE PROPER AUTHORITIES",
+      "DUTIES"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "During a disagreement, Police officer John insists on his decision, disregards others' opinions, and aims to prove he is right at all costs -?",
+    "choices": [
+      "COMPETING",
+      "QUANTITATIVE",
+      "NEOCLASSICAL",
+      "CRITICAL CRIMINOLOGY",
+      "BEING ABSENT FROM SCHOOL WITHOUT VALID REASON OR PERMISSION",
+      "SOCIAL INFLUENCE AND OBSERVATION"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "Jan filed a complaint against a government agency for damages. The barangay captain insisted that the case must first undergo barangay conciliation. Is this correct?",
+    "choices": [
+      "NO",
+      "TABOO",
+      "INTERACTIONIST APPROACH",
+      "PROFESSIONAL",
+      "INVOLVEMENT",
+      "DOPAMINE"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "Barangay captain Chito appoints a person who lives in another municipality but is well-known for his integrity. Is this valid?",
+    "choices": [
+      "NO",
+      "SUPER-EGO",
+      "GENERATIVITY",
+      "ASSIMILATION",
+      "PHENOMENAL FIELD",
+      "HUMANISTIC THEORY"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "After the Lupon failed to settle a dispute, a conciliation panel was formed specifically for that case, composed of selected members. What is this body called?",
+    "choices": [
+      "PANGKAT NG TAGAPAGKASUNDO",
+      "HISTRIONIC",
+      "SUSPENDED SENTENCE",
+      "COMPETING",
+      "NO",
+      "YES"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "Barangay Dos with sufficient funds grants a small allowance to its Lupon members. Is this allowed?",
+    "choices": [
+      "YES",
+      "PROCLAMATION NO. 397",
+      "NATURE",
+      "ID - PLEASURE PRINCIPLE",
+      "LIFESTYLE EXPOSURE THEORY",
+      "CERTIFICATE OF GOOD STANDING (COGS)"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "Drea, a police researcher, collected crime rates from different cities and presented them in tables and charts. In this context, what does \"statistics\" refer to?",
+    "choices": [
+      "NUMERICAL DATA",
+      "THEORETICAL FRAMEWORK (TF)",
+      "CONCEPTUAL FRAMEWORK (CF)",
+      "GROUND COMMANDER",
+      "PINK",
+      "GENERALIZATION"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "A researcher adds all crime incidents recorded in a dataset and divides the total by the number of observations. What measure is being computed?",
+    "choices": [
+      "MEAN",
+      "IDENTIFYING THE PROBLEM",
+      "CASE AND FIELD METHOD",
+      "EVALUATION RESEARCH",
+      "APA FORMAT",
+      "QUALITATIVE DATA / QUANTITATIVE DATA"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "What Presidential Proclamation declares the period from November 3 to 9 of every year as the \"Philippine Criminology Profession Week\"?",
+    "choices": [
+      "PROCLAMATION NO. 397",
+      "JACOBS SYNDROME",
+      "SURVEY METHOD",
+      "OBSERVATION METHOD",
+      "USE OF EXISTING RECORDS",
+      "EXPERIMENTAL METHOD"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "In the interactionist approach, which side of the debate argues that traits, behaviors, and disorders are caused by biological predispositions related to our genes, brain structure or physiology?",
+    "choices": [
+      "NATURE",
+      "NEUROTRANSMITTERS",
+      "QUANTITATIVE / QUALITATIVE",
+      "MORES",
+      "FOLKWAYS",
+      "DESIGNING SPACES TO INCREASE VISIBILITY AND OVERSIGHT"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "Driven by pleasure principle, DAN is sexually attracted to a woman who is not his girlfriend. To achieve immediate gratification, he invited the woman to his condo for a drink. Which psychoanalytic personality is responsible for his immediate gratification?",
+    "choices": [
+      "ID - PLEASURE PRINCIPLE",
+      "CORRELATIONS",
+      "TO KNOW (PROBE) / DESIRE TO PROVE SOMETHING",
+      "HYPOTHESIS",
+      "ASSUMES NO RELATIONSHIP OR NO SIGNIFICANT DIFFERENCE BETWEEN VARIABLES",
+      "XX"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "Kath went to a place known for having a higher crime rate. Before associating herself to that place, she secures her valuable belongings and remove all her expensive jewelry to avoid being the target for robbers. Which theory best explains this situation?",
+    "choices": [
+      "LIFESTYLE EXPOSURE THEORY",
+      "QUASI-EXPERIMENTAL STUDIES",
+      "CASE STUDY",
+      "REPORT THE MATTER TO THE PROPER AUTHORITIES",
+      "DUTIES",
+      "INCREASE POLICE PATROL DURING THE DAY"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "The document that proves a Criminologist is a bona fide AIPO member and may be required for PIC renewal.",
+    "choices": [
+      "CERTIFICATE OF GOOD STANDING (COGS)",
+      "NEOCLASSICAL",
+      "CRITICAL CRIMINOLOGY",
+      "BEING ABSENT FROM SCHOOL WITHOUT VALID REASON OR PERMISSION",
+      "SOCIAL INFLUENCE AND OBSERVATION",
+      "LEFT REALISM"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "It refers to a legal concept that gives creators the exclusive right to copy, distribute, display, and adapt their original work for a certain period of time?",
+    "choices": [
+      "COPYRIGHT",
+      "INTERACTIONIST APPROACH",
+      "PROFESSIONAL",
+      "INVOLVEMENT",
+      "DOPAMINE",
+      "CRIME GENERATOR"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "Eric stab Jophord at the back, killing the latter instantly, it was committed at Durian street, Davao City and Eric left Davao to escape captivity for his felonious act. What type of crime did he commit?",
+    "choices": [
+      "STATIC CRIME",
+      "GENERATIVITY",
+      "ASSIMILATION",
+      "PHENOMENAL FIELD",
+      "HUMANISTIC THEORY",
+      "DEPRESSIVE DISORDER"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "When the researcher explaining the concepts and premises from the theory or theories that ground the study. What is this called?",
+    "choices": [
+      "THEORETICAL FRAMEWORK (TF)",
+      "SUSPENDED SENTENCE",
+      "COMPETING",
+      "NO",
+      "PANGKAT NG TAGAPAGKASUNDO",
+      "YES"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "It is a researcher-constructed, logically developed argument justifying the need for the research study; shapes the study design and guides its development?",
+    "choices": [
+      "CONCEPTUAL FRAMEWORK (CF)",
+      "PROCLAMATION NO. 397",
+      "NATURE",
+      "ID - PLEASURE PRINCIPLE",
+      "LIFESTYLE EXPOSURE THEORY",
+      "CERTIFICATE OF GOOD STANDING (COGS)"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "Who will talk to media when spokesperson is not yet assigned?",
+    "choices": [
+      "GROUND COMMANDER",
+      "THEORETICAL FRAMEWORK (TF)",
+      "CONCEPTUAL FRAMEWORK (CF)",
+      "PINK",
+      "GENERALIZATION",
+      "DESCRIPTIVE STATISTICS"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "All cases involving VAWC and CICL under the mandate of WCPD shall be recoded in?",
+    "choices": [
+      "PINK",
+      "CASE AND FIELD METHOD",
+      "EVALUATION RESEARCH",
+      "APA FORMAT",
+      "QUALITATIVE DATA / QUANTITATIVE DATA",
+      "KLINEFELTER SYNDROME"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "In which of the following characteristics of research implies that research findings can be applied to a broader setting?",
+    "choices": [
+      "GENERALIZATION",
+      "SURVEY METHOD",
+      "OBSERVATION METHOD",
+      "USE OF EXISTING RECORDS",
+      "EXPERIMENTAL METHOD",
+      "MEDIAN"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "An area of statistics comprise those methods concerned with collecting, describing, and analyzing a set of data without drawing conclusions or inferences about a large group -?",
+    "choices": [
+      "DESCRIPTIVE STATISTICS",
+      "QUANTITATIVE / QUALITATIVE",
+      "MORES",
+      "FOLKWAYS",
+      "DESIGNING SPACES TO INCREASE VISIBILITY AND OVERSIGHT",
+      "RESIDENTIAL INSTABILITY, POVERTY, AND WEAK SOCIAL TIES"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "Comprise those methods concerned with the analysis of sample data leading to predictions or inferences about the Population",
+    "choices": [
+      "INFERENTIAL STATISTICS",
+      "TO KNOW (PROBE) / DESIRE TO PROVE SOMETHING",
+      "HYPOTHESIS",
+      "ASSUMES NO RELATIONSHIP OR NO SIGNIFICANT DIFFERENCE BETWEEN VARIABLES",
+      "XX",
+      "DIFFERENTIAL ASSOCIATION THEORY"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "What is the first step in conducting research?",
+    "choices": [
+      "IDENTIFYING THE PROBLEM",
+      "CASE STUDY",
+      "REPORT THE MATTER TO THE PROPER AUTHORITIES",
+      "DUTIES",
+      "INCREASE POLICE PATROL DURING THE DAY",
+      "IN A DARK AND POORLY GUARDED STREET"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "REY, a social worker, studying intensively the background, current status, and environmental interactions of a PDL assigned to him. What method of criminological research is applied?",
+    "choices": [
+      "CASE AND FIELD METHOD",
+      "CRITICAL CRIMINOLOGY",
+      "BEING ABSENT FROM SCHOOL WITHOUT VALID REASON OR PERMISSION",
+      "SOCIAL INFLUENCE AND OBSERVATION",
+      "LEFT REALISM",
+      "FOLKWAY"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "What Type of Criminological research that study processes and procedures for the improvement of a system?",
+    "choices": [
+      "EVALUATION RESEARCH",
+      "PROFESSIONAL",
+      "INVOLVEMENT",
+      "DOPAMINE",
+      "CRIME GENERATOR",
+      "STIGMA"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "In writing the research report, this format uses parenthetical citation?",
+    "choices": [
+      "APA FORMAT",
+      "ASSIMILATION",
+      "PHENOMENAL FIELD",
+      "HUMANISTIC THEORY",
+      "DEPRESSIVE DISORDER",
+      "NARCISSISTIC"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "have labels or names assigned to their respective categories while is any attribute that we measure in numbers.",
+    "choices": [
+      "QUALITATIVE DATA / QUANTITATIVE DATA",
+      "COMPETING",
+      "NO",
+      "PANGKAT NG TAGAPAGKASUNDO",
+      "YES",
+      "NUMERICAL DATA"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "This is a common condition that results when a person assigned male at birth has an extra copy of the X sex chromosome instead of the typical XY?",
+    "choices": [
+      "KLINEFELTER SYNDROME",
+      "NATURE",
+      "ID - PLEASURE PRINCIPLE",
+      "LIFESTYLE EXPOSURE THEORY",
+      "CERTIFICATE OF GOOD STANDING (COGS)",
+      "COPYRIGHT"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "more likely to transmit intelligence genes to their children because they are carried on the X CHROMOSOME AND WOMEN HAVE TWO OF THESE, WHILE MEN ONLY HAVE ONE.",
+    "choices": [
+      "Women",
+      "CONCEPTUAL FRAMEWORK (CF)",
+      "GROUND COMMANDER",
+      "PINK",
+      "GENERALIZATION",
+      "DESCRIPTIVE STATISTICS"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "also known as 47, XYY syndrome, is a rare genetic condition that occurs in about 1 out of 1000 male children; this condition belongs to a group of conditions known as \"sex chromosome trisomies\" - rare genetic abnormality in which a male receives an extra Y chromosome from his father.",
+    "choices": [
+      "JACOBS SYNDROME",
+      "CASE AND FIELD METHOD",
+      "EVALUATION RESEARCH",
+      "APA FORMAT",
+      "QUALITATIVE DATA / QUANTITATIVE DATA",
+      "KLINEFELTER SYNDROME"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "A data collection method whereby questions are asked to obtain information, either thru self-administered questionnaires thru mail or survey forms or personal interviews thru telephone or focused group discussions -?",
+    "choices": [
+      "SURVEY METHOD",
+      "OBSERVATION METHOD",
+      "USE OF EXISTING RECORDS",
+      "EXPERIMENTAL METHOD",
+      "MEDIAN",
+      "MODE"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "It makes possible the recording of behavior but only at the time of occurrence; may be participant or nonparticipant -?",
+    "choices": [
+      "OBSERVATION METHOD",
+      "MORES",
+      "FOLKWAYS",
+      "DESIGNING SPACES TO INCREASE VISIBILITY AND OVERSIGHT",
+      "RESIDENTIAL INSTABILITY, POVERTY, AND WEAK SOCIAL TIES",
+      "LOVE AND BELONGINGNESS"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "These are gathered data from published materials like reports, personal files and historical records -?",
+    "choices": [
+      "USE OF EXISTING RECORDS",
+      "HYPOTHESIS",
+      "ASSUMES NO RELATIONSHIP OR NO SIGNIFICANT DIFFERENCE BETWEEN VARIABLES",
+      "XX",
+      "DIFFERENTIAL ASSOCIATION THEORY",
+      "PHENOMENOLOGICAL"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "Data obtained under controlled conditions; usually done in laboratories -?",
+    "choices": [
+      "EXPERIMENTAL METHOD",
+      "REPORT THE MATTER TO THE PROPER AUTHORITIES",
+      "DUTIES",
+      "INCREASE POLICE PATROL DURING THE DAY",
+      "IN A DARK AND POORLY GUARDED STREET",
+      "QUANTITATIVE"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "The sum of all values of the observations divided by the number of observations in the data set -?",
+    "choices": [
+      "MEAN",
+      "BEING ABSENT FROM SCHOOL WITHOUT VALID REASON OR PERMISSION",
+      "SOCIAL INFLUENCE AND OBSERVATION",
+      "LEFT REALISM",
+      "FOLKWAY",
+      "TABOO"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "The value found at the exact middle of a data set when the observations are arranged in numerical order (descending or ascending) -?",
+    "choices": [
+      "MEDIAN",
+      "INVOLVEMENT",
+      "DOPAMINE",
+      "CRIME GENERATOR",
+      "STIGMA",
+      "SUPER-EGO"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "The value in the data set that occurs with the greatest frequency -?",
+    "choices": [
+      "MODE",
+      "PHENOMENAL FIELD",
+      "HUMANISTIC THEORY",
+      "DEPRESSIVE DISORDER",
+      "NARCISSISTIC",
+      "HISTRIONIC"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "These are chemical messengers that transmit signals between nerve cells (neurons) and other cells like muscle or gland cells, playing a crucial role in various bodily functions. They influence everything from movement and sensation to mood, memory, and sleep?",
+    "choices": [
+      "NEUROTRANSMITTERS",
+      "NO",
+      "PANGKAT NG TAGAPAGKASUNDO",
+      "YES",
+      "NUMERICAL DATA",
+      "MEAN"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "Uses analysis of numerical data. Uses narrative description and interpretation",
+    "choices": [
+      "QUANTITATIVE / QUALITATIVE",
+      "ID - PLEASURE PRINCIPLE",
+      "LIFESTYLE EXPOSURE THEORY",
+      "CERTIFICATE OF GOOD STANDING (COGS)",
+      "COPYRIGHT",
+      "STATIC CRIME"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "It is something that is prohibited or restricted, either by social custom or by religious belief e.g. Marrying close relatives, Sexual relationships between siblings, Talking about death or illness etc?",
+    "choices": [
+      "TABOO",
+      "PINK",
+      "GENERALIZATION",
+      "DESCRIPTIVE STATISTICS",
+      "INFERENTIAL STATISTICS",
+      "IDENTIFYING THE PROBLEM"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "These are norms that are widely observed and have great moral significance e.g. lying, stealing, gossiping, bullying, and trespassing -?",
+    "choices": [
+      "MORES",
+      "EVALUATION RESEARCH",
+      "APA FORMAT",
+      "QUALITATIVE DATA / QUANTITATIVE DATA",
+      "KLINEFELTER SYNDROME",
+      "Women"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "A social norm that is developed by social conventions or traditions and without the sanctions possessed by other morally significant social norms -?",
+    "choices": [
+      "FOLKWAYS",
+      "OBSERVATION METHOD",
+      "USE OF EXISTING RECORDS",
+      "EXPERIMENTAL METHOD",
+      "MEDIAN",
+      "MODE"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "Statement that best describes the concept of \"natural surveillance\" in Crime Prevention Through Environmental Design?",
+    "choices": [
+      "DESIGNING SPACES TO INCREASE VISIBILITY AND OVERSIGHT",
+      "MORES",
+      "FOLKWAYS",
+      "RESIDENTIAL INSTABILITY, POVERTY, AND WEAK SOCIAL TIES",
+      "LOVE AND BELONGINGNESS",
+      "CORRELATIONS"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "According to Social Disorganization Theory, what neighborhood characteristics are associated with higher crime rates?",
+    "choices": [
+      "RESIDENTIAL INSTABILITY, POVERTY, AND WEAK SOCIAL TIES",
+      "ASSUMES NO RELATIONSHIP OR NO SIGNIFICANT DIFFERENCE BETWEEN VARIABLES",
+      "XX",
+      "DIFFERENTIAL ASSOCIATION THEORY",
+      "PHENOMENOLOGICAL",
+      "QUASI-EXPERIMENTAL STUDIES"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "Which level of Abraham Maslow's hierarchy of needs encompasses the desire for social relationships, affection, and a sense of belonging?",
+    "choices": [
+      "LOVE AND BELONGINGNESS",
+      "DUTIES",
+      "INCREASE POLICE PATROL DURING THE DAY",
+      "IN A DARK AND POORLY GUARDED STREET",
+      "QUANTITATIVE",
+      "NEOCLASSICAL"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "This is used to denote some form of linear relationship between two variables -?",
+    "choices": [
+      "CORRELATIONS",
+      "SOCIAL INFLUENCE AND OBSERVATION",
+      "LEFT REALISM",
+      "FOLKWAY",
+      "TABOO",
+      "INTERACTIONIST APPROACH"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "Research evolves from a genuine desire rather than a.",
+    "choices": [
+      "TO KNOW (PROBE) / DESIRE TO PROVE SOMETHING",
+      "DOPAMINE",
+      "CRIME GENERATOR",
+      "STIGMA",
+      "SUPER-EGO",
+      "GENERATIVITY"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "A statement about the expected outcome of a study, a testable prediction or educated guess about the relationship between two or more variables, often formulated as a statement that can be supported or refuted through scientific investigation -?",
+    "choices": [
+      "HYPOTHESIS",
+      "HUMANISTIC THEORY",
+      "DEPRESSIVE DISORDER",
+      "NARCISSISTIC",
+      "HISTRIONIC",
+      "SUSPENDED SENTENCE"
+    ],
+    "correctIndex": 0
+  }
+
+        
+        
+<!-- ==================== END OF QUIZ ==================== -->
+      ];
+
+      // === UPDATE QUIZ TITLE (selected/total items) ===
+      function updateQuizTitleCount(selectedCount) {
+        const quizTitleEl = document.querySelector("#quizSection h1");
+        if (quizTitleEl) {
+          const totalItems = pool.filter(item => item && item.q && item.choices).length;
+          quizTitleEl.innerHTML = `📝 Quiz Time! 📝<br>Part 1!<br><span style="font-size: 0.7em; color: #667eea;">(${selectedCount}/${totalItems} items)</span>`;
+        }
+      }
+
+      function pickRandom(arr, n) {
+        const copy = [...arr];
+        const result = [];
+        while (result.length < n && copy.length > 0) {
+          const idx = Math.floor(Math.random() * copy.length);
+          result.push(copy.splice(idx, 1)[0]);
+        }
+        return result;
+      }
+
+      function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+      }
+
+      function selectRandomChoices(item) {
+        const correctChoice = item.choices[item.correctIndex];
+        let others = item.choices.filter((_, idx) => idx !== item.correctIndex);
+        shuffleArray(others);
+        let selected = [correctChoice, ...others.slice(0, 4)];
+        shuffleArray(selected);
+        item.correctIndex = selected.indexOf(correctChoice);
+        item.choices = selected;
+      }
+
+      let quizItems = [];
+
+      window.showQuiz = function () {
+        // Update hint with total available questions
+        const total = pool.filter(item => item && item.q && item.choices).length;
+        document.getElementById("quizCountHint").textContent = `Max available: ${total} questions`;
+        // Reset input to default
+        const input = document.getElementById("quizCountInput");
+        input.max = total;
+        input.value = Math.min(10, total);
+        document.getElementById("quizCountModalBG").style.display = "block";
+      };
+
+      window.adjustQuizCount = function (delta) {
+        const input = document.getElementById("quizCountInput");
+        const total = pool.filter(item => item && item.q && item.choices).length;
+        let val = parseInt(input.value) + delta;
+        val = Math.max(1, Math.min(total, val));
+        input.value = val;
+      };
+
+      window.closeQuizCountModal = function () {
+        document.getElementById("quizCountModalBG").style.display = "none";
+      };
+
+      window.startQuizWithCount = function () {
+        const input = document.getElementById("quizCountInput");
+        const total = pool.filter(item => item && item.q && item.choices).length;
+        let count = parseInt(input.value);
+        if (isNaN(count) || count < 1) count = 10;
+        if (count > total) count = total;
+        document.getElementById("quizCountModalBG").style.display = "none";
+        document.getElementById("reviewerSection").style.display = "none";
+        document.getElementById("quizSection").style.display = "block";
+        buildQuiz(count);
+        window.scrollTo(0, 0);
+      };
+
+      window.backToReviewer = function () {
+        document.getElementById("quizSection").style.display = "none";
+        document.getElementById("reviewerSection").style.display = "block";
+        document.getElementById("quizForm").innerHTML = "";
+        document.getElementById("result").innerHTML = "";
+        window.scrollTo(0, 0)
+      };
+
+      window.refreshQuiz = function () {
+        document.getElementById("quizForm").innerHTML = "";
+        document.getElementById("result").innerHTML = "";
+        document.getElementById("finishBtn").disabled = false;
+        buildQuiz(quizItems.length || 10);
+        window.scrollTo(0, 0)
+      };
+
+      function buildQuiz(count) {
+        count = count || 10;
+        // Clone each picked item (and its choices array) so shuffling/selecting
+        // choices never mutates the original `pool` entries. Without this,
+        // selectRandomChoices() permanently shrank an item's choices the first
+        // time it appeared in a quiz, so retakes kept reusing the same 5
+        // options forever instead of reshuffling from the full choice list.
+        quizItems = pickRandom(pool, Math.min(count, pool.length))
+          .map(item => ({ ...item, choices: [...item.choices] }));
+        const form = document.getElementById("quizForm");
+        form.innerHTML = "";
+        quizItems.forEach((item, i) => {
+          selectRandomChoices(item);
+          const div = document.createElement("div");
+          div.className = "question";
+          const q = document.createElement("p");
+          q.textContent = `${i + 1}. ${item.q}`;
+          div.appendChild(q);
+          item.choices.forEach((choice, idx) => {
+            const label = document.createElement("label");
+            const radio = document.createElement("input");
+            radio.type = "radio";
+            radio.name = `q${i}`;
+            radio.value = idx;
+            label.appendChild(radio);
+            label.appendChild(document.createTextNode(" " + choice));
+            div.appendChild(label);
+            div.appendChild(document.createElement("br"));
+          });
+          form.appendChild(div);
+        });
+        updateQuizTitleCount(quizItems.length);
+      }
+      
+document.querySelectorAll(".accordion").forEach(btn=>{
+btn.addEventListener("click",function(){
+let panel=this.nextElementSibling;
+panel.style.display=panel.style.display==="block"?"none":"block";
+});
+});
+
+      document.getElementById("finishBtn").addEventListener("click", async function () {
+        let score = 0;
+        const total = quizItems.length;
+        for (let i = 0; i < total; i++) {
+          const radios = document.querySelectorAll(`input[name="q${i}"]`);
+          let selected = -1;
+          radios.forEach(r => { if (r.checked) selected = parseInt(r.value); });
+          const div = document.getElementById("quizForm").children[i];
+          if (selected === quizItems[i].correctIndex) {
+            score++;
+            div.insertAdjacentHTML("beforeend", "<div class='correct'>✔ Correct! Great job!</div>");
+          } else {
+            const correctAnswer = quizItems[i].choices[quizItems[i].correctIndex];
+            div.insertAdjacentHTML("beforeend", `<div class='wrong'>✘ Oops! The answer is: ${correctAnswer}</div>`);
+          }
+          radios.forEach(r => r.disabled = true);
+        }
+        
+        const percentage = Math.round((score / total) * 100);
+        let emoji = "🎉";
+        if (percentage === 100) emoji = "🏆";
+        else if (percentage >= 80) emoji = "⭐";
+        else if (percentage >= 60) emoji = "👍";
+        else emoji = "💪";
+        
+        document.getElementById("result").innerHTML = 
+          `<h2>${emoji} Your Score: ${score} / ${total} ${emoji}</h2>
+           <p style="font-size: 1.5em; margin-top: 10px;">${percentage}% Correct!</p>`;
+        this.disabled = true;
+
+        // Save score to Google Sheets
+        await saveScoreToGoogleSheets(score, total);
+        
+      });
+    });
+  </script>
+
+  <!-- ==================== START: SUBJECT-PAGE ACCESS GATE (inserted) ==================== -->
+  <div id="gateChecking" style="text-align:center;padding:60px 20px;font-family:sans-serif;">
+    <p>Verifying your access…</p>
+  </div>
+
+  <div id="gateDenied" class="hidden" style="max-width:420px;margin:60px auto;text-align:center;font-family:sans-serif;
+       background:#fff;border-radius:16px;padding:32px;box-shadow:0 8px 24px rgba(0,0,0,.15);">
+    <h2 id="gateDeniedTitle">Access Denied</h2>
+    <p id="gateDeniedMsg">You don't have permission to view this reviewer yet.</p>
+    <a href="reviewer-hub.html" style="display:inline-block;background:#7a1f2b;color:#fff;padding:10px 24px;
+       border-radius:8px;text-decoration:none;font-weight:700;">← Back to Reviewer Hub</a>
+  </div>
+
+  <script>
+  (function () {
+    // Must match the API_URL used in reviewer-hub.html / index.html
+    const API_URL = "https://script.google.com/macros/s/AKfycbzTyj-tiIzlGXfzoKQV3i8EfdXe_cDzGeX3KIofXfwmfIXJd2jnDf18XYXP9wI2QDPM/exec";
+
+    function getParam(name) {
+      return new URLSearchParams(window.location.search).get(name);
+    }
+
+    function showDenied(title, msg) {
+      document.getElementById("gateChecking").classList.add("hidden");
+      document.getElementById("gateDeniedTitle").textContent = title;
+      document.getElementById("gateDeniedMsg").textContent = msg;
+      document.getElementById("gateDenied").classList.remove("hidden");
+    }
+
+    async function checkAccess() {
+      const userId = getParam("userId");
+      const token = getParam("token");
+
+      if (!userId || !token) {
+        showDenied("Not Logged In", "Open this page from the Reviewer Hub after logging in.");
+        return;
+      }
+
+      try {
+        const qs = new URLSearchParams({ action: "checkAccess", userId, token }).toString();
+        const res = await fetch(`${API_URL}?${qs}`);
+
+        if (!res.ok) {
+          throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+        }
+
+        const r = await res.json();
+        console.log("checkAccess response:", r);
+
+        if (r.status === "ok" && r.accessStatus === "approved") {
+          document.getElementById("gateChecking").classList.add("hidden");
+          const content = document.getElementById("reviewerContent");
+          if (content) content.classList.remove("hidden");
+        } else if (r.accessStatus === "blocked") {
+          showDenied("Access Blocked", "Your account has been blocked. Contact the owner for help.");
+        } else if (r.accessStatus === "pending" || r.accessStatus === "submitted") {
+          showDenied("Not Approved Yet", "Your payment hasn't been approved yet.");
+        } else {
+          showDenied("Session Expired", "Please log in again through the Access Portal.");
+        }
+      } catch (e) {
+        console.error("checkAccess error:", e);
+        showDenied("Connection Error", "Couldn't verify your access. Check your connection and try again.");
+      }
+    }
+
+    checkAccess();
+  })();
+  </script>
+  <!-- ==================== END: SUBJECT-PAGE ACCESS GATE (inserted) ==================== -->
+</body>
+</html>

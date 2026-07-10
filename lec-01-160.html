@@ -1,0 +1,2611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Criminology Area Reviewer</title>
+  <!-- Google Fonts - Hacking LEC. theme -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=Inter:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy:      #101f3d;
+      --navy-deep: #0a1730;
+      --gold:      #c9a227;
+      --gold-light:#e6c757;
+      --maroon:    #7a1f2b;
+      --steel:     #54607a;
+      --parchment: #f8f4ea;
+      --white:     #fffef9;
+      --ink:       #1c1c1c;
+      --primary:   var(--gold-light);
+      --secondary: #cbd5e6;
+      --card:      var(--parchment);
+      --accent:    var(--maroon);
+      --highlight: var(--gold);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* ==================== ACCESS GATE: .hidden utility (inserted) ==================== */
+    .hidden { display: none !important; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(160deg, var(--navy) 0%, var(--navy-deep) 100%);
+      color: var(--ink);
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: var(--parchment);
+      border-radius: 25px;
+      box-shadow: 0 12px 0 var(--gold), 0 16px 40px rgba(0, 0, 0, 0.35);
+      overflow: hidden;
+      animation: fadeIn 0.5s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .header {
+      background: linear-gradient(160deg, var(--navy) 0%, var(--navy-deep) 100%);
+      padding: 40px 30px;
+      text-align: center;
+      color: white;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 5px solid var(--gold);
+    }
+
+    .header::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(230,199,87,0.15) 0%, transparent 70%);
+      animation: pulse 4s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.1);
+      }
+    }
+
+    .header-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .emoji-banner {
+      font-size: 3.5em;
+      margin-bottom: 15px;
+      animation: bounce 2s ease-in-out infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    .header h1 {
+      font-size: 2.5em;
+      margin-bottom: 10px;
+      text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
+      font-weight: 800;
+      font-family: 'Playfair Display', serif;
+    }
+
+    .header .emoji {
+      font-size: 3em;
+    }
+
+    .content {
+      padding: 30px;
+    }
+
+    /* Login Section Styles */
+    #accessSection {
+      text-align: center;
+    }
+
+    #fileDisplay {
+      font-size: 1.8em;
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: var(--navy);
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+      animation: bounce 2s ease-in-out infinite;
+    }
+
+    #accessSection h2 {
+      font-size: 1em;
+      color: var(--steel);
+      margin-bottom: 20px;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .password-container {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+
+    #codeInput {
+      font-size: 18px;
+      padding: 15px 50px 15px 20px;
+      width: 300px;
+      border-radius: 15px;
+      border: 3px solid var(--navy);
+      font-family: 'Inter', sans-serif;
+      transition: all 0.3s;
+    }
+
+    #codeInput:focus {
+      outline: none;
+      border-color: var(--maroon);
+      box-shadow: 0 0 15px rgba(122, 31, 43, 0.3);
+    }
+
+    #toggleEye {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      font-size: 24px;
+      user-select: none;
+      transition: transform 0.3s ease;
+    }
+
+    #toggleEye:hover {
+      transform: translateY(-50%) scale(1.2);
+    }
+
+    .btn {
+      padding: 15px 40px;
+      font-size: 20px;
+      font-weight: bold;
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-deep) 100%);
+      color: white;
+      border: none;
+      border-radius: 15px;
+      cursor: pointer;
+      margin: 10px;
+      transition: all 0.3s;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      font-family: 'Inter', sans-serif;
+      font-weight: 800;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+    }
+
+    .btn:disabled {
+      background: #cbd5e0;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #93283a 0%, #6e1c29 100%);
+    }
+
+    .btn-success {
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+      color: var(--navy-deep);
+    }
+
+    .btn-warning {
+      background: linear-gradient(135deg, #f1e9d2 0%, var(--gold-light) 100%);
+      color: var(--ink);
+    }
+
+    #contactLink {
+      display: inline-block;
+      margin-top: 10px;
+      color: var(--navy);
+      text-decoration: underline;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+
+    #contactLink:hover {
+      color: var(--maroon);
+      transform: scale(1.05);
+    }
+
+    #message {
+      margin-top: 15px;
+      font-size: 16px;
+      font-weight: bold;
+      color: var(--maroon);
+    }
+
+    #tipsArea {
+      margin-top: 25px;
+      padding: 20px;
+      background: linear-gradient(135deg, #f1e9d2 0%, var(--gold-light) 100%);
+      border-radius: 15px;
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--ink);
+      text-align: left;
+    }
+
+    /* Main Content Styles */
+    #mainContent h1 {
+      font-size: 1.8em;
+      color: var(--navy);
+      margin-bottom: 20px;
+      text-align: center;
+      font-family: 'Playfair Display', serif;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+#mainContent h2 {
+      font-size: 2em;
+      color: var(--navy);
+      margin-bottom: 20px;
+      text-align: center;
+      font-family: 'Playfair Display', serif;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    /* Reviewer Section */
+    .reviewer details {
+      background: linear-gradient(135deg, #eef1f6 0%, #f6efdd 100%);
+      margin-bottom: 15px;
+      border-radius: 15px;
+      overflow: hidden;
+      border: 4px solid transparent;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .reviewer details::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.3) 0%, transparent 100%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .reviewer details:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+      border-color: var(--gold);
+    }
+
+    .reviewer details:hover::before {
+      opacity: 1;
+    }
+
+    .reviewer summary {
+      padding: 20px;
+      font-size: 1.3em;
+      font-weight: bold;
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.5);
+      transition: all 0.3s;
+      color: var(--ink);
+      position: relative;
+      z-index: 1;
+    }
+
+    .reviewer summary:hover {
+      background: rgba(255, 255, 255, 0.8);
+    }
+
+    .reviewer ul {
+      padding: 20px 40px;
+      list-style-type: none;
+    }
+
+    .reviewer li {
+      padding: 10px 0;
+      font-size: 1.1em;
+      line-height: 1.6;
+      position: relative;
+      padding-left: 30px;
+    }
+
+    .reviewer li::before {
+      content: "🌟";
+      position: absolute;
+      left: 0;
+      font-size: 1.2em;
+    }
+
+    .reviewer strong {
+      color: var(--navy);
+    }
+
+    /* Quiz Section */
+    .question {
+      background: linear-gradient(135deg, #f1e9d2 0%, var(--gold-light) 100%);
+      padding: 25px;
+      margin-bottom: 20px;
+      border-radius: 15px;
+      border: 3px solid var(--maroon);
+    }
+
+    .question p {
+      font-size: 1.3em;
+      font-weight: bold;
+      margin-bottom: 15px;
+      color: var(--ink);
+    }
+
+    .question label {
+      display: block;
+      padding: 12px;
+      margin: 8px 0;
+      background: white;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-size: 1.1em;
+    }
+
+    .question label:hover {
+      background: #f1e9d2;
+      transform: translateX(5px);
+    }
+
+    input[type="radio"] {
+      transform: scale(1.5);
+      margin-right: 15px;
+      cursor: pointer;
+    }
+
+    .correct {
+      color: #38a169;
+      font-weight: bold;
+      font-size: 1.2em;
+      margin-top: 10px;
+    }
+
+    .wrong {
+      color: #e53e3e;
+      font-weight: bold;
+      font-size: 1.2em;
+      margin-top: 10px;
+    }
+
+    .correct::before {
+      content: "✨ ";
+    }
+
+    .wrong::before {
+      content: "💡 ";
+    }
+
+    #result {
+      text-align: center;
+      padding: 30px;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+      border-radius: 15px;
+      margin-top: 20px;
+    }
+
+    #result h2 {
+      font-size: 2.5em;
+      color: var(--navy-deep);
+      text-shadow: none;
+      font-family: 'Playfair Display', serif;
+    }
+
+    .nav-buttons {
+      margin-top: 25px;
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    #finishBtn {
+      font-size: 2em;
+      padding: 20px 50px;
+      background: linear-gradient(135deg, #93283a 0%, #6e1c29 100%);
+    }
+
+    /* Contact Modal */
+    #contactModalBG {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 1000;
+      backdrop-filter: blur(5px);
+    }
+
+    #contactModal {
+      background: var(--parchment);
+      width: 90%;
+      max-width: 500px;
+      max-height: 85vh;
+      margin: 40px auto;
+      padding: 35px;
+      border-radius: 25px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      overflow-y: auto;
+    }
+
+    #contactModal h2 {
+      margin-top: 0;
+      font-size: 1.8em;
+      text-align: center;
+      color: var(--navy);
+      margin-bottom: 25px;
+      font-family: 'Playfair Display', serif;
+    }
+
+    #contactModal label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: var(--steel);
+      font-size: 1.1em;
+    }
+
+    #contactModal input,
+    #contactModal textarea {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border: 2px solid #cbd5e0;
+      border-radius: 10px;
+      font-size: 16px;
+      font-family: 'Inter', sans-serif;
+      transition: all 0.3s;
+    }
+
+    #contactModal input:focus,
+    #contactModal textarea:focus {
+      outline: none;
+      border-color: var(--navy);
+      box-shadow: 0 0 10px rgba(16, 31, 61, 0.3);
+    }
+
+    #contactModal textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    /* Icon Dancing Animations */
+    .icon {
+      font-size: 1.4em;
+      display: inline-block;
+      animation: dance 1.5s infinite ease-in-out;
+      transform-origin: center bottom;
+    }
+
+    /* Create variations for different icons */
+    .icon:nth-child(2n) {
+      animation: wiggle 2s infinite ease-in-out;
+    }
+
+    .icon:nth-child(3n) {
+      animation: spin 3s infinite linear;
+    }
+
+    .icon:nth-child(4n) {
+      animation: bounce-icon 1.8s infinite ease-in-out;
+    }
+
+    .icon:nth-child(5n) {
+      animation: swing 2.5s infinite ease-in-out;
+    }
+
+    @keyframes dance {
+      0%, 100% {
+        transform: translateY(0) rotate(0deg);
+      }
+      25% {
+        transform: translateY(-10px) rotate(-5deg);
+      }
+      50% {
+        transform: translateY(-5px) rotate(5deg);
+      }
+      75% {
+        transform: translateY(-10px) rotate(-3deg);
+      }
+    }
+
+    @keyframes wiggle {
+      0%, 100% {
+        transform: rotate(0deg);
+      }
+      25% {
+        transform: rotate(-15deg);
+      }
+      75% {
+        transform: rotate(15deg);
+      }
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes bounce-icon {
+      0%, 100% {
+        transform: translateY(0) scale(1);
+      }
+      50% {
+        transform: translateY(-15px) scale(1.1);
+      }
+    }
+
+    @keyframes swing {
+      0%, 100% {
+        transform: rotate(0deg);
+      }
+      20% {
+        transform: rotate(15deg);
+      }
+      40% {
+        transform: rotate(-10deg);
+      }
+      60% {
+        transform: rotate(5deg);
+      }
+      80% {
+        transform: rotate(-5deg);
+      }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .header h1 {
+        font-size: 1.8em;
+      }
+
+      #codeInput {
+        width: 100%;
+        max-width: 300px;
+      }
+
+      .content {
+        padding: 20px;
+      }
+
+      .nav-buttons {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+      }
+    }
+
+    /* Loading animation */
+    .loading {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: white;
+      animation: spin 1s ease-in-out infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    .accordion {
+  background:var(--primary);
+  color:var(--navy-deep);
+  padding:12px;
+  cursor:pointer;
+  border:none;
+  width:100%;
+  box-sizing:border-box;
+  text-align:left;
+  margin-top:8px;
+  border-radius:8px;
+  font-weight:bold;
+  font-size:1rem;
+  transition:0.2s;
+  display:block;
+  font-family: 'Inter', sans-serif;
+}
+.accordion:hover{opacity:0.9}
+
+.sub{background:var(--secondary)}
+.topic{background:#e9e2cf;color:var(--ink)}
+
+    .panel{
+  display:none;
+  background:var(--card);
+  padding:12px;
+  border-radius:8px;
+  margin-bottom:8px;
+  box-shadow:0 2px 6px rgba(0,0,0,0.05);
+}
+
+.qa{
+  background:#f5f1e6;
+  padding:12px;
+  margin:8px 0;
+  border-left:5px solid var(--accent);
+  border-radius:6px;
+}
+.key{
+  background:#fff8e1;
+  padding:12px;
+  border-left:5px solid var(--highlight);
+  margin-top:10px;
+  border-radius:6px;
+  font-weight:bold;
+}
+.quiz{
+  background:#eef1f6;
+  padding:10px;
+  border-left:5px solid var(--accent);
+  margin-top:8px;
+  border-radius:6px;
+}
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="header-content">
+        <div class="emoji-banner">⚖️ 📚 🕵️</div>
+        <h1>Criminology Area Reviewer</h1>
+      </div>
+    </div>
+
+    <div class="content">
+
+      <!-- LOGIN PAGE DEACTIVATED (keep for future use)
+      <div id="accessSection">
+        <p id="fileDisplay"></p>
+        <h2>🔐 Enter Access Code: '123'</h2>
+        
+        <div class="password-container">
+          <input type="password" id="codeInput" placeholder="Type your code here...">
+          <span id="toggleEye">👁️</span>
+        </div>
+        
+        <br>
+        <button type="button" id="accessSubmit" class="btn btn-primary">Login</button>
+
+        <div>
+          <span id="contactLink">📧 Need Help? Contact Us!</span>
+        </div>
+
+        <p id="message" aria-live="polite"></p>
+        <div id="tipsArea">Loading tips...</div>
+      </div>
+      END LOGIN PAGE -->
+
+      <!-- ==================== START: GATED CONTENT WRAPPER (inserted) ====================
+           This div was originally <div id="mainContent" style="display:block;">.
+           Renamed to id="reviewerContent" + class="hidden" so the access-gate script
+           (added near </body>) can reveal it only after an approved token check. -->
+      <div id="reviewerContent" class="hidden">
+
+      
+      <div id="mainContent">
+        <div id="reviewerSection">
+          <h1>⚖️ Part 2</h1>
+     
+          <section class="reviewer">
+          
+          
+            <!-- ==================== START OF REVIEWER ==================== -->
+<button class="accordion sub">⚖️ Criminology Area Reviewer</button>
+<div class="panel">
+  <ul>
+    <li><b>Coverage:</b> Human Behavior &amp; Psychology, Crime Causation Theories, Crime Classification &amp; Offender Typologies, and Professional Conduct &amp; Licensure.</li>
+    <!--li><b>Format:</b> Collapsible reviewer using the existing CSS classes of the attached HTML file.</li-->
+    <li><b>How to study:</b> Open one topic, read the key points, then review the item cards before taking the quiz.</li>
+  </ul>
+  <div class="key">🔑 Board-exam technique: Identify the clue word first, then connect it to the exact term used in the source item.</div>
+</div>
+<button class="accordion sub">🧠 Crime Causation Theories, Approaches &amp; Research Foundations <small>(15 items)</small></button>
+<div class="panel">
+<div class="key">🎯 <b>Exam focus:</b> Focus on hypotheses, theoretical approaches, and the major crime-causation and prevention theories (rational choice, routine activity, broken windows, CPTED, strain, social disorganization).</div>
+<button class="accordion topic">📌 High-Yield Outline</button>
+<div class="panel"><ul>
+<li><b>Null hypothesis</b> proposes no significant relationship; the <b>alternative hypothesis</b> proposes a significant effect.</li>
+<li><b>Classical Theory</b> emphasizes free will and proportional retribution as punishment.</li>
+<li><b>Subjective (biological)</b> and <b>Objective (social)</b> approaches explain crime from opposite starting points — inside the offender vs. outside in society.</li>
+<li><b>Rational Choice</b>, <b>Routine Activity</b>, and <b>CPTED</b> all focus on opportunity and decision-making rather than pathology.</li>
+<li><b>Strain</b> and <b>Social Disorganization</b> theories trace crime back to blocked goals and weak neighborhood structures.</li>
+</ul>
+<div class="quiz">🧠 <b>Memory aid:</b> Memory chain: Approach (bio vs. social) → Theory (why crime happens) → Prevention (how to stop it).</div>
+</div>
+<button class="accordion topic">📝 Source-Based Item Reviewer</button>
+<div class="panel">
+<div class="qa">🧩 <b>Item 81</b><br><b>Source note:</b> Two main types of hypotheses: The NULL HYPOTHESIS (H0) proposes no significant effect or relationship between variables. The ALTERNATIVE HYPOTHESIS (HA or H1) suggests there is a significant effect.<br><b>Exam focus:</b> <span>NULL HYPOTHESIS (H0) / ALTERNATIVE HYPOTHESIS (HA or H1)</span></div>
+<div class="qa">🧩 <b>Item 82</b><br><b>Source note:</b> Which theory emphasizes human free will and views punishment as a form of retribution, wherein the penalty is directly proportional to the crime committed? CLASSICAL THEORY<br><b>Exam focus:</b> <span>CLASSICAL THEORY</span></div>
+<div class="qa">🧩 <b>Item 118</b><br><b>Source note:</b> A criminologist studies how inherited traits, brain abnormalities, and other biological factors may influence a person&#x27;s tendency to commit crimes. SUBJECTIVE APPROACH<br><b>Exam focus:</b> <span>SUBJECTIVE APPROACH</span></div>
+<div class="qa">🧩 <b>Item 119</b><br><b>Source note:</b> A researcher examines how poverty, family environment, peer groups, community conditions, and cultural influences contribute to criminal behavior. OBJECTIVE APPROACH<br><b>Exam focus:</b> <span>OBJECTIVE APPROACH</span></div>
+<div class="qa">🧩 <b>Item 120</b><br><b>Source note:</b> It is the scientific modes of explaining crime and criminal behavior. CONTEMPORARY APPROACH<br><b>Exam focus:</b> <span>CONTEMPORARY APPROACH</span></div>
+<div class="qa">🧩 <b>Item 121</b><br><b>Source note:</b> A man sometimes feels overpowered by a strange and disturbing inner force that drives him to commit wrongful acts against his own will and judgment. POSITIVIST THEORY<br><b>Exam focus:</b> <span>POSITIVIST THEORY</span></div>
+<div class="qa">🧩 <b>Item 152</b><br><b>Source note:</b> RATIONAL CHOICE THEORY (RCT) assumes individuals choose to commit crime based on rational/logical thinking and calculations - choices-deviance result-calculation of risks &amp; awards.<br><b>Exam focus:</b> <span>RATIONAL CHOICE THEORY (RCT)</span></div>
+<div class="qa">🧩 <b>Item 153</b><br><b>Source note:</b> BROKEN WINDOWS THEORY states that visible signs of crime, antisocial behavior and civil disorder create an urban environment that encourages further crime and disorder, including serious crimes.<br><b>Exam focus:</b> <span>BROKEN WINDOWS THEORY</span></div>
+<div class="qa">🧩 <b>Item 154</b><br><b>Source note:</b> CRIME PREVENTION THROUGH ENVIRONMENTAL DESIGN (CPTED) is a crime prevention theory focusing on tactical design and the effective use of the built environment, which when applied, reduces both crime and the fear of crime.<br><b>Exam focus:</b> <span>CRIME PREVENTION THROUGH ENVIRONMENTAL DESIGN (CPTED)</span></div>
+<div class="qa">🧩 <b>Item 155</b><br><b>Source note:</b> ROUTINE ACTIVITY THEORY, revolves around three things: a &quot;potential offender, a suitable target, and the absence of a capable guardian&quot; All three must come together in order for criminal activity to be realized.<br><b>Exam focus:</b> <span>ROUTINE ACTIVITY THEORY</span></div>
+<div class="qa">🧩 <b>Item 156</b><br><b>Source note:</b> CRIME PATTERN THEORY is a way of explaining why people commit crimes in certain areas.<br><b>Exam focus:</b> <span>CRIME PATTERN THEORY</span></div>
+<div class="qa">🧩 <b>Item 157</b><br><b>Source note:</b> RISK FACTORS - poverty, unemployment, peer pressure, religious influences, social responsibility, drug involvement &amp; family dynamics.<br><b>Exam focus:</b> <span>RISK FACTORS</span></div>
+<div class="qa">🧩 <b>Item 158</b><br><b>Source note:</b> SOCIAL LEARNING THEORY suggests that social behavior is learned by observing and imitating the behavior of others.<br><b>Exam focus:</b> <span>SOCIAL LEARNING THEORY</span></div>
+<div class="qa">🧩 <b>Item 159</b><br><b>Source note:</b> STRAIN THEORY suggests that society puts pressure on individuals to achieve socially accepted goals (such as the American Dream), even though they lack the means to do so.<br><b>Exam focus:</b> <span>STRAIN THEORY</span></div>
+<div class="qa">🧩 <b>Item 160</b><br><b>Source note:</b> SOCIAL DISORGANIZATION THEORY - person&#x27;s residential location is a substantial factor shaping the likelihood that that person will become involved in illegal activities.<br><b>Exam focus:</b> <span>SOCIAL DISORGANIZATION THEORY</span></div>
+</div>
+</div>
+<button class="accordion sub">💭 Defense Mechanisms &amp; Emotional/Psychological Responses <small>(23 items)</small></button>
+<div class="panel">
+<div class="key">🎯 <b>Exam focus:</b> Focus on identifying the correct defense mechanism or emotional response from a short scenario — the classic 'Chito/Maria/John' item style.</div>
+<button class="accordion topic">📌 High-Yield Outline</button>
+<div class="panel"><ul>
+<li><b>Denial</b> refuses to acknowledge an obvious problem (e.g., insisting there's no drinking issue).</li>
+<li><b>Displacement</b> redirects emotion toward a safer or unrelated target.</li>
+<li><b>Projection</b> attributes one's own unacceptable feelings or actions to someone else.</li>
+<li><b>Sublimation</b> channels an unacceptable impulse into a socially productive outlet.</li>
+<li><b>Rationalization/Intellectualization</b> uses logical-sounding reasoning to avoid dealing with an emotion directly.</li>
+</ul>
+<div class="quiz">🧠 <b>Memory aid:</b> Quick clue: if someone blames others, think Projection; if they redirect anger to a new target, think Displacement; if they refuse the problem exists, think Denial.</div>
+</div>
+<button class="accordion topic">📝 Source-Based Item Reviewer</button>
+<div class="panel">
+<div class="qa">🧩 <b>Item 84</b><br><b>Source note:</b> It is a negative emotional state caused by an inability to choose between two or more incompatible goals or impulse or a stressful condition that occurs when a person must choose between contradictory alternatives - CONFLICT<br><b>Exam focus:</b> <span>CONFLICT</span></div>
+<div class="qa">🧩 <b>Item 85</b><br><b>Source note:</b> An illness that causes a person to feel sad and hopeless much of the time - DEPRESSION<br><b>Exam focus:</b> <span>DEPRESSION</span></div>
+<div class="qa">🧩 <b>Item 86</b><br><b>Source note:</b> A major depressive episode that occurs after having baby - POSTPARTUM DEPRESSION<br><b>Exam focus:</b> <span>POSTPARTUM DEPRESSION</span></div>
+<div class="qa">🧩 <b>Item 87</b><br><b>Source note:</b> This is also called manic-depressive illness and characterized by cyclical mood changes from extreme highs to extreme lows - BIPOLAR DISORDER<br><b>Exam focus:</b> <span>BIPOLAR DISORDER</span></div>
+<div class="qa">🧩 <b>Item 88</b><br><b>Source note:</b> It refers to the consequence of the failure of an organism to respond inappropriately to emotional or physical threats, whether actual or imagined - STRESS<br><b>Exam focus:</b> <span>STRESS</span></div>
+<div class="qa">🧩 <b>Item 89</b><br><b>Source note:</b> Coping mechanisms are strategies people use to deal with stress and manage uncomfortable emotions - COPING MECHANISMS<br><b>Exam focus:</b> <span>COPING MECHANISMS</span></div>
+<div class="qa">🧩 <b>Item 90</b><br><b>Source note:</b> These are the unconscious techniques used to prevent a person&#x27;s self-image from being damage - DEFENSE MECHANISM<br><b>Exam focus:</b> <span>DEFENSE MECHANISM</span></div>
+<div class="qa">🧩 <b>Item 91</b><br><b>Source note:</b> A person who dislikes another person who dislikes another person seeks to cause actual harm to him/her. ACTING OUT<br><b>Exam focus:</b> <span>ACTING OUT</span></div>
+<div class="qa">🧩 <b>Item 92</b><br><b>Source note:</b> A person who wants to be a veterinarian does not get sufficient exam grades, so becomes a vet&#x27;s assistant instead. AIM INHIBITION<br><b>Exam focus:</b> <span>AIM INHIBITION</span></div>
+<div class="qa">🧩 <b>Item 93</b><br><b>Source note:</b> A self-made millionaire who rose from poverty establishes a charitable foundation and finds fulfillment in helping others escape poverty. In return, she receives admiration, appreciation, and public recognition for her generosity. ALTRUISM<br><b>Exam focus:</b> <span>ALTRUISM</span></div>
+<div class="qa">🧩 <b>Item 94</b><br><b>Source note:</b> This occurs when a person feels threatened or frustrated. For example, a person experiencing problems with a computer angrily bangs the keyboard. ATTACK<br><b>Exam focus:</b> <span>ATTACK</span></div>
+<div class="qa">🧩 <b>Item 95</b><br><b>Source note:</b> Maria has been struggling with personal problems at work, but instead of confronting the situation, she chooses to stay away from meetings and avoids talking to her coworkers. AVOIDANCE<br><b>Exam focus:</b> <span>AVOIDANCE</span></div>
+<div class="qa">🧩 <b>Item 96</b><br><b>Source note:</b> Mrs. Reyes often describes her son as an angel in school because of his good behavior in class, yet she sees him as a demon at home due to his stubbornness and misbehavior. COMPARTMENTALIZATION<br><b>Exam focus:</b> <span>COMPARTMENTALIZATION</span></div>
+<div class="qa">🧩 <b>Item 97</b><br><b>Source note:</b> John struggled greatly in Mathematics and often received low grades, but he discovered that he excelled in English and public speaking. Instead of focusing on his weakness, he developed his communication skills and became confident in social interactions. COMPENSATION<br><b>Exam focus:</b> <span>COMPENSATION</span></div>
+<div class="qa">🧩 <b>Item 98</b><br><b>Source note:</b> Despite repeatedly missing work and causing problems in his family because of drinking, John insists that he does not have any issue with alcohol and claims he can stop anytime he wants. DENIAL<br><b>Exam focus:</b> <span>DENIAL</span></div>
+<div class="qa">🧩 <b>Item 99</b><br><b>Source note:</b> After being rejected by her boyfriend, Anna immediately starts dating another man to divert her emotional pain and frustration from the breakup. DISPLACEMENT<br><b>Exam focus:</b> <span>DISPLACEMENT</span></div>
+<div class="qa">🧩 <b>Item 100</b><br><b>Source note:</b> After being severely scolded and punished by his teacher, John imagines getting revenge by shooting the teacher in his daydreams. FANTASY or DAY DREAMING<br><b>Exam focus:</b> <span>FANTASY / DAY DREAMING</span></div>
+<div class="qa">🧩 <b>Item 101</b><br><b>Source note:</b> Jan buys an expensive sports car and constantly admires its sleek design and speed, while ignoring its high fuel consumption and uncomfortable interior. IDEALIZATION<br><b>Exam focus:</b> <span>IDEALIZATION</span></div>
+<div class="qa">🧩 <b>Item 102</b><br><b>Source note:</b> Jerry adopts similar body language of his/her coach, and tends to take the same viewpoint - IDENTIFICATION<br><b>Exam focus:</b> <span>IDENTIFICATION</span></div>
+<div class="qa">🧩 <b>Item 103</b><br><b>Source note:</b> Despite being heavily in debt, Carlo spends hours creating detailed spreadsheets to calculate different payment plans and interest rates instead of dealing with the emotional stress of his financial situation. INTELLECTUALIZATION<br><b>Exam focus:</b> <span>INTELLECTUALIZATION</span></div>
+<div class="qa">🧩 <b>Item 104</b><br><b>Source note:</b> A husband who has been unfaithful to his wife constantly accuses her of cheating on him, even without evidence. PROJECTING<br><b>Exam focus:</b> <span>PROJECTING</span></div>
+<div class="qa">🧩 <b>Item 105</b><br><b>Source note:</b> A college student who feels stressed and overwhelmed in school still sleeps while cuddling a childhood teddy bear for comfort and security. REPRESSION<br><b>Exam focus:</b> <span>REPRESSION</span></div>
+<div class="qa">🧩 <b>Item 106</b><br><b>Source note:</b> Chito with strong sexual urges channels his emotions and energy into painting and eventually becomes a successful artist. SUBLIMATION<br><b>Exam focus:</b> <span>SUBLIMATION</span></div>
+</div>
+</div>
+<button class="accordion sub">🧬 Mental Disorders, Personality &amp; Human Development <small>(14 items)</small></button>
+<div class="panel">
+<div class="key">🎯 <b>Exam focus:</b> Focus on distinguishing anxiety-related disorders, personality disorders, and the nature-vs-nurture debate in human development.</div>
+<button class="accordion topic">📌 High-Yield Outline</button>
+<div class="panel"><ul>
+<li><b>Panic Disorder</b> involves sudden, repeated episodes of intense fear with physical symptoms.</li>
+<li><b>PTSD</b> follows a traumatic event and includes recurring distress triggered by reminders of it.</li>
+<li><b>OCD</b> involves repetitive, anxiety-driven rituals such as excessive handwashing.</li>
+<li><b>Antisocial Personality Disorder</b> shows no guilt or remorse for harming others.</li>
+<li><b>Nature</b> = biology/genetics; <b>Nurture</b> = environment/upbringing.</li>
+</ul>
+<div class="quiz">🧠 <b>Memory aid:</b> Memory clue: Fear = reaction to real danger; Phobia = fear of a specific thing; Anxiety Disorder = excessive worry with no clear trigger.</div>
+</div>
+<button class="accordion topic">📝 Source-Based Item Reviewer</button>
+<div class="panel">
+<div class="qa">🧩 <b>Item 83</b><br><b>Source note:</b> It explains the development of psychological traits, disorders and behavior as a product of both biological (genetic, physiological) and environmental influences (upbringing) - INTERACTIONIST APPROACH<br><b>Exam focus:</b> <span>INTERACTIONIST APPROACH</span></div>
+<div class="qa">🧩 <b>Item 107</b><br><b>Source note:</b> Maria constantly experiences intense nervousness, excessive worry, fear, and tension even in ordinary situations, causing difficulty in her daily activities. ANXIETY DISORDER<br><b>Exam focus:</b> <span>ANXIETY DISORDER</span></div>
+<div class="qa">🧩 <b>Item 108</b><br><b>Source note:</b> An emotional and physiological response to a recognized external threat or a response to a real danger or threat. FEAR<br><b>Exam focus:</b> <span>FEAR</span></div>
+<div class="qa">🧩 <b>Item 109</b><br><b>Source note:</b> Carla constantly fears that her hands are contaminated with germs, causing her to wash them repeatedly throughout the day and follow strict routines to ease her anxiety. OBSESSIVE-COMPULSIVE DISORDER (OCD)<br><b>Exam focus:</b> <span>OBSESSIVE-COMPULSIVE DISORDER (OCD)</span></div>
+<div class="qa">🧩 <b>Item 110</b><br><b>Source note:</b> Miguel suddenly experiences repeated episodes of intense fear accompanied by rapid heartbeat, difficulty breathing, and a terrifying feeling that he might die at any moment, even without real danger present. PANIC DISORDER<br><b>Exam focus:</b> <span>PANIC DISORDER</span></div>
+<div class="qa">🧩 <b>Item 111</b><br><b>Source note:</b> After surviving a devastating typhoon that claimed the lives, Andrea continues to experience nightmares, fear, and emotional distress whenever she hears heavy rain or strong winds. POST-TRAUMATIC STRESS DISORDER (PTSD)<br><b>Exam focus:</b> <span>POST-TRAUMATIC STRESS DISORDER (PTSD)</span></div>
+<div class="qa">🧩 <b>Item 112</b><br><b>Source note:</b> Kevin refuses to ride an airplane because he experiences extreme fear and panic whenever he thinks about flying, even though he knows it is generally safe. PHOBIAS<br><b>Exam focus:</b> <span>PHOBIAS</span></div>
+<div class="qa">🧩 <b>Item 113</b><br><b>Source note:</b> Quiboloy strongly believes that he is a divine figure sent to save humanity despite clear evidence proving otherwise. DELUSIONAL DISORDER<br><b>Exam focus:</b> <span>DELUSIONAL DISORDER</span></div>
+<div class="qa">🧩 <b>Item 114</b><br><b>Source note:</b> Jordan begins hearing voices, develops strange beliefs, and behaves oddly while gradually losing touch with reality and having difficulty distinguishing what is real from what is not. SCHIZOPHRENIA<br><b>Exam focus:</b> <span>SCHIZOPHRENIA</span></div>
+<div class="qa">🧩 <b>Item 115</b><br><b>Source note:</b> These are maladaptive cognitive-behavioral patterns that are thoroughly integrated into the individual&#x27;s personality and that are troublesome to others or whose pleasure sources are either harmful or illegal - PERSONALITY DISORDER<br><b>Exam focus:</b> <span>PERSONALITY DISORDER</span></div>
+<div class="qa">🧩 <b>Item 116</b><br><b>Source note:</b> Despite repeatedly hurting and deceiving other people, Vincent shows no guilt or remorse for his actions and often manipulates others to get what he wants. ANTISOCIAL PERSONALITY DISORDER (APB)<br><b>Exam focus:</b> <span>ANTISOCIAL PERSONALITY DISORDER (APB)</span></div>
+<div class="qa">🧩 <b>Item 117</b><br><b>Source note:</b> Claire often experiences intense mood swings, becomes extremely sensitive to rejection, and constantly fears that the people close to her will abandon her. BORDERLINE PERSONALITY DISORDER (BPD)<br><b>Exam focus:</b> <span>BORDERLINE PERSONALITY DISORDER (BPD)</span></div>
+<div class="qa">🧩 <b>Item 122</b><br><b>Source note:</b> It argues that traits, behaviors, and disorders are caused by biological predispositions related to our genes, brain structure or physiology. NATURE<br><b>Exam focus:</b> <span>NATURE</span></div>
+<div class="qa">🧩 <b>Item 123</b><br><b>Source note:</b> It highlights the role of the environment and upbringing in shaping the development of our psychological traits and behavior. NURTURE<br><b>Exam focus:</b> <span>NURTURE</span></div>
+</div>
+</div>
+<button class="accordion sub">⚖️ Crime Classification &amp; Offender Typologies <small>(15 items)</small></button>
+<div class="panel">
+<div class="key">🎯 <b>Exam focus:</b> Focus on distinguishing crime types (mala in se vs. mala prohibita, violent vs. economic vs. public order) and robber/offender classifications.</div>
+<button class="accordion topic">📌 High-Yield Outline</button>
+<div class="panel"><ul>
+<li><b>Mala in se</b> is inherently wrong; <b>mala prohibita</b> is wrong only because a law prohibits it.</li>
+<li><b>White collar crime</b> is committed by persons of respectability in the course of their occupation; <b>blue collar crime</b> is committed by ordinary career criminals.</li>
+<li><b>Professional robbers</b> plan carefully and rely on crime as their livelihood; <b>opportunist robbers</b> are unplanned, all-purpose offenders.</li>
+<li><b>Acute criminals</b> act on impulse or passion; <b>chronic criminals</b> act with deliberate, rational thinking.</li>
+<li><b>Victimless crime</b> has no complaining party, while <b>public order crime</b> disrupts the functioning of society.</li>
+</ul>
+<div class="quiz">🧠 <b>Memory aid:</b> Memory chain: Nature of the act (mala in se/prohibita) → Type of crime (violent/economic/public order) → Type of offender (professional/opportunist/addict/alcoholic).</div>
+</div>
+<button class="accordion topic">📝 Source-Based Item Reviewer</button>
+<div class="panel">
+<div class="qa">🧩 <b>Item 124</b><br><b>Source note:</b> A person who violate criminal law because the impulse of the moment, heat of passion, anger or spell of extreme jealousy. ACUTE CRIMINALS<br><b>Exam focus:</b> <span>ACUTE CRIMINALS</span></div>
+<div class="qa">🧩 <b>Item 125</b><br><b>Source note:</b> Chai acted in consonance with deliberate thinking. CHRONIC CRIMINALS<br><b>Exam focus:</b> <span>CHRONIC CRIMINALS</span></div>
+<div class="qa">🧩 <b>Item 126</b><br><b>Source note:</b> Wrong from its very nature is MALA IN SE. Wrong because it is prohibited by law is MALA PROHIBITA.<br><b>Exam focus:</b> <span>MALA IN SE / MALA PROHIBITA</span></div>
+<div class="qa">🧩 <b>Item 127</b><br><b>Source note:</b> It explores the actions and/or behaviors that violate social norms across formally enacted rules. DEVIANCE OR THE SOCIOLOGY OF DEVIANCE<br><b>Exam focus:</b> <span>DEVIANCE OR THE SOCIOLOGY OF DEVIANCE</span></div>
+<div class="qa">🧩 <b>Item 128</b><br><b>Source note:</b> Crime where violence is applied (assault &amp; robbery) is VIOLENT CRIME<br><b>Exam focus:</b> <span>VIOLENT CRIME</span></div>
+<div class="qa">🧩 <b>Item 129</b><br><b>Source note:</b> Crime is committed for reward, price or promise is ECONOMIC CRIME<br><b>Exam focus:</b> <span>ECONOMIC CRIME</span></div>
+<div class="qa">🧩 <b>Item 130</b><br><b>Source note:</b> Crime intended to interfered w/ the operation of society is PUBLIC ORDER CRIME<br><b>Exam focus:</b> <span>PUBLIC ORDER CRIME</span></div>
+<div class="qa">🧩 <b>Item 131</b><br><b>Source note:</b> Crime that has no complaining victim/party is VICTIMLESS CRIME<br><b>Exam focus:</b> <span>VICTIMLESS CRIME</span></div>
+<div class="qa">🧩 <b>Item 132</b><br><b>Source note:</b> WHITE COLLAR CRIMES is committed by persons of respectability and of upper socio-economic class in the course of their occupational activities.<br><b>Exam focus:</b> <span>WHITE COLLAR CRIMES</span></div>
+<div class="qa">🧩 <b>Item 133</b><br><b>Source note:</b> BLUE COLLAR CRIMES is committed ordinary professional criminal to maintain their livelihood.<br><b>Exam focus:</b> <span>BLUE COLLAR CRIMES</span></div>
+<div class="qa">🧩 <b>Item 134</b><br><b>Source note:</b> ORGANIZED CRIME is category of transnational, national, or local group of centralized enterprises run to engage in illegal activity, most commonly for profit.<br><b>Exam focus:</b> <span>ORGANIZED CRIME</span></div>
+<div class="qa">🧩 <b>Item 135</b><br><b>Source note:</b> PROFESSIONAL ROBBERS have a long term commitment to crime, their major source of livelihood. They are very rational about the crime and plan their operations carefully.<br><b>Exam focus:</b> <span>PROFESSIONAL ROBBERS</span></div>
+<div class="qa">🧩 <b>Item 136</b><br><b>Source note:</b> OPPORTUNIST ROBBERS is the most common type of bandit. Having little commitment to, or specialization in robbery, they are all purpose property offenders.<br><b>Exam focus:</b> <span>OPPORTUNIST ROBBERS</span></div>
+<div class="qa">🧩 <b>Item 137</b><br><b>Source note:</b> ADDICT ROBBERS are addicted to substances such as heroin or other drugs and commit robbery to support their expensive habits.<br><b>Exam focus:</b> <span>ADDICT ROBBERS</span></div>
+<div class="qa">🧩 <b>Item 138</b><br><b>Source note:</b> ALCOHOLIC ROBBERS have little commitment to robbery, they engage in unplanned robberies on occasion in order to support their habit many claim to be intoxicated at the time of their offense.<br><b>Exam focus:</b> <span>ALCOHOLIC ROBBERS</span></div>
+</div>
+</div>
+<button class="accordion sub">📜 Professional Conduct, Licensure &amp; Biological Factors <small>(13 items)</small></button>
+<div class="panel">
+<div class="key">🎯 <b>Exam focus:</b> Focus on RA 11131 licensure documents/terms (AIPO, COR, PIC, RCrim) and biological factors linked to behavior (hormones, neurotransmitters, body types).</div>
+<button class="accordion topic">📌 High-Yield Outline</button>
+<div class="panel"><ul>
+<li><b>AIPO</b> is the PRC/PRB-Crim–accredited integrated professional organization of criminologists.</li>
+<li><b>COR</b> (Certificate of Registration) certifies the right to practice; the <b>PIC</b> is the ID card bearing registration details.</li>
+<li><b>Registered Criminologist (RCrim)</b> holds a valid COR and updated PIC, including TSP holders and foreign-reciprocity practitioners.</li>
+<li><b>Norepinephrine</b> drives the fight-or-flight response; <b>hormones</b> and <b>neurotransmitters</b> regulate mood and body changes broadly.</li>
+<li><b>Criminal anthropology</b> studies the physical/biological link between people and the crimes they commit.</li>
+</ul>
+<div class="quiz">🧠 <b>Memory aid:</b> Memory clue: AIPO = the organization; COR = the license; PIC = the ID card; RCrim = the licensed person holding both.</div>
+</div>
+<button class="accordion topic">📝 Source-Based Item Reviewer</button>
+<div class="panel">
+<div class="qa">🧩 <b>Item 139</b><br><b>Source note:</b> It refers to the Accredited Integrated Professional Organization of Criminologists recognized and accredited by the Professional Regulation Commission (PRC) through the endorsement of the Professional Regulatory Board of Criminology (PRB-Crim) - ACCREDITED INTEGRATED PROFESSIONAL ORGANIZATION (AIPO)<br><b>Exam focus:</b> <span>ACCREDITED INTEGRATED PROFESSIONAL ORGANIZATION (AIPO)</span></div>
+<div class="qa">🧩 <b>Item 140</b><br><b>Source note:</b> It refers to a document duly issued, signed by, and stamped with, the official seals of the Commission and of the Board, certifying that the person named therein is entitled to practice the Criminology profession with all the privileges appurtenant thereto - CERTIFICATE OF REGISTRATION (COR)<br><b>Exam focus:</b> <span>CERTIFICATE OF REGISTRATION (COR)</span></div>
+<div class="qa">🧩 <b>Item 141</b><br><b>Source note:</b> MALPRACTICE OF PROFESSION the improper, wrongful act, or failure of a Criminologist to competently perform one&#x27;s duties, and within the legal and ethical standards of the profession.<br><b>Exam focus:</b> <span>MALPRACTICE OF PROFESSION</span></div>
+<div class="qa">🧩 <b>Item 142</b><br><b>Source note:</b> PRACTICE OF PROFESSION any activity or undertaking rendered by a Criminologist as defined in 3 the scope of practice under RA No. 11131, RA No. 8981, and this Code.<br><b>Exam focus:</b> <span>PRACTICE OF PROFESSION</span></div>
+<div class="qa">🧩 <b>Item 143</b><br><b>Source note:</b> TEMPORARY/SPECIAL PERMIT is the privilege granted to Criminologists from other countries and for Filipinos in allied discipline as mentioned in Section 30 of the IRR of the Republic Act No. 11131 to be able to practice in the Philippines.<br><b>Exam focus:</b> <span>TEMPORARY/SPECIAL PERMIT</span></div>
+<div class="qa">🧩 <b>Item 144</b><br><b>Source note:</b> PROFESSIONAL IDENTIFICATION CARD (PIC) is the document bearing the name, photograph and signature of the professional, registration number, dates of issuance and expiry, and duly signed by the Chairperson of the Commission.<br><b>Exam focus:</b> <span>PROFESSIONAL IDENTIFICATION CARD (PIC)</span></div>
+<div class="qa">🧩 <b>Item 145</b><br><b>Source note:</b> REGISTERED CRIMINOLOGIST (RCRIM) Otherwise known as Criminologist, refers to a natural person who holds a valid Certificate of Registration (COR) and an updated Professional Identification Card (PIC) as Criminologist, including those who were granted Temporary/Special Permit (TSP) issued by the Board and the Commission to practice the profession, and those covered by the foreign reciprocity provision pursuant to Republic Act No. 11131 (Philippine Criminology Profession Act of 2018).<br><b>Exam focus:</b> <span>REGISTERED CRIMINOLOGIST (RCRIM)</span></div>
+<div class="qa">🧩 <b>Item 146</b><br><b>Source note:</b> CRIMINAL ANTHROPOLOGY studies people and the crimes that they commit and how they relate.<br><b>Exam focus:</b> <span>CRIMINAL ANTHROPOLOGY</span></div>
+<div class="qa">🧩 <b>Item 147</b><br><b>Source note:</b> A type of body physique under the somatotyping theory of known American Psychologist William Herbert Sheldon that describes a person as extrovert which is one of the determinant factors of his criminal behavior. ENDOMORPH (OTHERS: ECTO, MESO)<br><b>Exam focus:</b> <span>ENDOMORPH (OTHERS: ECTO, MESO)</span></div>
+<div class="qa">🧩 <b>Item 148</b><br><b>Source note:</b> An area of psychological study and research that examines how individuals change and grow and how those changes interact within the family matrix, parenting, sibling relationships, how families interact amongst themselves. FAMILY STUDIES<br><b>Exam focus:</b> <span>FAMILY STUDIES</span></div>
+<div class="qa">🧩 <b>Item 149</b><br><b>Source note:</b> NOREPINEPHRINE (NORADRENALINE) NOREPINEPHRINE, ALSO KNOWN AS NORADRENALINE, is both a neurotransmitter and a hormone. It plays an important role in your body&#x27;s &quot;fight-or-flight&quot; response.<br><b>Exam focus:</b> <span>NOREPINEPHRINE (NORADRENALINE)</span></div>
+<div class="qa">🧩 <b>Item 150</b><br><b>Source note:</b> HORMONES are responsible for body changes such as puberty, menopause, regulating pregnancy, muscle growth, mood, sleep, and even hair growth and loss - secreted from the endocrine system and released into the bloodstream.<br><b>Exam focus:</b> <span>HORMONES</span></div>
+<div class="qa">🧩 <b>Item 151</b><br><b>Source note:</b> NEUROTRANSMITTERS are released from the presynaptic nerve in the brain. NTs are responsible for the way our brain makes sense of most of our feelings which is why they are the key components of mood disorders and mental health.<br><b>Exam focus:</b> <span>NEUROTRANSMITTERS</span></div>
+</div>
+</div>
+<button class="accordion sub">✅ Compact Ordered Checklist — Items 81 to 160</button>
+<div class="panel">
+<ul>
+<li><b>Theories/Approaches:</b> Items 81-82, 118-121, 152-160.</li>
+<li><b>Defense Mechanisms:</b> Items 84-106.</li>
+<li><b>Disorders/Development:</b> Items 83, 107-117, 122-123.</li>
+<li><b>Crime Classification:</b> Items 124-138.</li>
+<li><b>Professional/Biological:</b> Items 139-151.</li>
+</ul>
+<div class="key">✅ Total source items included in topic cards: 80.</div>
+</div>
+<!-- ==================== END OF REVIEWER ==================== -->
+          </section>
+     
+          <button onclick="showQuiz()" class="btn btn-success">🎯 Start Quiz!</button>
+        </div>
+
+        <div id="quizSection" style="display:none;">
+          <h1>📝 Quiz Time! 📝<br>Part 2</h1>
+          <p style="font-size: 18px; font-weight: 600; margin: 0 0 20px 0; text-align: center; color: #667eea;">
+            Multiple-Choice Quiz (random items)
+          </p>
+          <form id="quizForm"></form>
+
+          <div class="nav-buttons">
+            <button id="finishBtn" class="btn">🏆 Get Score</button>
+            <button type="button" onclick="refreshQuiz()" class="btn btn-warning">🔄 Restart Quiz</button>
+            <button type="button" onclick="backToReviewer()" class="btn btn-primary">📚 Back to Review</button>
+          </div>
+          <div id="result"></div>
+        </div>
+      </div>
+      <!-- ==================== END: GATED CONTENT WRAPPER (inserted) ==================== -->
+    </div>
+  </div>
+
+  <!-- QUIZ COUNT MODAL -->
+  <div id="quizCountModalBG" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); z-index:1000; backdrop-filter:blur(5px);">
+    <div style="background:white; width:90%; max-width:420px; margin:15vh auto; padding:35px; border-radius:25px; box-shadow:0 20px 60px rgba(0,0,0,0.5); text-align:center; font-family:'Bubblegum Sans','Fredoka',cursive;">
+      <div style="font-size:3em; margin-bottom:10px;">📝</div>
+      <h2 style="color:#667eea; font-size:1.6em; margin-bottom:8px;">How many questions?</h2>
+      <p style="color:#4a5568; font-size:1em; margin-bottom:25px; font-family:'Fredoka',cursive;">Choose how many items you want in your quiz!</p>
+
+      <div style="display:flex; align-items:center; justify-content:center; gap:15px; margin-bottom:25px;">
+        <button onclick="adjustQuizCount(-5)" style="width:44px; height:44px; border-radius:50%; border:none; background:linear-gradient(135deg,#f093fb,#f5576c); color:white; font-size:1.4em; cursor:pointer; font-weight:bold; line-height:1;">−</button>
+        <input id="quizCountInput" type="number" min="1" max="80" value="10"
+          style="width:90px; text-align:center; font-size:2em; font-weight:bold; border:3px solid #667eea; border-radius:15px; padding:8px; font-family:'Fredoka',cursive; color:#2d3748;">
+        <button onclick="adjustQuizCount(5)" style="width:44px; height:44px; border-radius:50%; border:none; background:linear-gradient(135deg,#84fab0,#8fd3f4); color:white; font-size:1.4em; cursor:pointer; font-weight:bold; line-height:1;">+</button>
+      </div>
+
+      <p id="quizCountHint" style="color:#718096; font-size:0.9em; margin-bottom:20px; font-family:'Fredoka',cursive;"></p>
+
+      <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+        <button onclick="startQuizWithCount()" class="btn btn-success" style="font-size:1.1em; padding:14px 30px;">🎯 Let's Go!</button>
+        <button onclick="closeQuizCountModal()" class="btn" style="font-size:1.1em; padding:14px 30px; background:#718096;">✖ Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTACT POPUP MODAL -->
+  <div id="contactModalBG">
+    <div id="contactModal">
+      <h2>📬 Contact Form</h2>
+      <p style="text-align: center; margin-bottom: 20px; color: #4a5568;">
+        Fill in your details and we'll contact you soon!
+      </p>
+
+      <label>👤 Name:</label>
+      <input id="c_name" type="text">
+
+      <label>📱 Contact No.:</label>
+      <input id="c_contact" type="text">
+
+      <label>💬 Social Media Account:</label>
+      <input id="c_social" type="text">
+
+      <label>✉️ Request / Comment:</label>
+      <textarea id="c_request"></textarea>
+
+      <button id="c_submit" class="btn btn-success" style="width: 100%;">Send Message</button>
+      <button id="c_close" class="btn" style="width: 100%; background: #718096;">Close</button>
+    </div>
+  </div>
+
+  <script>
+    // ==================== GOOGLE APPS SCRIPT CONFIGURATION ====================
+    // IMPORTANT: Replace this URL with your deployed Google Apps Script web app URL
+    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxDvvheKuMWsJiQ0hKdQt8V3WX6gyoMwngNQvis3JJS24I8StyiT7U8L2alwiOtJKb7/exec";
+    // After deploying the Apps Script, paste the web app URL above
+
+    // ==================== HELPER FUNCTIONS ====================
+    document.addEventListener("DOMContentLoaded", () => {
+      /* LOGIN JS DEACTIVATED (keep for future use)
+      // ===== SHOW / HIDE PASSWORD TOGGLE =====
+      const toggleEye = document.getElementById("toggleEye");
+      const codeInputEye = document.getElementById("codeInput");
+
+      toggleEye.addEventListener("click", () => {
+        if (codeInputEye.type === "password") {
+          codeInputEye.type = "text";
+          toggleEye.textContent = "🙈";
+        } else {
+          codeInputEye.type = "password";
+          toggleEye.textContent = "👁️";
+        }
+      });
+
+      // ===== Display filename on login page =====
+      const quizTitleEl = document.querySelector("#quizSection h1");
+      const displayFileName = quizTitleEl ? quizTitleEl.textContent.replace("Quiz Time! 📝", "").replace("📝", "").trim() : "Science Grade 6";
+      const fileDisplay = document.getElementById("fileDisplay");
+      if (fileDisplay) fileDisplay.textContent = displayFileName;
+
+      // ===== ELEMENTS =====
+      const accessSection = document.getElementById("accessSection");
+      const mainContent = document.getElementById("mainContent");
+      const codeInput = document.getElementById("codeInput");
+      const accessSubmit = document.getElementById("accessSubmit");
+      const message = document.getElementById("message");
+      const tipsArea = document.getElementById("tipsArea");
+      END LOGIN JS */
+
+      // ===============================
+      // CONTACT MODAL LOGIC
+      // ===============================
+      const contactLink = document.getElementById("contactLink");
+      const contactBG = document.getElementById("contactModalBG");
+      const contactClose = document.getElementById("c_close");
+      const contactSubmit = document.getElementById("c_submit");
+
+      if (contactLink && contactBG) {
+        contactLink.addEventListener("click", () => {
+          contactBG.style.display = "block";
+        });
+      }
+
+      if (contactClose && contactBG) {
+        contactClose.addEventListener("click", () => {
+          contactBG.style.display = "none";
+        });
+      }
+
+      // ===============================
+      // CONTACT SUBMISSION LOGIC
+      // ===============================
+      if (contactSubmit) {
+        contactSubmit.addEventListener("click", async () => {
+          const name = document.getElementById("c_name").value.trim();
+          const contact = document.getElementById("c_contact").value.trim();
+          const social = document.getElementById("c_social").value.trim();
+          const request = document.getElementById("c_request").value.trim();
+
+          if (!name || !contact || !request) {
+            alert("Please fill out name, contact, and request/comment.");
+            return;
+          }
+
+          const quizTitleElLocal = document.querySelector("#quizSection h1");
+          const fileName = quizTitleElLocal
+            ? quizTitleElLocal.textContent.replace("Quiz Time! 📝", "").replace("📝", "").trim()
+            : "Science Grade 6";
+
+          const deviceInfo = await getDeviceInfo();
+
+          try {
+            contactSubmit.disabled = true;
+            contactSubmit.innerHTML = '<span class="loading"></span> Sending...';
+
+            await fetch(GOOGLE_SCRIPT_URL, {
+              method: "POST",
+              redirect: 'follow',
+              headers: { "Content-Type": "application/x-www-form-urlencoded" },
+              body: JSON.stringify({
+                action: "saveContact",
+                data: {
+                  event: "Client Request",
+                  request,
+                  name,
+                  contact,
+                  social,
+                  filename: fileName,
+                  timestamp: new Date().toLocaleString(),
+                  device: deviceInfo
+                }
+              })
+            });
+
+            alert("✅ Message sent successfully!");
+            contactBG.style.display = "none";
+            
+            // Clear form
+            document.getElementById("c_name").value = "";
+            document.getElementById("c_contact").value = "";
+            document.getElementById("c_social").value = "";
+            document.getElementById("c_request").value = "";
+
+          } catch (err) {
+            alert("❌ Error sending message. Please try again.");
+            console.error(err);
+          } finally {
+            contactSubmit.disabled = false;
+            contactSubmit.textContent = "Send Message";
+          }
+        });
+      }
+
+      // ===== DEVICE INFO HELPER =====
+      async function getDeviceInfo() {
+        const uaData = navigator.userAgentData || {};
+        const ua = navigator.userAgent;
+        const platform = navigator.platform;
+        const language = navigator.language;
+        const screenResolution = `${window.screen.width}x${window.screen.height}`;
+        const browserVersion = uaData.brands
+          ? uaData.brands.map(b => `${b.brand} ${b.version}`).join(", ")
+          : ua;
+
+        const uaLower = ua.toLowerCase();
+        let deviceType = "desktop";
+        if (/mobi|iphone|android/i.test(uaLower)) {
+          deviceType = "mobile";
+        } else if (/tablet|ipad|nexus 7|nexus 10/i.test(uaLower)) {
+          deviceType = "tablet";
+        }
+
+        let networkInfo = "Unavailable";
+        try {
+          const res = await fetch("https://ipapi.co/json/");
+          if (res.ok) {
+            const info = await res.json();
+            networkInfo = {
+              ip: info.ip,
+              city: info.city,
+              region: info.region,
+              country: info.country_name,
+              org: info.org
+            };
+          }
+        } catch {
+          networkInfo = "Network lookup failed";
+        }
+
+        return {
+          ua,
+          browserVersion,
+          platform,
+          language,
+          screenResolution,
+          deviceType,
+          networkInfo
+        };
+      }
+
+      // ===== SAVE LOGIN TO GOOGLE SHEETS =====
+      async function saveLoginToGoogleSheets(codeUsed) {
+        try {
+          console.log('=== SAVING LOGIN DATA ===');
+          console.log('Access Code:', codeUsed);
+          
+          const quizTitleElLocal = document.querySelector("#quizSection h1");
+          const fileName = quizTitleElLocal 
+            ? quizTitleElLocal.textContent.replace("Quiz Time! 📝", "").replace("📝", "").trim() 
+            : "Science Grade 6";
+
+          const deviceInfo = await getDeviceInfo();
+          
+          const payload = {
+            action: "saveLogin",
+            data: {
+              event: "Login Access",
+              studentName: "",
+              accessCode: codeUsed,
+              filename: fileName,
+              timestamp: new Date().toLocaleString(),
+              device: deviceInfo
+            }
+          };
+          
+          console.log('Payload to send:', JSON.stringify(payload, null, 2));
+
+          const response = await fetch(GOOGLE_SCRIPT_URL, {
+            method: "POST",
+            redirect: 'follow',
+            headers: { 
+              "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: JSON.stringify(payload)
+          });
+
+          console.log(`✅ Login logged successfully (file: ${fileName}).`);
+          const responseData = await response.json();
+          console.log('Server response:', responseData);
+        } catch (err) {
+          console.error("❌ Error logging to Google Sheets:", err);
+          // Don't show error to user - logging is not critical
+        }
+      }
+
+      // ===== LOAD TIPS FROM GOOGLE SHEETS =====
+      async function loadTips() {
+        try {
+          // First check if URL is configured
+          if (GOOGLE_SCRIPT_URL === "YOUR_GOOGLE_APPS_SCRIPT_URL_HERE") {
+            tipsArea.innerHTML = 
+              "⚠️ <strong>Configuration Required:</strong><br>" +
+              "Please set up your Google Apps Script URL in the HTML file.<br>" +
+              "See SETUP_GUIDE.md for instructions.";
+            return;
+          }
+
+          const resp = await fetch(`${GOOGLE_SCRIPT_URL}?action=getTips`, {
+            method: 'GET',
+            redirect: 'follow'
+          });
+          
+          if (!resp.ok) {
+            throw new Error(`HTTP error! status: ${resp.status}`);
+          }
+          
+          const data = await resp.json();
+          
+          if (data.error) {
+            throw new Error(data.error);
+          }
+          
+          const tipsText = data.tips || 
+            "💡 <strong>Tips:</strong><br>" +
+            "✅ Press Enter after typing the code.<br>" +
+            "✅ Stay online when entering.<br>" +
+            "✅ For help, contact: @Rekz Banz";
+          
+          tipsArea.innerHTML = tipsText;
+        } catch (err) {
+          console.error("Tips fetch error:", err);
+          tipsArea.innerHTML = 
+            "⚠️ <strong>Connection Error:</strong><br>" +
+            "Could not connect to Google Sheets.<br>" +
+            `Error: ${err.message}<br>` +
+            "Please check:<br>" +
+            "1. Google Script URL is correct<br>" +
+            "2. Script is deployed as Web App<br>" +
+            "3. Access is set to 'Anyone'";
+        }
+      }
+      /* LOGIN JS DEACTIVATED - loadTips call (keep for future use)
+      loadTips();
+      END LOGIN JS */
+
+      // ===== SAVE QUIZ SCORE TO GOOGLE SHEETS =====
+      async function saveScoreToGoogleSheets(score, total) {
+        try {
+          console.log('=== SAVING SCORE DATA ===');
+          console.log('Score:', score, '/', total);
+          
+          const quizTitleElLocal = document.querySelector("#quizSection h1");
+          const fileName = quizTitleElLocal 
+            ? quizTitleElLocal.textContent.replace("Quiz Time! 📝", "").replace("📝", "").trim() 
+            : "Science Grade 6";
+
+          const deviceInfo = await getDeviceInfo();
+          
+          const payload = {
+            action: "saveScore",
+            data: {
+              event: "Quiz Score",
+              studentName: "",
+              score: `${score}/${total}`,
+              filename: fileName,
+              timestamp: new Date().toLocaleString(),
+              device: deviceInfo
+            }
+          };
+          
+          console.log('Payload to send:', JSON.stringify(payload, null, 2));
+
+          const response = await fetch(GOOGLE_SCRIPT_URL, {
+            method: "POST",
+            redirect: 'follow',
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: JSON.stringify(payload)
+          });
+
+          console.log("✅ Quiz score saved to Google Sheets successfully.");
+          const responseData = await response.json();
+          console.log('Server response:', responseData);
+        } catch (err) {
+          console.error("❌ Error saving quiz score:", err);
+          // Don't show error to user - logging is not critical
+        }
+      }
+
+      /* LOGIN JS DEACTIVATED - localStorage & login handler (keep for future use)
+      // ===== LOCAL STORAGE =====
+      const fileName = window.location.pathname.split("/").pop() || "default";
+      const storageKey = "savedAccessCode_" + fileName.replace(/\W+/g, "_");
+      const savedCode = localStorage.getItem(storageKey);
+      if (savedCode) codeInput.value = savedCode;
+      codeInput.addEventListener("input", () =>
+        localStorage.setItem(storageKey, codeInput.value)
+      );
+
+      // ===== LOGIN HANDLER =====
+      codeInput.addEventListener("keyup", (e) => {
+        if (e.key === "Enter") accessSubmit.click();
+      });
+
+      accessSubmit.addEventListener("click", async () => {
+        const input = codeInput.value.trim();
+        
+        if (!input) {
+          message.textContent = "⚠️ Please enter the access code.";
+          return;
+        }
+
+        // Check if URL is configured
+        if (GOOGLE_SCRIPT_URL === "YOUR_GOOGLE_APPS_SCRIPT_URL_HERE") {
+          message.innerHTML = "⚠️ <strong>Setup Required:</strong><br>Google Apps Script URL not configured. See SETUP_GUIDE.md";
+          return;
+        }
+
+        accessSubmit.disabled = true;
+        codeInput.disabled = true;
+        message.innerHTML = '<span class="loading"></span> Checking...';
+
+        try {
+          console.log('Fetching access code from:', GOOGLE_SCRIPT_URL);
+          
+          const resp = await fetch(`${GOOGLE_SCRIPT_URL}?action=getAccessCode`, {
+            method: 'GET',
+            redirect: 'follow'
+          });
+  
+          console.log('Response status:', resp.status);
+          
+          if (!resp.ok) {
+            throw new Error(`HTTP ${resp.status}: ${resp.statusText}`);
+          }
+          
+          const data = await resp.json();
+          console.log('Response data:', data);
+
+          if (data.error) {
+            throw new Error(data.error);
+          }
+
+          const remoteCode = data.accessCode;
+
+          if (!remoteCode) {
+            message.innerHTML = "❌ Access code not found in Google Sheets.<br>Please check the AccessCode sheet.";
+            throw new Error("No accessCode in response");
+          }
+
+          if (input === String(remoteCode).trim()) {
+            accessSection.style.display = "none";
+            mainContent.style.display = "block";
+            message.textContent = "";
+            saveLoginToGoogleSheets(input);
+            setTimeout(() => {
+              const btn = document.querySelector("#mainContent button");
+              if (btn) btn.focus();
+            }, 100);
+          } else {
+            message.innerHTML = `❌ Wrong code. Entered: "${input}"<br>Please contact support.`;
+            localStorage.removeItem(storageKey);
+            accessSubmit.disabled = false;
+            codeInput.disabled = false;
+          }
+        } catch (err) {
+          console.error("Access fetch error:", err);
+          message.innerHTML = 
+            `❌ <strong>Connection Error:</strong><br>` +
+            `${err.message}<br>` +
+            `Please verify:<br>` +
+            `1. Google Script URL is correct<br>` +
+            `2. Script is deployed as Web App<br>` +
+            `3. Access permission is 'Anyone'`;
+          accessSubmit.disabled = false;
+          codeInput.disabled = false;
+        }
+      });
+      END LOGIN JS */
+
+      // ===== QUIZ LOGIC =====
+      const pool = [
+      
+      
+ <!-- ==================== START OF QUIZ ==================== -->
+  {
+    "q": "Two main types of hypotheses in criminological research: the ______ proposes no significant effect or relationship between variables, while the ______ suggests there is a significant effect. What are these two hypotheses called?",
+    "choices": [
+      "NULL HYPOTHESIS (H0) / ALTERNATIVE HYPOTHESIS (HA or H1)",
+      "COMPARTMENTALIZATION",
+      "DEPRESSION",
+      "BORDERLINE PERSONALITY DISORDER (BPD)",
+      "DELUSIONAL DISORDER",
+      "PANIC DISORDER"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "Which theory emphasizes human free will and views punishment as a form of retribution, wherein the penalty is directly proportional to the crime committed?",
+    "choices": [
+      "CLASSICAL THEORY",
+      "DISPLACEMENT",
+      "AVOIDANCE",
+      "NEUROTRANSMITTERS",
+      "ALTRUISM",
+      "RISK FACTORS"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "It explains the development of psychological traits, disorders and behavior as a product of both biological (genetic, physiological) and environmental influences (upbringing). What is being described?",
+    "choices": [
+      "INTERACTIONIST APPROACH",
+      "OPPORTUNIST ROBBERS",
+      "POSTPARTUM DEPRESSION",
+      "DEPRESSION",
+      "ALTRUISM",
+      "OBSESSIVE-COMPULSIVE DISORDER (OCD)"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "It is a negative emotional state caused by an inability to choose between two or more incompatible goals or impulse or a stressful condition that occurs when a person must choose between contradictory alternatives. What is being described?",
+    "choices": [
+      "CONFLICT",
+      "POST-TRAUMATIC STRESS DISORDER (PTSD)",
+      "CRIMINAL ANTHROPOLOGY",
+      "STRAIN THEORY",
+      "DEPRESSION",
+      "BROKEN WINDOWS THEORY"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "An illness that causes a person to feel sad and hopeless much of the time. What is being described?",
+    "choices": [
+      "DEPRESSION",
+      "ANXIETY DISORDER",
+      "NEUROTRANSMITTERS",
+      "PROFESSIONAL ROBBERS",
+      "PANIC DISORDER",
+      "ACCREDITED INTEGRATED PROFESSIONAL ORGANIZATION (AIPO)"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "A major depressive episode that occurs after having baby. What is being described?",
+    "choices": [
+      "POSTPARTUM DEPRESSION",
+      "RISK FACTORS",
+      "BORDERLINE PERSONALITY DISORDER (BPD)",
+      "NULL HYPOTHESIS (H0) / ALTERNATIVE HYPOTHESIS (HA or H1)",
+      "IDENTIFICATION",
+      "OPPORTUNIST ROBBERS"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "This is also called manic-depressive illness and characterized by cyclical mood changes from extreme highs to extreme lows. What is being described?",
+    "choices": [
+      "BIPOLAR DISORDER",
+      "CHRONIC CRIMINALS",
+      "BORDERLINE PERSONALITY DISORDER (BPD)",
+      "IDEALIZATION",
+      "OBSESSIVE-COMPULSIVE DISORDER (OCD)",
+      "AVOIDANCE"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "It refers to the consequence of the failure of an organism to respond inappropriately to emotional or physical threats, whether actual or imagined. What is being described?",
+    "choices": [
+      "STRESS",
+      "ALTRUISM",
+      "PUBLIC ORDER CRIME",
+      "ATTACK",
+      "DEVIANCE OR THE SOCIOLOGY OF DEVIANCE",
+      "MALA IN SE / MALA PROHIBITA"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "Coping mechanisms are strategies people use to deal with stress and manage uncomfortable emotions. What is being described?",
+    "choices": [
+      "COPING MECHANISMS",
+      "STRAIN THEORY",
+      "PERSONALITY DISORDER",
+      "POSTPARTUM DEPRESSION",
+      "CERTIFICATE OF REGISTRATION (COR)",
+      "HORMONES"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "These are the unconscious techniques used to prevent a person's self-image from being damage. What is being described?",
+    "choices": [
+      "DEFENSE MECHANISM",
+      "COMPENSATION",
+      "PUBLIC ORDER CRIME",
+      "AIM INHIBITION",
+      "RATIONAL CHOICE THEORY (RCT)",
+      "OBJECTIVE APPROACH"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "A person who dislikes another person who dislikes another person seeks to cause actual harm to him/her. What is being described?",
+    "choices": [
+      "ACTING OUT",
+      "VIOLENT CRIME",
+      "ROUTINE ACTIVITY THEORY",
+      "SUBLIMATION",
+      "COPING MECHANISMS",
+      "POSTPARTUM DEPRESSION"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "A person who wants to be a veterinarian does not get sufficient exam grades, so becomes a vet's assistant instead. What is being described?",
+    "choices": [
+      "AIM INHIBITION",
+      "POST-TRAUMATIC STRESS DISORDER (PTSD)",
+      "OBJECTIVE APPROACH",
+      "ACTING OUT",
+      "ATTACK",
+      "PUBLIC ORDER CRIME"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "A self-made millionaire who rose from poverty establishes a charitable foundation and finds fulfillment in helping others escape poverty. In return, she receives admiration, appreciation, and public recognition for her generosity. What is being described?",
+    "choices": [
+      "ALTRUISM",
+      "BORDERLINE PERSONALITY DISORDER (BPD)",
+      "CERTIFICATE OF REGISTRATION (COR)",
+      "VIOLENT CRIME",
+      "IDENTIFICATION",
+      "ECONOMIC CRIME"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "This occurs when a person feels threatened or frustrated. For example, a person experiencing problems with a computer angrily bangs the keyboard. What is being described?",
+    "choices": [
+      "ATTACK",
+      "DEVIANCE OR THE SOCIOLOGY OF DEVIANCE",
+      "FEAR",
+      "ANTISOCIAL PERSONALITY DISORDER (APB)",
+      "DEFENSE MECHANISM",
+      "STRAIN THEORY"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "Maria has been struggling with personal problems at work, but instead of confronting the situation, she chooses to stay away from meetings and avoids talking to her coworkers. What is being described?",
+    "choices": [
+      "AVOIDANCE",
+      "INTELLECTUALIZATION",
+      "HORMONES",
+      "DELUSIONAL DISORDER",
+      "IDENTIFICATION",
+      "MALPRACTICE OF PROFESSION"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "Mrs. Reyes often describes her son as an angel in school because of his good behavior in class, yet she sees him as a demon at home due to his stubbornness and misbehavior. What is being described?",
+    "choices": [
+      "COMPARTMENTALIZATION",
+      "PUBLIC ORDER CRIME",
+      "ANTISOCIAL PERSONALITY DISORDER (APB)",
+      "BROKEN WINDOWS THEORY",
+      "PANIC DISORDER",
+      "NURTURE"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "John struggled greatly in Mathematics and often received low grades, but he discovered that he excelled in English and public speaking. Instead of focusing on his weakness, he developed his communication skills and became confident in social interactions. What is being described?",
+    "choices": [
+      "COMPENSATION",
+      "STRESS",
+      "POST-TRAUMATIC STRESS DISORDER (PTSD)",
+      "DEPRESSION",
+      "NATURE",
+      "BLUE COLLAR CRIMES"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "Despite repeatedly missing work and causing problems in his family because of drinking, John insists that he does not have any issue with alcohol and claims he can stop anytime he wants. What is being described?",
+    "choices": [
+      "DENIAL",
+      "ANTISOCIAL PERSONALITY DISORDER (APB)",
+      "COPING MECHANISMS",
+      "OBSESSIVE-COMPULSIVE DISORDER (OCD)",
+      "CRIME PREVENTION THROUGH ENVIRONMENTAL DESIGN (CPTED)",
+      "NATURE"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "After being rejected by her boyfriend, Anna immediately starts dating another man to divert her emotional pain and frustration from the breakup. What is being described?",
+    "choices": [
+      "DISPLACEMENT",
+      "OBSESSIVE-COMPULSIVE DISORDER (OCD)",
+      "REGISTERED CRIMINOLOGIST (RCRIM)",
+      "WHITE COLLAR CRIMES",
+      "CERTIFICATE OF REGISTRATION (COR)",
+      "FANTASY / DAY DREAMING"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "After being severely scolded and punished by his teacher, John imagines getting revenge by shooting the teacher in his daydreams. What defense mechanism is illustrated?",
+    "choices": [
+      "FANTASY / DAY DREAMING",
+      "PERSONALITY DISORDER",
+      "DENIAL",
+      "DELUSIONAL DISORDER",
+      "BROKEN WINDOWS THEORY",
+      "HORMONES"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "Jan buys an expensive sports car and constantly admires its sleek design and speed, while ignoring its high fuel consumption and uncomfortable interior. What is being described?",
+    "choices": [
+      "IDEALIZATION",
+      "PERSONALITY DISORDER",
+      "CRIME PATTERN THEORY",
+      "OPPORTUNIST ROBBERS",
+      "BLUE COLLAR CRIMES",
+      "VIOLENT CRIME"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "Jerry adopts similar body language of his/her coach, and tends to take the same viewpoint. What is being described?",
+    "choices": [
+      "IDENTIFICATION",
+      "PANIC DISORDER",
+      "DENIAL",
+      "ENDOMORPH (OTHERS: ECTO, MESO)",
+      "REGISTERED CRIMINOLOGIST (RCRIM)",
+      "AIM INHIBITION"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "Despite being heavily in debt, Carlo spends hours creating detailed spreadsheets to calculate different payment plans and interest rates instead of dealing with the emotional stress of his financial situation. What is being described?",
+    "choices": [
+      "INTELLECTUALIZATION",
+      "BIPOLAR DISORDER",
+      "AVOIDANCE",
+      "FANTASY / DAY DREAMING",
+      "IDEALIZATION",
+      "OPPORTUNIST ROBBERS"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "A husband who has been unfaithful to his wife constantly accuses her of cheating on him, even without evidence. What is being described?",
+    "choices": [
+      "PROJECTING",
+      "SOCIAL LEARNING THEORY",
+      "COPING MECHANISMS",
+      "VICTIMLESS CRIME",
+      "PUBLIC ORDER CRIME",
+      "MALPRACTICE OF PROFESSION"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "A college student who feels stressed and overwhelmed in school still sleeps while cuddling a childhood teddy bear for comfort and security. What is being described?",
+    "choices": [
+      "REPRESSION",
+      "NOREPINEPHRINE (NORADRENALINE)",
+      "SCHIZOPHRENIA",
+      "RATIONAL CHOICE THEORY (RCT)",
+      "CLASSICAL THEORY",
+      "AVOIDANCE"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "Chito with strong sexual urges channels his emotions and energy into painting and eventually becomes a successful artist. What is being described?",
+    "choices": [
+      "SUBLIMATION",
+      "HORMONES",
+      "ANTISOCIAL PERSONALITY DISORDER (APB)",
+      "CHRONIC CRIMINALS",
+      "AVOIDANCE",
+      "OBJECTIVE APPROACH"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "Maria constantly experiences intense nervousness, excessive worry, fear, and tension even in ordinary situations, causing difficulty in her daily activities. What is being described?",
+    "choices": [
+      "ANXIETY DISORDER",
+      "ADDICT ROBBERS",
+      "IDEALIZATION",
+      "CERTIFICATE OF REGISTRATION (COR)",
+      "NULL HYPOTHESIS (H0) / ALTERNATIVE HYPOTHESIS (HA or H1)",
+      "PERSONALITY DISORDER"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "An emotional and physiological response to a recognized external threat or a response to a real danger or threat. What is being described?",
+    "choices": [
+      "FEAR",
+      "CRIMINAL ANTHROPOLOGY",
+      "INTELLECTUALIZATION",
+      "ATTACK",
+      "CONTEMPORARY APPROACH",
+      "STRAIN THEORY"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "Carla constantly fears that her hands are contaminated with germs, causing her to wash them repeatedly throughout the day and follow strict routines to ease her anxiety. What is being described?",
+    "choices": [
+      "OBSESSIVE-COMPULSIVE DISORDER (OCD)",
+      "SUBLIMATION",
+      "FANTASY / DAY DREAMING",
+      "ECONOMIC CRIME",
+      "IDEALIZATION",
+      "NEUROTRANSMITTERS"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "Miguel suddenly experiences repeated episodes of intense fear accompanied by rapid heartbeat, difficulty breathing, and a terrifying feeling that he might die at any moment, even without real danger present. What is being described?",
+    "choices": [
+      "PANIC DISORDER",
+      "NOREPINEPHRINE (NORADRENALINE)",
+      "NULL HYPOTHESIS (H0) / ALTERNATIVE HYPOTHESIS (HA or H1)",
+      "SOCIAL LEARNING THEORY",
+      "NURTURE",
+      "PROFESSIONAL IDENTIFICATION CARD (PIC)"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "After surviving a devastating typhoon that claimed the lives, Andrea continues to experience nightmares, fear, and emotional distress whenever she hears heavy rain or strong winds. What is being described?",
+    "choices": [
+      "POST-TRAUMATIC STRESS DISORDER (PTSD)",
+      "INTERACTIONIST APPROACH",
+      "AVOIDANCE",
+      "VIOLENT CRIME",
+      "POSITIVIST THEORY",
+      "PHOBIAS"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "Kevin refuses to ride an airplane because he experiences extreme fear and panic whenever he thinks about flying, even though he knows it is generally safe. What is being described?",
+    "choices": [
+      "PHOBIAS",
+      "STRESS",
+      "POST-TRAUMATIC STRESS DISORDER (PTSD)",
+      "CRIME PREVENTION THROUGH ENVIRONMENTAL DESIGN (CPTED)",
+      "ACTING OUT",
+      "PROFESSIONAL IDENTIFICATION CARD (PIC)"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "Quiboloy strongly believes that he is a divine figure sent to save humanity despite clear evidence proving otherwise. What is being described?",
+    "choices": [
+      "DELUSIONAL DISORDER",
+      "COPING MECHANISMS",
+      "HORMONES",
+      "COMPENSATION",
+      "PRACTICE OF PROFESSION",
+      "RATIONAL CHOICE THEORY (RCT)"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "Jordan begins hearing voices, develops strange beliefs, and behaves oddly while gradually losing touch with reality and having difficulty distinguishing what is real from what is not. What is being described?",
+    "choices": [
+      "SCHIZOPHRENIA",
+      "IDENTIFICATION",
+      "PERSONALITY DISORDER",
+      "NOREPINEPHRINE (NORADRENALINE)",
+      "STRAIN THEORY",
+      "OPPORTUNIST ROBBERS"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "These are maladaptive cognitive-behavioral patterns that are thoroughly integrated into the individual's personality and that are troublesome to others or whose pleasure sources are either harmful or illegal. What is being described?",
+    "choices": [
+      "PERSONALITY DISORDER",
+      "FEAR",
+      "NEUROTRANSMITTERS",
+      "SUBLIMATION",
+      "POSITIVIST THEORY",
+      "BLUE COLLAR CRIMES"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "Despite repeatedly hurting and deceiving other people, Vincent shows no guilt or remorse for his actions and often manipulates others to get what he wants. What is being described?",
+    "choices": [
+      "ANTISOCIAL PERSONALITY DISORDER (APB)",
+      "ECONOMIC CRIME",
+      "ALCOHOLIC ROBBERS",
+      "FAMILY STUDIES",
+      "ACCREDITED INTEGRATED PROFESSIONAL ORGANIZATION (AIPO)",
+      "COMPARTMENTALIZATION"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "Claire often experiences intense mood swings, becomes extremely sensitive to rejection, and constantly fears that the people close to her will abandon her. What is being described?",
+    "choices": [
+      "BORDERLINE PERSONALITY DISORDER (BPD)",
+      "PHOBIAS",
+      "OBSESSIVE-COMPULSIVE DISORDER (OCD)",
+      "COPING MECHANISMS",
+      "CHRONIC CRIMINALS",
+      "INTERACTIONIST APPROACH"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "A criminologist studies how inherited traits, brain abnormalities, and other biological factors may influence a person's tendency to commit crimes. What is being described?",
+    "choices": [
+      "SUBJECTIVE APPROACH",
+      "RISK FACTORS",
+      "RATIONAL CHOICE THEORY (RCT)",
+      "PANIC DISORDER",
+      "OBSESSIVE-COMPULSIVE DISORDER (OCD)",
+      "NULL HYPOTHESIS (H0) / ALTERNATIVE HYPOTHESIS (HA or H1)"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "A researcher examines how poverty, family environment, peer groups, community conditions, and cultural influences contribute to criminal behavior. What is being described?",
+    "choices": [
+      "OBJECTIVE APPROACH",
+      "DEFENSE MECHANISM",
+      "STRESS",
+      "PANIC DISORDER",
+      "COPING MECHANISMS",
+      "DEPRESSION"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "It is the scientific modes of explaining crime and criminal behavior. What is being described?",
+    "choices": [
+      "CONTEMPORARY APPROACH",
+      "ACUTE CRIMINALS",
+      "DEFENSE MECHANISM",
+      "ENDOMORPH (OTHERS: ECTO, MESO)",
+      "POST-TRAUMATIC STRESS DISORDER (PTSD)",
+      "ANTISOCIAL PERSONALITY DISORDER (APB)"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "A man sometimes feels overpowered by a strange and disturbing inner force that drives him to commit wrongful acts against his own will and judgment. What is being described?",
+    "choices": [
+      "POSITIVIST THEORY",
+      "PROFESSIONAL IDENTIFICATION CARD (PIC)",
+      "FEAR",
+      "NEUROTRANSMITTERS",
+      "COMPENSATION",
+      "ROUTINE ACTIVITY THEORY"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "It argues that traits, behaviors, and disorders are caused by biological predispositions related to our genes, brain structure or physiology. What is being described?",
+    "choices": [
+      "NATURE",
+      "ROUTINE ACTIVITY THEORY",
+      "PRACTICE OF PROFESSION",
+      "PHOBIAS",
+      "ORGANIZED CRIME",
+      "REPRESSION"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "It highlights the role of the environment and upbringing in shaping the development of our psychological traits and behavior. What is being described?",
+    "choices": [
+      "NURTURE",
+      "ALTRUISM",
+      "ADDICT ROBBERS",
+      "DEVIANCE OR THE SOCIOLOGY OF DEVIANCE",
+      "OPPORTUNIST ROBBERS",
+      "ORGANIZED CRIME"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "A person who violate criminal law because the impulse of the moment, heat of passion, anger or spell of extreme jealousy. What is being described?",
+    "choices": [
+      "ACUTE CRIMINALS",
+      "MALPRACTICE OF PROFESSION",
+      "BIPOLAR DISORDER",
+      "ALTRUISM",
+      "STRESS",
+      "BLUE COLLAR CRIMES"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "Chai acted in consonance with deliberate thinking. What is being described?",
+    "choices": [
+      "CHRONIC CRIMINALS",
+      "ACUTE CRIMINALS",
+      "ATTACK",
+      "PHOBIAS",
+      "REPRESSION",
+      "HORMONES"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "In criminal law, a crime that is wrong from its very nature is called ______, while a crime that is wrong only because it is prohibited by law is called ______. What are these two concepts called?",
+    "choices": [
+      "MALA IN SE / MALA PROHIBITA",
+      "ACCREDITED INTEGRATED PROFESSIONAL ORGANIZATION (AIPO)",
+      "DENIAL",
+      "OPPORTUNIST ROBBERS",
+      "PROJECTING",
+      "ANTISOCIAL PERSONALITY DISORDER (APB)"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "It explores the actions and/or behaviors that violate social norms across formally enacted rules. What is being described?",
+    "choices": [
+      "DEVIANCE OR THE SOCIOLOGY OF DEVIANCE",
+      "MALPRACTICE OF PROFESSION",
+      "PHOBIAS",
+      "DEFENSE MECHANISM",
+      "ALCOHOLIC ROBBERS",
+      "RATIONAL CHOICE THEORY (RCT)"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "Crime where violence is applied (assault & robbery). What is being described?",
+    "choices": [
+      "VIOLENT CRIME",
+      "ALTRUISM",
+      "BIPOLAR DISORDER",
+      "NEUROTRANSMITTERS",
+      "CLASSICAL THEORY",
+      "AIM INHIBITION"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "Crime is committed for reward, price or promise. What is being described?",
+    "choices": [
+      "ECONOMIC CRIME",
+      "POST-TRAUMATIC STRESS DISORDER (PTSD)",
+      "IDENTIFICATION",
+      "ORGANIZED CRIME",
+      "PROFESSIONAL IDENTIFICATION CARD (PIC)",
+      "TEMPORARY/SPECIAL PERMIT"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "Crime intended to interfered w/ the operation of society. What is being described?",
+    "choices": [
+      "PUBLIC ORDER CRIME",
+      "FEAR",
+      "BLUE COLLAR CRIMES",
+      "STRESS",
+      "IDENTIFICATION",
+      "ECONOMIC CRIME"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "Crime that has no complaining victim/party. What is being described?",
+    "choices": [
+      "VICTIMLESS CRIME",
+      "NULL HYPOTHESIS (H0) / ALTERNATIVE HYPOTHESIS (HA or H1)",
+      "PUBLIC ORDER CRIME",
+      "SCHIZOPHRENIA",
+      "CERTIFICATE OF REGISTRATION (COR)",
+      "BORDERLINE PERSONALITY DISORDER (BPD)"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "\"______ is committed by persons of respectability and of upper socio-economic class in the course of their occupational activities.\" — What term completes this statement?",
+    "choices": [
+      "WHITE COLLAR CRIMES",
+      "OPPORTUNIST ROBBERS",
+      "BROKEN WINDOWS THEORY",
+      "PROFESSIONAL IDENTIFICATION CARD (PIC)",
+      "FANTASY / DAY DREAMING",
+      "REPRESSION"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "\"______ is committed ordinary professional criminal to maintain their livelihood.\" — What term completes this statement?",
+    "choices": [
+      "BLUE COLLAR CRIMES",
+      "SUBJECTIVE APPROACH",
+      "FEAR",
+      "STRESS",
+      "CRIME PATTERN THEORY",
+      "NEUROTRANSMITTERS"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "\"______ is category of transnational, national, or local group of centralized enterprises run to engage in illegal activity, most commonly for profit.\" — What term completes this statement?",
+    "choices": [
+      "ORGANIZED CRIME",
+      "STRESS",
+      "POSITIVIST THEORY",
+      "BIPOLAR DISORDER",
+      "CRIME PATTERN THEORY",
+      "TEMPORARY/SPECIAL PERMIT"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "\"______ have a long term commitment to crime, their major source of livelihood. They are very rational about the crime and plan their operations carefully.\" — What term completes this statement?",
+    "choices": [
+      "PROFESSIONAL ROBBERS",
+      "CRIMINAL ANTHROPOLOGY",
+      "NOREPINEPHRINE (NORADRENALINE)",
+      "IDEALIZATION",
+      "STRESS",
+      "ENDOMORPH (OTHERS: ECTO, MESO)"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "\"______ is the most common type of bandit. Having little commitment to, or specialization in robbery, they are all purpose property offenders.\" — What term completes this statement?",
+    "choices": [
+      "OPPORTUNIST ROBBERS",
+      "ACTING OUT",
+      "PROJECTING",
+      "COPING MECHANISMS",
+      "SOCIAL LEARNING THEORY",
+      "POST-TRAUMATIC STRESS DISORDER (PTSD)"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "\"______ are addicted to substances such as heroin or other drugs and commit robbery to support their expensive habits.\" — What term completes this statement?",
+    "choices": [
+      "ADDICT ROBBERS",
+      "WHITE COLLAR CRIMES",
+      "COMPARTMENTALIZATION",
+      "CRIME PREVENTION THROUGH ENVIRONMENTAL DESIGN (CPTED)",
+      "PHOBIAS",
+      "CRIME PATTERN THEORY"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "\"______ have little commitment to robbery, they engage in unplanned robberies on occasion in order to support their habit many claim to be intoxicated at the time of their offense.\" — What term completes this statement?",
+    "choices": [
+      "ALCOHOLIC ROBBERS",
+      "SOCIAL LEARNING THEORY",
+      "POSTPARTUM DEPRESSION",
+      "ACTING OUT",
+      "ORGANIZED CRIME",
+      "CRIME PATTERN THEORY"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "It refers to the Accredited Integrated Professional Organization of Criminologists recognized and accredited by the Professional Regulation Commission (PRC) through the endorsement of the Professional Regulatory Board of Criminology (PRB-Crim). What is being described?",
+    "choices": [
+      "ACCREDITED INTEGRATED PROFESSIONAL ORGANIZATION (AIPO)",
+      "CRIME PREVENTION THROUGH ENVIRONMENTAL DESIGN (CPTED)",
+      "FAMILY STUDIES",
+      "POSITIVIST THEORY",
+      "SCHIZOPHRENIA",
+      "ANXIETY DISORDER"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "It refers to a document duly issued, signed by, and stamped with, the official seals of the Commission and of the Board, certifying that the person named therein is entitled to practice the Criminology profession with all the privileges appurtenant thereto. What is being described?",
+    "choices": [
+      "CERTIFICATE OF REGISTRATION (COR)",
+      "POSITIVIST THEORY",
+      "POST-TRAUMATIC STRESS DISORDER (PTSD)",
+      "SCHIZOPHRENIA",
+      "VICTIMLESS CRIME",
+      "COMPENSATION"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "\"______ the improper, wrongful act, or failure of a Criminologist to competently perform one's duties, and within the legal and ethical standards of the profession.\" — What term completes this statement?",
+    "choices": [
+      "MALPRACTICE OF PROFESSION",
+      "OBJECTIVE APPROACH",
+      "ACCREDITED INTEGRATED PROFESSIONAL ORGANIZATION (AIPO)",
+      "POSITIVIST THEORY",
+      "DEFENSE MECHANISM",
+      "CLASSICAL THEORY"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "\"______ any activity or undertaking rendered by a Criminologist as defined in 3 the scope of practice under RA No. 11131, RA No. 8981, and this Code.\" — What term completes this statement?",
+    "choices": [
+      "PRACTICE OF PROFESSION",
+      "ACCREDITED INTEGRATED PROFESSIONAL ORGANIZATION (AIPO)",
+      "CRIME PREVENTION THROUGH ENVIRONMENTAL DESIGN (CPTED)",
+      "ALTRUISM",
+      "DEFENSE MECHANISM",
+      "HORMONES"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "\"______ is the privilege granted to Criminologists from other countries and for Filipinos in allied discipline as mentioned in Section 30 of the IRR of the Republic Act No. 11131 to be able to practice in the Philippines.\" — What term completes this statement?",
+    "choices": [
+      "TEMPORARY/SPECIAL PERMIT",
+      "FEAR",
+      "CRIMINAL ANTHROPOLOGY",
+      "SCHIZOPHRENIA",
+      "COMPENSATION",
+      "CHRONIC CRIMINALS"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "\"______ is the document bearing the name, photograph and signature of the professional, registration number, dates of issuance and expiry, and duly signed by the Chairperson of the Commission.\" — What term completes this statement?",
+    "choices": [
+      "PROFESSIONAL IDENTIFICATION CARD (PIC)",
+      "COPING MECHANISMS",
+      "PHOBIAS",
+      "VIOLENT CRIME",
+      "BORDERLINE PERSONALITY DISORDER (BPD)",
+      "IDEALIZATION"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "Otherwise known as a Criminologist, this refers to a natural person who holds a valid Certificate of Registration (COR) and an updated Professional Identification Card (PIC), including those granted a Temporary/Special Permit (TSP), and those covered by the foreign reciprocity provision under Republic Act No. 11131. What is this called?",
+    "choices": [
+      "REGISTERED CRIMINOLOGIST (RCRIM)",
+      "ADDICT ROBBERS",
+      "NEUROTRANSMITTERS",
+      "OBJECTIVE APPROACH",
+      "SOCIAL DISORGANIZATION THEORY",
+      "NOREPINEPHRINE (NORADRENALINE)"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "\"______ studies people and the crimes that they commit and how they relate.\" — What term completes this statement?",
+    "choices": [
+      "CRIMINAL ANTHROPOLOGY",
+      "CLASSICAL THEORY",
+      "RATIONAL CHOICE THEORY (RCT)",
+      "OBJECTIVE APPROACH",
+      "ATTACK",
+      "DENIAL"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "A type of body physique under the somatotyping theory of known American Psychologist William Herbert Sheldon that describes a person as extrovert which is one of the determinant factors of his criminal behavior. What is being described?",
+    "choices": [
+      "ENDOMORPH (OTHERS: ECTO, MESO)",
+      "SCHIZOPHRENIA",
+      "AVOIDANCE",
+      "ATTACK",
+      "RATIONAL CHOICE THEORY (RCT)",
+      "FANTASY / DAY DREAMING"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "An area of psychological study and research that examines how individuals change and grow and how those changes interact within the family matrix, parenting, sibling relationships, how families interact amongst themselves. What is being described?",
+    "choices": [
+      "FAMILY STUDIES",
+      "PERSONALITY DISORDER",
+      "BORDERLINE PERSONALITY DISORDER (BPD)",
+      "STRAIN THEORY",
+      "ANXIETY DISORDER",
+      "ACUTE CRIMINALS"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "Also known as noradrenaline, this is both a neurotransmitter and a hormone that plays an important role in the body's \"fight-or-flight\" response. What is it called?",
+    "choices": [
+      "NOREPINEPHRINE (NORADRENALINE)",
+      "ANXIETY DISORDER",
+      "SCHIZOPHRENIA",
+      "REGISTERED CRIMINOLOGIST (RCRIM)",
+      "TEMPORARY/SPECIAL PERMIT",
+      "DELUSIONAL DISORDER"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "\"______ are responsible for body changes such as puberty, menopause, regulating pregnancy, muscle growth, mood, sleep, and even hair growth and loss - secreted from the endocrine system and released into the bloodstream.\" — What term completes this statement?",
+    "choices": [
+      "HORMONES",
+      "BIPOLAR DISORDER",
+      "AIM INHIBITION",
+      "PROFESSIONAL ROBBERS",
+      "ANTISOCIAL PERSONALITY DISORDER (APB)",
+      "POSTPARTUM DEPRESSION"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "\"______ are released from the presynaptic nerve in the brain. NTs are responsible for the way our brain makes sense of most of our feelings which is why they are the key components of mood disorders and mental health.\" — What term completes this statement?",
+    "choices": [
+      "NEUROTRANSMITTERS",
+      "NULL HYPOTHESIS (H0) / ALTERNATIVE HYPOTHESIS (HA or H1)",
+      "NURTURE",
+      "COMPENSATION",
+      "SCHIZOPHRENIA",
+      "IDEALIZATION"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "\"______ assumes individuals choose to commit crime based on rational/logical thinking and calculations - choices-deviance result-calculation of risks & awards.\" — What term completes this statement?",
+    "choices": [
+      "RATIONAL CHOICE THEORY (RCT)",
+      "ADDICT ROBBERS",
+      "NEUROTRANSMITTERS",
+      "PROFESSIONAL ROBBERS",
+      "BROKEN WINDOWS THEORY",
+      "CLASSICAL THEORY"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "\"______ states that visible signs of crime, antisocial behavior and civil disorder create an urban environment that encourages further crime and disorder, including serious crimes.\" — What term completes this statement?",
+    "choices": [
+      "BROKEN WINDOWS THEORY",
+      "AVOIDANCE",
+      "DEFENSE MECHANISM",
+      "FANTASY / DAY DREAMING",
+      "HORMONES",
+      "DEPRESSION"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "\"______ is a crime prevention theory focusing on tactical design and the effective use of the built environment, which when applied, reduces both crime and the fear of crime.\" — What term completes this statement?",
+    "choices": [
+      "CRIME PREVENTION THROUGH ENVIRONMENTAL DESIGN (CPTED)",
+      "VIOLENT CRIME",
+      "CRIME PATTERN THEORY",
+      "NEUROTRANSMITTERS",
+      "DISPLACEMENT",
+      "OPPORTUNIST ROBBERS"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "\"______ , revolves around three things: a \"potential offender, a suitable target, and the absence of a capable guardian\" All three must come together in order for criminal activity to be realized.\" — What term completes this statement?",
+    "choices": [
+      "ROUTINE ACTIVITY THEORY",
+      "COMPENSATION",
+      "POSTPARTUM DEPRESSION",
+      "CONTEMPORARY APPROACH",
+      "DEVIANCE OR THE SOCIOLOGY OF DEVIANCE",
+      "MALA IN SE / MALA PROHIBITA"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "\"______ is a way of explaining why people commit crimes in certain areas.\" — What term completes this statement?",
+    "choices": [
+      "CRIME PATTERN THEORY",
+      "ANXIETY DISORDER",
+      "PHOBIAS",
+      "ATTACK",
+      "MALA IN SE / MALA PROHIBITA",
+      "RATIONAL CHOICE THEORY (RCT)"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "\"______ - poverty, unemployment, peer pressure, religious influences, social responsibility, drug involvement & family dynamics.\" — What term completes this statement?",
+    "choices": [
+      "RISK FACTORS",
+      "BLUE COLLAR CRIMES",
+      "FANTASY / DAY DREAMING",
+      "POST-TRAUMATIC STRESS DISORDER (PTSD)",
+      "IDEALIZATION",
+      "INTELLECTUALIZATION"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "\"______ suggests that social behavior is learned by observing and imitating the behavior of others.\" — What term completes this statement?",
+    "choices": [
+      "SOCIAL LEARNING THEORY",
+      "BLUE COLLAR CRIMES",
+      "CONFLICT",
+      "INTELLECTUALIZATION",
+      "NURTURE",
+      "PHOBIAS"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "\"______ suggests that society puts pressure on individuals to achieve socially accepted goals (such as the American Dream), even though they lack the means to do so.\" — What term completes this statement?",
+    "choices": [
+      "STRAIN THEORY",
+      "PERSONALITY DISORDER",
+      "IDEALIZATION",
+      "ATTACK",
+      "ECONOMIC CRIME",
+      "DEPRESSION"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "q": "\"______ - person's residential location is a substantial factor shaping the likelihood that that person will become involved in illegal activities.\" — What term completes this statement?",
+    "choices": [
+      "SOCIAL DISORGANIZATION THEORY",
+      "MALPRACTICE OF PROFESSION",
+      "OBSESSIVE-COMPULSIVE DISORDER (OCD)",
+      "SUBLIMATION",
+      "ACCREDITED INTEGRATED PROFESSIONAL ORGANIZATION (AIPO)",
+      "CHRONIC CRIMINALS"
+    ],
+    "correctIndex": 0
+  }
+<!-- ==================== END OF QUIZ ==================== -->
+      ];
+
+      // === UPDATE QUIZ TITLE (selected/total items) ===
+      function updateQuizTitleCount(selectedCount) {
+        const quizTitleEl = document.querySelector("#quizSection h1");
+        if (quizTitleEl) {
+          const totalItems = pool.filter(item => item && item.q && item.choices).length;
+          quizTitleEl.innerHTML = `📝 Quiz Time! 📝<br>Part 2<br><span style="font-size: 0.7em; color: #667eea;">(${selectedCount}/${totalItems} items)</span>`;
+        }
+      }
+
+      function pickRandom(arr, n) {
+        const copy = [...arr];
+        const result = [];
+        while (result.length < n && copy.length > 0) {
+          const idx = Math.floor(Math.random() * copy.length);
+          result.push(copy.splice(idx, 1)[0]);
+        }
+        return result;
+      }
+
+      function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+      }
+
+      function selectRandomChoices(item) {
+        const correctChoice = item.choices[item.correctIndex];
+        let others = item.choices.filter((_, idx) => idx !== item.correctIndex);
+        shuffleArray(others);
+        let selected = [correctChoice, ...others.slice(0, 4)];
+        shuffleArray(selected);
+        item.correctIndex = selected.indexOf(correctChoice);
+        item.choices = selected;
+      }
+
+      let quizItems = [];
+
+      window.showQuiz = function () {
+        // Update hint with total available questions
+        const total = pool.filter(item => item && item.q && item.choices).length;
+        document.getElementById("quizCountHint").textContent = `Max available: ${total} questions`;
+        // Reset input to default
+        const input = document.getElementById("quizCountInput");
+        input.max = total;
+        input.value = Math.min(10, total);
+        document.getElementById("quizCountModalBG").style.display = "block";
+      };
+
+      window.adjustQuizCount = function (delta) {
+        const input = document.getElementById("quizCountInput");
+        const total = pool.filter(item => item && item.q && item.choices).length;
+        let val = parseInt(input.value) + delta;
+        val = Math.max(1, Math.min(total, val));
+        input.value = val;
+      };
+
+      window.closeQuizCountModal = function () {
+        document.getElementById("quizCountModalBG").style.display = "none";
+      };
+
+      window.startQuizWithCount = function () {
+        const input = document.getElementById("quizCountInput");
+        const total = pool.filter(item => item && item.q && item.choices).length;
+        let count = parseInt(input.value);
+        if (isNaN(count) || count < 1) count = 10;
+        if (count > total) count = total;
+        document.getElementById("quizCountModalBG").style.display = "none";
+        document.getElementById("reviewerSection").style.display = "none";
+        document.getElementById("quizSection").style.display = "block";
+        buildQuiz(count);
+        window.scrollTo(0, 0);
+      };
+
+      window.backToReviewer = function () {
+        document.getElementById("quizSection").style.display = "none";
+        document.getElementById("reviewerSection").style.display = "block";
+        document.getElementById("quizForm").innerHTML = "";
+        document.getElementById("result").innerHTML = "";
+        window.scrollTo(0, 0)
+      };
+
+      window.refreshQuiz = function () {
+        document.getElementById("quizForm").innerHTML = "";
+        document.getElementById("result").innerHTML = "";
+        document.getElementById("finishBtn").disabled = false;
+        buildQuiz(quizItems.length || 10);
+        window.scrollTo(0, 0)
+      };
+
+      function buildQuiz(count) {
+        count = count || 10;
+        // Clone each picked item (and its choices array) so shuffling/selecting
+        // choices never mutates the original `pool` entries. Without this,
+        // selectRandomChoices() permanently shrank an item's choices the first
+        // time it appeared in a quiz, so retakes kept reusing the same 5
+        // options forever instead of reshuffling from the full choice list.
+        quizItems = pickRandom(pool, Math.min(count, pool.length))
+          .map(item => ({ ...item, choices: [...item.choices] }));
+        const form = document.getElementById("quizForm");
+        form.innerHTML = "";
+        quizItems.forEach((item, i) => {
+          selectRandomChoices(item);
+          const div = document.createElement("div");
+          div.className = "question";
+          const q = document.createElement("p");
+          q.textContent = `${i + 1}. ${item.q}`;
+          div.appendChild(q);
+          item.choices.forEach((choice, idx) => {
+            const label = document.createElement("label");
+            const radio = document.createElement("input");
+            radio.type = "radio";
+            radio.name = `q${i}`;
+            radio.value = idx;
+            label.appendChild(radio);
+            label.appendChild(document.createTextNode(" " + choice));
+            div.appendChild(label);
+            div.appendChild(document.createElement("br"));
+          });
+          form.appendChild(div);
+        });
+        updateQuizTitleCount(quizItems.length);
+      }
+      
+document.querySelectorAll(".accordion").forEach(btn=>{
+btn.addEventListener("click",function(){
+let panel=this.nextElementSibling;
+panel.style.display=panel.style.display==="block"?"none":"block";
+});
+});
+
+      document.getElementById("finishBtn").addEventListener("click", async function () {
+        let score = 0;
+        const total = quizItems.length;
+        for (let i = 0; i < total; i++) {
+          const radios = document.querySelectorAll(`input[name="q${i}"]`);
+          let selected = -1;
+          radios.forEach(r => { if (r.checked) selected = parseInt(r.value); });
+          const div = document.getElementById("quizForm").children[i];
+          if (selected === quizItems[i].correctIndex) {
+            score++;
+            div.insertAdjacentHTML("beforeend", "<div class='correct'>✔ Correct! Great job!</div>");
+          } else {
+            const correctAnswer = quizItems[i].choices[quizItems[i].correctIndex];
+            div.insertAdjacentHTML("beforeend", `<div class='wrong'>✘ Oops! The answer is: ${correctAnswer}</div>`);
+          }
+          radios.forEach(r => r.disabled = true);
+        }
+        
+        const percentage = Math.round((score / total) * 100);
+        let emoji = "🎉";
+        if (percentage === 100) emoji = "🏆";
+        else if (percentage >= 80) emoji = "⭐";
+        else if (percentage >= 60) emoji = "👍";
+        else emoji = "💪";
+        
+        document.getElementById("result").innerHTML = 
+          `<h2>${emoji} Your Score: ${score} / ${total} ${emoji}</h2>
+           <p style="font-size: 1.5em; margin-top: 10px;">${percentage}% Correct!</p>`;
+        this.disabled = true;
+
+        // Save score to Google Sheets
+        await saveScoreToGoogleSheets(score, total);
+        
+      });
+    });
+  </script>
+
+  <!-- ==================== START: SUBJECT-PAGE ACCESS GATE (inserted) ==================== -->
+  <div id="gateChecking" style="text-align:center;padding:60px 20px;font-family:sans-serif;">
+    <p>Verifying your access…</p>
+  </div>
+
+  <div id="gateDenied" class="hidden" style="max-width:420px;margin:60px auto;text-align:center;font-family:sans-serif;
+       background:#fff;border-radius:16px;padding:32px;box-shadow:0 8px 24px rgba(0,0,0,.15);">
+    <h2 id="gateDeniedTitle">Access Denied</h2>
+    <p id="gateDeniedMsg">You don't have permission to view this reviewer yet.</p>
+    <a href="reviewer-hub.html" style="display:inline-block;background:#7a1f2b;color:#fff;padding:10px 24px;
+       border-radius:8px;text-decoration:none;font-weight:700;">← Back to Reviewer Hub</a>
+  </div>
+
+  <script>
+  (function () {
+    // Must match the API_URL used in reviewer-hub.html / index.html
+    const API_URL = "https://script.google.com/macros/s/AKfycbzTyj-tiIzlGXfzoKQV3i8EfdXe_cDzGeX3KIofXfwmfIXJd2jnDf18XYXP9wI2QDPM/exec";
+
+    function getParam(name) {
+      return new URLSearchParams(window.location.search).get(name);
+    }
+
+    function showDenied(title, msg) {
+      document.getElementById("gateChecking").classList.add("hidden");
+      document.getElementById("gateDeniedTitle").textContent = title;
+      document.getElementById("gateDeniedMsg").textContent = msg;
+      document.getElementById("gateDenied").classList.remove("hidden");
+    }
+
+    async function checkAccess() {
+      const userId = getParam("userId");
+      const token = getParam("token");
+
+      if (!userId || !token) {
+        showDenied("Not Logged In", "Open this page from the Reviewer Hub after logging in.");
+        return;
+      }
+
+      try {
+        const qs = new URLSearchParams({ action: "checkAccess", userId, token }).toString();
+        const res = await fetch(`${API_URL}?${qs}`);
+
+        if (!res.ok) {
+          throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+        }
+
+        const r = await res.json();
+        console.log("checkAccess response:", r);
+
+        if (r.status === "ok" && r.accessStatus === "approved") {
+          document.getElementById("gateChecking").classList.add("hidden");
+          const content = document.getElementById("reviewerContent");
+          if (content) content.classList.remove("hidden");
+        } else if (r.accessStatus === "blocked") {
+          showDenied("Access Blocked", "Your account has been blocked. Contact the owner for help.");
+        } else if (r.accessStatus === "pending" || r.accessStatus === "submitted") {
+          showDenied("Not Approved Yet", "Your payment hasn't been approved yet.");
+        } else {
+          showDenied("Session Expired", "Please log in again through the Access Portal.");
+        }
+      } catch (e) {
+        console.error("checkAccess error:", e);
+        showDenied("Connection Error", "Couldn't verify your access. Check your connection and try again.");
+      }
+    }
+
+    checkAccess();
+  })();
+  </script>
+  <!-- ==================== END: SUBJECT-PAGE ACCESS GATE (inserted) ==================== -->
+</body>
+</html>
